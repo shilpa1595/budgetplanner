@@ -1,1 +1,81 @@
-<p class="text-center">login works!</p>
+<div class="container py-5">
+       <div class="row">
+        <div class="col-md-8 mx-auto">
+            <form *ngIf="activeForm === 'login'" class="row g-3 shadow-lg p-5 rounded bg-color formWrapper" [formGroup]="loginform" (ngSubmit)="login()">
+                <div class="col-md-12 mt-0">
+                    <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <img src="./images/img-01.webp" alt="login image">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                            <h3 class="text-center colored-text mb-3 fw-bold">
+                                Login
+                            </h3>
+                            <div class="position-relative mb-3">
+                                <input class="form-control rounded-corner ps-5" type="email" placeholder="Email Id" formControlName="email">
+                                <span class="symbol-input100 position-absolute top-50 start-0 translate-middle-y ps-4">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="position-relative mb-3">
+                                <input type="password" class="form-control rounded-corner ps-5" placeholder="Password" formControlName="password">  
+                                <span class="symbol-input100 position-absolute top-50 start-0 translate-middle-y ps-4">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </span>             
+                            </div>          
+                                <button class="btn btnlogin w-100 rounded-corner mb-3" type="submit">Login</button>
+                                <p class="text-center mb-0 mt-5 createacc fw-bolder" (click)="toggleForm('register')">
+                                    Create your Account <i class="fa fa-long-arrow-right ms-2" aria-hidden="true"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </form>
+
+            <form *ngIf="activeForm === 'register'" class="row g-3 shadow-lg p-5 rounded bg-color formWrapper" [formGroup]="registerForm" (ngSubmit)="register()">
+                <div class="col-md-12 mt-0">
+                    <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <img src="./images/img-01.webp" alt="login image">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                            <h3 class="text-center colored-text mb-3 fw-bold">
+                                Register
+                            </h3>
+                            <div class="position-relative mb-3">
+                                <input class="form-control rounded-corner ps-5" type="email" placeholder="Username" formControlName="uname">
+                                <span class="symbol-input100 position-absolute top-50 start-0 translate-middle-y ps-4">
+                                    <i class="fa-solid fa-user" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="position-relative mb-3">
+                                <input class="form-control rounded-corner ps-5" type="email" placeholder="Email Id" formControlName="email">
+                                <span class="symbol-input100 position-absolute top-50 start-0 translate-middle-y ps-4">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="position-relative mb-3">
+                                <input type="password" class="form-control rounded-corner ps-5" placeholder="Password" formControlName="password">  
+                                <span class="symbol-input100 position-absolute top-50 start-0 translate-middle-y ps-4">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </span>             
+                            </div>          
+                                <button class="btn btnlogin w-100 rounded-corner mb-3" type="submit">Register</button>
+                                <p class="text-center mb-0 mt-5 createacc fw-bolder" (click)="toggleForm('login')">
+                                    Create your Account <i class="fa fa-long-arrow-right ms-2" aria-hidden="true"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </form>
+        </div>
+       </div>
+</div>
