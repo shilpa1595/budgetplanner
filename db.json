@@ -1,0 +1,76 @@
+{
+  "users": [
+    {
+      "id": "2d49",
+      "uname": "shilpa",
+      "email": "s@gmail.com",
+      "password": "test"
+    }
+  ],
+  "income": [
+    {
+      "id": "3d60",
+      "amount": "27000",
+      "source": "Employer",
+      "category": "Salary",
+      "dateOfIncome": "2025-02-03",
+      "userEmail": "s@gmail.com"
+    },
+    {
+      "id": "3910",
+      "amount": "1000",
+      "source": "Online Store",
+      "category": "Business Income",
+      "dateOfIncome": "2025-02-01",
+      "userEmail": "s@gmail.com"
+    }
+  ],
+  "expense": [
+    {
+      "id": "27ad",
+      "amount": "3500",
+      "category": "Rent",
+      "dateOfExpense": "2025-02-03",
+      "paymentMode": "Credit Card",
+      "description": "room rent",
+      "userEmail": "s@gmail.com"
+    },
+    {
+      "id": "fb9a",
+      "amount": "370",
+      "category": "Rent",
+      "dateOfExpense": "2025-02-04",
+      "paymentMode": "Cash",
+      "description": "light bill",
+      "userEmail": "s@gmail.com"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "2df8",
+      "userId": "2d49",
+      "uname": "shilpa",
+      "email": "s@gmail.com",
+      "profilePicture": "/images/default-profile.png",
+      "incomeSource": [
+        "Employer",
+        "Online Store",
+        "Stock Market",
+        "Apartment Rent",
+        "Upwork"
+      ],
+      "incomeCategories": [
+        "Salary",
+        "Freelancing"
+      ],
+      "expenseCategories": [
+        "Food",
+        "Rent",
+        "Transport"
+      ],
+      "budgetSettings": {
+        "monthlyLimit": 10000
+      }
+    }
+  ]
+}

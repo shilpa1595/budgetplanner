@@ -1,0 +1,45 @@
+
+
+.profile-pic{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+  .profile-image {
+    width: 150px;  /* Adjust size as needed */
+    height: 150px;
+    border-radius: 50%; /* Make it circular */
+    object-fit: cover; /* Prevent image distortion */
+    margin-bottom: 10px;
+  }
+  .rightSide {
+    .section{
+      border: 1px solid #ced4e6;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      padding: 15px;
+      .editBtn{
+        color: #0cc0df;
+        float: right;
+        font-size: 14px;
+        padding: 0;
+        &:active{
+          border: none;
+        }
+      }
+      ul{
+        padding-left: 18px;
+      }
+      .capsule{
+        border: 1px solid #0cc0df;
+        background-color: #eefdff;
+        border-radius: 30px;
+        padding: 5px 20px;
+        display: inline-flex;
+        margin: 5px 5px 0 0;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+}

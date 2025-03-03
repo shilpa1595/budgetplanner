@@ -1,0 +1,24 @@
+$secondary_color:#0cc0df;
+
+.rounded-corner{
+    border-radius: 30px;
+}
+.colored-text{
+    color: #3378ac;
+}
+.formWrapper{
+    .btnlogin{
+        background-color: $secondary_color;  
+        color: white;
+    }
+    i{
+        color: #3378ac;
+    }
+    .createacc{
+        color: #3378ac;
+        cursor: pointer;
+    }
+}
+.top-12{
+  top: 20%;  
+}

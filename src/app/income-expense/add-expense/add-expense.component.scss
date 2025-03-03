@@ -1,0 +1,22 @@
+$primary_color:#dac4d0;
+$secondary_color:#8f5774;
+
+.colored-text{
+    color: $secondary_color;
+}
+.formWrapper{
+    .btnlogin{
+        background-color: $secondary_color;  
+        color: white;
+    }
+    i{
+        color: #8f5774;
+    }
+    .createacc{
+        color: #8f5774;
+        cursor: pointer;
+    }
+}
+.top-12{
+  top: 20%;  
+}

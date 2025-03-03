@@ -1,0 +1,32 @@
+.navbar {
+    background: linear-gradient(135deg, #8f5774, #b7849b, #e5c6d1);
+    padding: 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    border-radius: 10px;
+  }
+  .total-income{
+    background-color: #e5c6d1;
+    padding: 10px;
+    border-radius: 6px;
+  }
+.custom-btn{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #8f5774, #b7849b);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+.disabled-dropdown {
+    color: #6c757d;
+    background-color: #e9ecef;
+    pointer-events: none;
+}
+.custom-btn.disabled-dropdown{
+  color: white !important;
+}

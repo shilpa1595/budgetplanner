@@ -39,13 +39,21 @@ export class LoginComponent {
     this.activeForm = form;
   }
   login(){
-    if(this.loginform.valid){
-     console.log("Login Info....", this.loginform.value);
-     this.router.navigate(['/budget-planner/dashboard'])
-    }else{
-      this.snackBar.open('invalid email or password', 'close', {duration:3000,  horizontalPosition: this.horizontalPosition,
+    debugger;
+    // if(this.loginform.valid){
+    //  console.log("Login Info....", this.loginform.value);
+      if(this.loginform.get('email')?.value == 's@gmail.com' && this.loginform.get('password')?.value === 'test'){
+        this.router.navigate(['/budget-planner/dashboard'])
+      }
+      else
+      {
+        this.snackBar.open('Wrong credentials', 'close', {duration:3000,  horizontalPosition: this.horizontalPosition,
         verticalPosition: this.verticalPosition,});
-    }
+      }
+    // }else{
+    //   this.snackBar.open('invalid email or password', 'close', {duration:3000,  horizontalPosition: this.horizontalPosition,
+    //     verticalPosition: this.verticalPosition,});
+    // }
   }
   register(){
     if(this.registerForm.valid){

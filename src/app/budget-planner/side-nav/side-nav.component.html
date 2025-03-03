@@ -1,0 +1,18 @@
+<div class="navbar">
+    <h2>
+       User Dashboard
+    </h2>
+</div>
+
+    <div class="toggle-button-row menu-icon" (click)="toggleSlideOut()">
+        <mat-icon>menu</mat-icon>
+    </div>  
+
+  <div class="slide-out-panel" [class.slde-out]="isSlideOut">
+    <div class="slide-out-content">
+        <p class="edit-col" (click)="onDash()">Dashboard</p>
+        <p class="edit-col" (click)="onProfile()">Profile</p>
+        <p class="edit-col" (click)="onHistory()">Prev History</p>
+        <p class="edit-col" (click)="onLogOut()">LogOut</p>
+    </div>
+  </div>

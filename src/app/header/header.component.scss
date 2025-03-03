@@ -1,0 +1,21 @@
+.navbar{
+    background: #0cc0df;
+ 
+  .nav-link{
+    color: #000;
+  }
+  .dropdown-menu{
+    .nav-link{
+      color: black;
+    }
+  }
+  .logo{
+    border-radius: 3px;
+    margin-right: 20px;
+  }
+  .logout{
+    color: #000;
+    background-color: #7ed957;
+    border: 1px solid #7ed957;
+  }
+}

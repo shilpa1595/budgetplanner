@@ -1,0 +1,49 @@
+<app-side-nav></app-side-nav>
+<div class="container">
+    <div class="my-5">
+    <h5>
+        Transactions History
+    </h5>
+    <form [formGroup]="historyForm" (ngSubmit)="onSubmitExpense()" class="row historyForm g-3 mb-5">
+        <div class="col-md-4">
+            <select class="form-select" formControlName="month" id="month" (change)="onChangeExpense($event)">
+              <option selected disabled value="">Select Month</option>
+              <option value="January">January</option>
+              <option value="February">February</option>
+              <option value="March">March</option>
+            </select>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="total-income">
+                Transactions For {{selectedMonth}}:${{ calculateTotalExpense(selectedMonth) }}
+            </div>
+        </div>
+    </form>
+    <hr>
+    <h3 class="mb-4">Transactions History - {{selectedMonth}}</h3>
+    <table class="table table-bordered table-light table-striped">
+        <thead>
+            <tr>
+              <th scope="col">Transaction Type</th>
+              <th scope="col">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let todoTrans of getFilteredExpenses()">
+              <td>{{todoTrans.expenseType}}</td>
+              <td>{{todoTrans.expenseAmount}}</td>
+            </tr>
+          </tbody>
+      </table>
+      <div class="row my-4">
+        <div class="col-md-4">
+          </div>
+          <div class="col-md-4">
+          </div>
+        <div class="col-md-4">
+          <button class="btn custom-btn" (click)="onBack()">Back</button>
+        </div>
+      </div>
+    </div>
+    </div>

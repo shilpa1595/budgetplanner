@@ -1,0 +1,51 @@
+<section class="incomeList">
+    <div class="container py-5">
+        <div class="row">
+         <div class="col-md-12">        
+            <h2>Income List</h2>
+
+            <!-- Month Filter -->
+             <div class="row mb-5">
+                <div class="col-md-4">
+                    <label>Select Month: </label>
+                    <input type="month" class="form-control" [(ngModel)]="selectedMonth" (change)="filterByMonth()" />
+                </div>
+             </div>
+             <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered table-light table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th>Amount</th>
+                                <th>Source</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngIf="filteredIncomes.length === 0">
+                                <td colspan="5" style="text-align: center; font-weight: bold; color: red;">
+                                  No data available for the selected month
+                                </td>
+                              </tr>
+                            <tr *ngFor="let income of filteredIncomes">
+                                <td>{{ income.amount }}</td>
+                                <td>{{ income.source }}</td>
+                                <td>{{ income.category }}</td>
+                                <td>{{ income.dateOfIncome }}</td>
+                                <td class="d-flex justify-content-center align-items-center">
+                                  <button (click)="deleteIncome(income.id)" class="box me-2"><i class="fa-solid fa-xmark"></i></button>
+                                  <button [routerLink]="['/income-expense/edit-income', income.id]" class="editbox box"><i class="fa-solid fa-pencil"></i></button>
+                                </td>
+                              </tr>
+                          </tbody>
+                    </table>
+                </div>               
+             </div>
+         </div>
+        </div>
+    </div>
+</section>
+
+

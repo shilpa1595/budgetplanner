@@ -1,0 +1,55 @@
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a routerLink="/"><img src="./images/FinTrack.png" alt="login image" width="100px" class="logo"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+     
+      <!-- Show when NOT logged in -->
+      <ng-container *ngIf="!authService.isLoggedIn()">
+        <div class="d-flex">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        <li><a class="nav-link" routerLink="/user-management/login">Login</a></li>
+        <li><a class="nav-link" routerLink="/user-management/register">Register</a></li>
+        </ul>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="authService.isLoggedIn()">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <li class="nav-item">
+              <a class="nav-link active" routerLink="/budget-planner/dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Income & Expenses
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" class="nav-link" routerLink="/income-expense/add-income">Add Income</a></li>
+                <li><a class="dropdown-item" class="nav-link" routerLink="/income-expense/income-list">Income List</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" class="nav-link" routerLink="/income-expense/add-expense">Add Expenses</a></li>
+                <li><a class="dropdown-item" class="nav-link" routerLink="/income-expense/expense-list">Expenses List</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/budget">Budget</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/reports">Reports</a>
+            </li>
+          </ul>
+          <div class="d-flex">
+              <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
+                  <li class="nav-item">
+                      <a class="nav-link" routerLink="/user-management/profile">Profile</a>
+                  </li>
+                  <li class="nav-item">
+                      <button type="button" class="btn btn-secondary logout" (click)="logout()">Logout</button>
+                  </li>
+              </ul>
+          </div>
+      </ng-container>
+    </div>
+  </nav>

@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="navbar">
+        <h2>Expense</h2>
+    </div>
+    <div class="my-5">
+    <h5>
+        Expense
+    </h5>
+    <form [formGroup]="expenseForm" (ngSubmit)="onSubmitExpense()" class="row expenseForm g-3 mb-5">
+        <div class="col-md-4">
+            <select class="form-select" formControlName="month" id="month" (change)="onChange($event)">
+              <option selected disabled value="">Select Month</option>
+              <option value="January">January</option>
+              <option value="February">February</option>
+              <option value="March">March</option>
+            </select>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="total-income">
+                Total Expense For {{selectedMonth}}:${{ calculateTotalExpense(selectedMonth) }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label for="Investments">Expense Type</label>
+            <select class="form-select" formControlName="expenseType" id="expenseType" [class.disabled-dropdown]="!monthSelected">
+              <option disabled value="">Select Investment</option>
+              <option value="Rent">Rent</option>
+              <option value="Utilities">Utilities</option>
+              <option value="Groceries">Groceries</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="Investments">Amount</label>
+            <input type="number" formControlName="expenseAmount" id="expenseAmount" class="form-control" placeholder="Enter Amount" [class.disabled-dropdown]="!monthSelected">
+        </div>
+        <div class="col-md-4">
+            <button class="btn custom-btn mt-3" type="submit" (click)="onSubmitExpense()" [class.disabled-dropdown]="!monthSelected">Add Expense</button>
+        </div>
+    </form>
+    <hr>
+    <h3 class="mb-4">Income List - {{selectedMonth}}</h3>
+    <table class="table table-bordered table-light table-striped">
+        <thead>
+            <tr>
+              <th scope="col">Expense Type</th>
+              <th scope="col">Expense Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let expense of getFilteredExpense()">
+              <td>{{expense.expenseType}}</td>
+              <td>{{expense.expenseAmount}}</td>
+            </tr>
+          </tbody>
+      </table>
+      <div class="row my-4">
+        <div class="col-md-4">
+          <button class="btn custom-btn" (click)="onBack()">Back</button>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <button class="btn custom-btn" (click)="saveForm()">Save</button>
+        </div>
+      </div>
+    </div>
+    </div>

@@ -1,0 +1,62 @@
+<div class="container py-5">
+    <div class="row">
+     <div class="col-md-8 mx-auto">
+         <form class="row g-3 shadow-lg p-5 rounded bg-color formWrapper" #loginForm="ngForm" (ngSubmit)="onLogin()">
+             <div class="col-md-12 mt-0">
+                 <div class="row align-items-center">
+                 <div class="col-md-6">
+                     <img src="./images/img-01.webp" alt="login image">
+                 </div>
+                 <div class="col-md-6">
+                     <div class="row">
+                         <div class="col-md-12">
+                         <h3 class="text-center colored-text mb-3 fw-bold">
+                             Login
+                         </h3>
+                         <div class="mb-3">
+                            <div class="position-relative">
+                             <input class="form-control rounded-corner ps-5" type="email" placeholder="Email Id" 
+                             [(ngModel)]="login.email"
+                              #email="ngModel"
+                               id="email" 
+                               name="email" 
+                               pattern="[a-z0-9\._%\+\-]+@[a-z0-9\.\-]+\.[a-z]{2,}$"
+                               required>
+                             <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
+                                 <i class="fa fa-envelope" aria-hidden="true"></i>
+                             </span>
+                            </div>
+                             @if(email.invalid && (email.dirty || email.touched)){
+                                <small class="text-danger">
+                                    @if(email.hasError('required')){
+                                        <span>Email is required</span>
+                                    }@else if(email.hasError('pattern')){
+                                        <span>Email is invalid</span>
+                                    }
+                                </small>
+                             }
+                         </div>
+                         <div class="position-relative mb-3">
+                            <div class="position-relative">
+                             <input type="password" class="form-control rounded-corner ps-5" placeholder="Password" [(ngModel)]="login.password" #password="ngModel" id="password" name="password" required>  
+                             <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
+                                 <i class="fa fa-lock" aria-hidden="true"></i>
+                             </span> 
+                            </div>
+                             @if(password.invalid && (password.dirty || password.touched)){
+                                <small class="text-danger"> Password is required </small>
+                             }            
+                         </div>          
+                             <button class="btn btnlogin w-100 rounded-corner mb-3" type="submit" [disabled]="loginForm.invalid">Login</button>
+                             <p class="text-center mb-0 mt-5 createacc fw-bolder">
+                                Create your account ? <a routerLink="/user-management/register" class="text-primary"> Register </a>
+                            </p>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             </div>
+         </form>
+     </div>
+    </div>
+</div>

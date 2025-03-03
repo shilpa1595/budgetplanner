@@ -1,0 +1,51 @@
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="leftSide">   
+            <div class="profile-container mb-4">
+                <img  [src]="profile?.profilePicture"
+                alt="Default Profile Picture" class="profile-pic" width="40%"/>
+                <input type="file">
+            </div>
+            <div>
+                <p><strong>UserName:</strong> {{ profile?.uname }}</p>
+                <p><strong>Email:</strong> {{ profile?.email }}</p>
+            </div>
+        </div>
+        </div>
+        <div class="col-md-8">
+            <div class="rightSide">
+                <!-- Income Sources -->
+                <div class="section">
+                    <h6 class="mb-3">Income Sources <button class="btn editBtn" (click)="addIncomeSource()"><i class="fas fa-pen"></i></button></h6>
+                    <div>
+                        <span *ngFor="let source of profile?.incomeSource; let i=index"><span class="capsule">{{ source }} <button class="btn p-0" (click)="removeIncomeSource(i)">×</button></span></span>
+                    </div>
+                </div>
+
+                <!-- Income Categories -->
+                <div class="section">
+                    <h6 class="mb-3">Income Categories <button class="btn editBtn" (click)="addIncomeCategory()"><i class="fas fa-pen"></i></button></h6>
+                    <div>
+                        <span *ngFor="let category of profile?.incomeCategories; let i = index"><span class="capsule">{{ category }}  <button class="btn p-0" (click)="removeIncomeCategory(i)">×</button></span></span>
+                    </div>
+                </div>
+
+                <!-- Expense Categories -->
+                <div class="section">
+                    <h6 class="mb-3">Expense Categories <button class="btn editBtn" (click)="addExpenseCategory()"><i class="fas fa-pen"></i></button></h6>
+                    <div>
+                        <span *ngFor="let category of profile?.expenseCategories; let i=index"><span class="capsule">{{ category }}  <button class="btn p-0" (click)="removeExpenseCategory(i)">×</button></span></span>
+                    </div>
+                </div>
+
+                <!-- Monthly Budget Limit -->
+                <div class="section">
+                    <h6 class="mb-3">Monthly Budget Limit <button class="btn editBtn" (click)="updateBudget()"><i class="fas fa-pen"></i></button></h6>
+                    <p class="capsule">{{ profile?.budgetSettings?.monthlyLimit }}</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

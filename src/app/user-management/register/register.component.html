@@ -1,0 +1,82 @@
+<div class="container py-5">
+    <div class="row">
+     <div class="col-md-8 mx-auto">        
+         <form class="row g-3 shadow-lg p-5 rounded bg-color formWrapper" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+             <div class="col-md-12 mt-0">
+                 <div class="row align-items-center">
+                 <div class="col-md-6">
+                     <img src="./images/img-01.webp" alt="login image">
+                 </div>
+                 <div class="col-md-6">
+                     <div class="row">
+                         <div class="col-md-12">
+                         <h3 class="text-center colored-text mb-3 fw-bold">
+                             Register
+                         </h3>
+                         <div class="mb-3">
+                            <div class="position-relative">
+                             <input class="form-control rounded-corner ps-5" type="text" placeholder="Username" formControlName="uname">
+                             <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
+                                 <i class="fa-solid fa-user" aria-hidden="true"></i>
+                             </span>
+                            </div>
+                             @if(uname?.invalid && (uname?.dirty || uname?.touched)){
+                                <small class="text-danger"> Uname is required </small>
+                             }  
+                         </div>
+                         <div class="mb-3">
+                            <div class="position-relative">
+                             <input class="form-control rounded-corner ps-5" type="email" placeholder="Email Id" formControlName="email">
+                             <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
+                                 <i class="fa fa-envelope" aria-hidden="true"></i>
+                             </span>
+                            </div>
+                             @if(email?.invalid && (email?.dirty || email?.touched)){
+                                <small class="text-danger">
+                                    @if(email?.hasError('required')){
+                                        <span>Email is required</span>
+                                    }@else if(email?.hasError('email')){
+                                        <span>Email is invalid</span>
+                                    }
+                                </small>
+                             }
+                         </div>
+                         <div class="mb-3">
+                            <div class="position-relative">
+                             <input type="password" class="form-control rounded-corner ps-5" placeholder="Password" formControlName="password">  
+                             <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
+                                 <i class="fa fa-lock" aria-hidden="true"></i>
+                             </span>
+                             </div>
+                             @if(password?.invalid && (password?.dirty || password?.touched)){
+                                <small class="text-danger"> Uname is required </small>
+                             }            
+                         </div>
+                         <div class="mb-3">
+                            <div class="position-relative">
+                            <input type="password" class="form-control rounded-corner ps-5" placeholder="Confirm Password" formControlName="cpassword">  
+                            <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                            </span>
+                            </div>
+                            @if(cpassword?.invalid && (cpassword?.dirty || cpassword?.touched)){
+                                <small class="text-danger"> Uname is required </small>
+                             } 
+                             @if(registerForm.hasError('passwordMismatch') && password?.valid &&
+                             cpassword?.valid) {
+                                    <small class="text-danger"> Password mismatch</small>
+                            }           
+                        </div>          
+                             <button class="btn btnlogin w-100 rounded-corner mb-3" type="submit" [disabled]="registerForm.invalid">Register</button>
+                             <p class="text-center mb-0 mt-5 createacc fw-bolder">
+                                Already have account ? <a routerLink="/user-management/login" class="text-primary"> Login </a>
+                            </p>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             </div>
+         </form>
+     </div>
+    </div>
+</div>

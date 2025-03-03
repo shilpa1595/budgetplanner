@@ -1,0 +1,54 @@
+<div class="container py-5">
+    <div class="row">
+     <div class="col-md-8 mx-auto">        
+         <form class="row g-3 shadow-lg p-5 rounded formWrapper" [formGroup]="addIncomeForm" (ngSubmit)="addData()">
+             <div class="col-md-12 mt-0">
+                 <div class="row align-items-center">
+                 <div class="col-md-6">
+                     <img src="./images/add-income.png" alt="login image" width="100%">
+                 </div>
+                 <div class="col-md-6">
+                     <div class="row">
+                         <h3 class="text-center colored-text mb-5 fw-bold">
+                             Add Income Details
+                         </h3>
+                         <div class=" col-md-12 mb-3">
+                             <input class="form-control rounded-corner ps-3" type="text" placeholder="eg. 10,000" formControlName="amount">
+                         </div> 
+                         <div class="col-md-12 mb-3">
+                            <select class="form-select rounded-corner ps-3" name="country" formControlName = "source">
+                              <option selected disabled value="">Income Source..</option>
+                              <option>Employer</option>
+                              <option>Online Store</option>
+                              <option>Stock Market</option>
+                              <option>Apartment Rent</option>
+                              <option>Upwork</option>
+                              <option>Gifts</option>
+                            </select>
+                          </div> 
+                          <div class="col-md-12 mb-3">
+                            <select class="form-select rounded-corner ps-3" name="country" formControlName = "category">
+                              <option selected disabled value="">Income Category..</option>
+                              <option>Salary</option>
+                              <option>Business Income</option>
+                              <option>Investment Returns</option>
+                              <option>Rental Income</option>
+                              <option>Freelance Income</option>
+                              <option>Other Income</option>
+                            </select>
+                          </div>  
+                          <div class="col-md-12 mb-3">
+                            <input type="date" class="form-control rounded-corner ps-3" id="dateOfIncome" formControlName = "dateOfIncome" placeholder="Date of Income:">
+                          </div>  
+                          <div class="col-md-12 mt-4">
+                            <button class="btn btnlogin w-100 rounded-corner mb-3 ps-3" type="submit" [disabled]="addIncomeForm.invalid">Save</button>
+                          </div>
+                     </div>
+                 </div>
+             </div>
+             </div>
+         </form>
+     </div>
+    </div>
+</div>
+

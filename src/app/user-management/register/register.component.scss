@@ -1,0 +1,29 @@
+$primary_color:#dac4d0;
+$secondary_color:#0cc0df;
+
+.rounded-corner{
+    border-radius: 30px;
+}
+// .bg-color{
+//     background-color: $primary_color;
+// }
+
+.colored-text{
+    color: $secondary_color;
+}
+.formWrapper{
+    .btnlogin{
+        background-color: $secondary_color;  
+        color: white;
+    }
+    i{
+        color: #0cc0df;
+    }
+    .createacc{
+        color: #0cc0df;
+        cursor: pointer;
+    }
+}
+.top-12{
+  top: 20%;
+}
