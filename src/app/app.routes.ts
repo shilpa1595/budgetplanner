@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { CategoryComponent } from './category/category.component';
 
 export const routes: Routes = [
     {path:'',component:HomeComponent, pathMatch: 'full'},
@@ -11,5 +12,11 @@ export const routes: Routes = [
     },
     {
         path:'income-expense', loadChildren:()=>import('./income-expense/income-expense.module').then(m=>m.IncomeExpenseModule)
+    },
+    {
+        path:'budget', loadChildren:()=>import('./budget/budget.module').then(m=>m.BudgetModule)
+    },
+    {
+        path:'category', component:CategoryComponent
     }
 ];

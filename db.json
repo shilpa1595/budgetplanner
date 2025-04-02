@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": "2d49",
+      "id": "1b87",
       "uname": "shilpa",
       "email": "s@gmail.com",
       "password": "test"
@@ -9,46 +9,19 @@
   ],
   "income": [
     {
-      "id": "3d60",
-      "amount": "27000",
+      "id": "486e",
+      "amount": "23,866",
       "source": "Employer",
       "category": "Salary",
-      "dateOfIncome": "2025-02-03",
-      "userEmail": "s@gmail.com"
-    },
-    {
-      "id": "3910",
-      "amount": "1000",
-      "source": "Online Store",
-      "category": "Business Income",
-      "dateOfIncome": "2025-02-01",
+      "dateOfIncome": "2025-03-01",
       "userEmail": "s@gmail.com"
     }
   ],
-  "expense": [
-    {
-      "id": "27ad",
-      "amount": "3500",
-      "category": "Rent",
-      "dateOfExpense": "2025-02-03",
-      "paymentMode": "Credit Card",
-      "description": "room rent",
-      "userEmail": "s@gmail.com"
-    },
-    {
-      "id": "fb9a",
-      "amount": "370",
-      "category": "Rent",
-      "dateOfExpense": "2025-02-04",
-      "paymentMode": "Cash",
-      "description": "light bill",
-      "userEmail": "s@gmail.com"
-    }
-  ],
+  "expense": [],
   "profiles": [
     {
-      "id": "2df8",
-      "userId": "2d49",
+      "id": "6dd2",
+      "userId": "1b87",
       "uname": "shilpa",
       "email": "s@gmail.com",
       "profilePicture": "/images/default-profile.png",
@@ -57,7 +30,8 @@
         "Online Store",
         "Stock Market",
         "Apartment Rent",
-        "Upwork"
+        "Upwork",
+        "Gifts"
       ],
       "incomeCategories": [
         "Salary",
@@ -69,8 +43,79 @@
         "Transport"
       ],
       "budgetSettings": {
-        "monthlyLimit": 10000
+        "monthlyLimit": 1000
       }
+    }
+  ],
+  "categories": [
+    {
+      "id": "e37d",
+      "userId": "1b87",
+      "email": "s@gmail.com",
+      "income": [
+        "Salary",
+        "Freelancing",
+        "Rental",
+        "Awards",
+        "Lottery",
+        "Bussiness",
+        "Coupons",
+        "Gifts"
+      ],
+      "expense": [
+        "Clothing",
+        "Education",
+        "Entertainment",
+        "Food",
+        "Health",
+        "Home",
+        "Shopping",
+        "Sport",
+        "Transportation",
+        "Beauty",
+        "TelePhone"
+      ]
+    }
+  ],
+  "budget": [
+    {
+      "id": "e2b3",
+      "userId": "1b87",
+      "categories": [
+        {
+          "name": "Clothing",
+          "budget": {
+            "limit": 1000,
+            "spent": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "79cc",
+      "userId": "1b87",
+      "categories": [
+        {
+          "name": "Education",
+          "budget": {
+            "limit": 2000,
+            "spent": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "d996",
+      "userId": "1b87",
+      "categories": [
+        {
+          "name": "Entertainment",
+          "budget": {
+            "limit": 500,
+            "spent": 0
+          }
+        }
+      ]
     }
   ]
 }

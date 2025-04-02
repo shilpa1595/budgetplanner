@@ -1,0 +1,29 @@
+.icon-outer{
+    height: 25px;
+    display: inline-flex;
+    width: 25px;
+    border-radius: 6px;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+
+    i{
+        font-size: 10px;
+        color: #000;
+    }
+}
+.edit{
+    background-color: #0cc0df33;
+    border: 2px solid #0cc0df;
+}
+.trash{
+    background-color: #f27c7c3d;
+    border: 2px solid #f27c7c;
+}
+.addBtn{
+    background-color: #7ed957;
+    border: 1px solid #7ed957;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 3px 10px;
+}

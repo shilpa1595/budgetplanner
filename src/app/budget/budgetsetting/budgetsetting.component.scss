@@ -1,0 +1,44 @@
+.set-budget{
+    background-color: #7ed95724;
+    color: black;
+    border: 2px solid #7ed957;
+    font-size: 12px;
+    font-weight: 600;
+}
+.set-budget:active{
+    background-color: #7ed957;  
+    border: 2px solid #7ed957;
+}
+.box{
+    height: 50px;
+    width: 50px;
+    min-width: 50px;
+    background-color: white;
+    border-radius: 100%;
+    border: 2px solid #0c788a;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    i{
+        font-size: 25px;
+        color: #0c788a;
+    }
+}
+.saveBtn{
+    font-weight: 600;
+    background-color: #cff4fc;
+    border: 2px solid #0c788a;
+    color: #0c788a;
+}
+.saveBtn:active{
+    background-color: #cff4fc;
+    border: 2px solid #0c788a;
+    color:#0c788a;
+}
+.progress-bar{
+    background-color: #dffafe;
+    padding: 15px 20px;
+    border-radius: 6px;
+    border: 1px solid #0cc0df;
+}

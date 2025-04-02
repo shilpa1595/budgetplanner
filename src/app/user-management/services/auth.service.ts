@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegisterPostData, User } from '../interfaces/auth';
-import { Observable, switchMap } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,11 @@ export class AuthService {
   registerUser(postData:RegisterPostData): Observable<any>{
     return this.http.post(`${this.baseurl}/users`,postData).pipe(
       switchMap((newUser: any) => {
+
+        const userId = newUser.id; // Store userId from first response
+
         const profileData = {
-          userId: newUser.id, // User's ID from response
+          userId: userId, // User's ID from response
           uname: postData.uname, 
           email: postData.email, 
           profilePicture: "/images/default-profile.png", // Default profile picture
@@ -26,10 +29,23 @@ export class AuthService {
           }
         };
       
-        return this.http.post(`${this.baseurl}/profiles`, profileData);  // Return a new observable
+        return this.http.post(`${this.baseurl}/profiles`, profileData).pipe(
+          map(() => userId) // Pass userId to the next step
+        );  // Return a new observable
+      }),                                                                                                         
+   
+      switchMap((userId: string) => {
+        const categories = {
+          userId: userId, // User's ID from response
+          email: postData.email, 
+          income: ["Salary", "Freelancing","Rental","Awards","Lottery","Bussiness","Coupons","Gifts"], // Default categories
+          expense: ["Clothing", "Education", "Entertainment","Food","Health","Home","Shopping","Sport","Transportation","Beauty","TelePhone"], 
+        };
+      
+        return this.http.post(`${this.baseurl}/categories`, categories);  // Return a new observable
       })                                                                                                         
-    );
-  }
+  
+    )}
   getUserDetails(email:string,password:string):Observable<User[]>{
     return this.http.get<User[]>(`${this.baseurl}/users?email=${email}&password=${password}`);
   }

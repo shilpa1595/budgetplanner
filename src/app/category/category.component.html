@@ -1,0 +1,83 @@
+<div class="container py-5">
+<div class="row">
+<div class="col-md-8 mx-auto">
+  <div class="income-table shadow-sm p-3 mb-5 bg-body rounded">
+    <table class="table">
+      <thead>
+          <tr>
+              <th>Income Categories</th>
+              <th class="text-end"><button class="btn btn-success addBtn" data-bs-toggle="modal" data-bs-target="#addIncomeCategoryModal">+ Add</button></th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categorieslist?.[0]?.income; let i=index">
+          <td>{{ category}}</td>
+          <td class="text-end"><span class="icon-outer edit me-3"><i class="fa-solid fa-pencil"></i></span><span class="icon-outer trash" (click)="removeIncomeCategory(i)"><i class="fa-solid fa-trash"></i></span></td>
+        </tr>        
+      </tbody>
+    </table>
+  </div>
+ <div class="expense-table shadow-sm p-3 mb-5 bg-body rounded">
+  <table class="table">
+    <thead>
+        <tr>
+            <th>Expense Categories</th>
+            <th class="text-end"><button class="btn btn-success addBtn" data-bs-toggle="modal" data-bs-target="#addExpenseCategoryModal">+ Add</button></th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categorieslist?.[0]?.expense; let i=index">
+        <td>{{ category}}</td>
+        <td class="text-end"><span class="icon-outer edit me-3"><i class="fa-solid fa-pencil"></i></span><span class="icon-outer trash" (click)="removeExpenseCategory(i)"><i class="fa-solid fa-trash"></i></span></td>
+      </tr>        
+    </tbody>
+  </table>
+ </div>  
+</div>
+</div>
+
+<!-- Add Income category -->
+<div class="modal fade" id="addIncomeCategoryModal" tabindex="-1">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title">Add Income Category</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form>
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" name="name" [(ngModel)]="newIncomeCategory" required>
+          </div>              
+      </form>
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-primary addBtn" (click)="addIncomeCategory()" data-bs-dismiss="modal">Save</button>
+      </div>
+  </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addExpenseCategoryModal" tabindex="-1">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title">Add Expense Category</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form>
+          <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" name="name" [(ngModel)]="newExpenseCategory" required>
+          </div>              
+      </form>
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-primary addBtn" (click)="addExpenseCategory()" data-bs-dismiss="modal">Save</button>
+      </div>
+  </div>
+  </div>
+</div>
+</div>
