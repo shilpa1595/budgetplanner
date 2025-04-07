@@ -63,23 +63,18 @@
         "Gifts"
       ],
       "expense": [
-        "Clothing",
-        "Education",
         "Entertainment",
         "Food",
-        "Health",
         "Home",
         "Shopping",
-        "Sport",
         "Transportation",
-        "Beauty",
-        "TelePhone"
+        "sports"
       ]
     }
   ],
   "budget": [
     {
-      "id": "e2b3",
+      "id": "e913",
       "userId": "1b87",
       "categories": [
         {
@@ -92,26 +87,13 @@
       ]
     },
     {
-      "id": "79cc",
+      "id": "38a5",
       "userId": "1b87",
       "categories": [
         {
           "name": "Education",
           "budget": {
-            "limit": 2000,
-            "spent": 0
-          }
-        }
-      ]
-    },
-    {
-      "id": "d996",
-      "userId": "1b87",
-      "categories": [
-        {
-          "name": "Entertainment",
-          "budget": {
-            "limit": 500,
+            "limit": 10000,
             "spent": 0
           }
         }
