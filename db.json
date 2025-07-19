@@ -15,9 +15,40 @@
       "category": "Salary",
       "dateOfIncome": "2025-03-01",
       "userEmail": "s@gmail.com"
+    },
+    {
+      "id": "817a",
+      "amount": "20000",
+      "category": "Salary",
+      "dateOfIncome": "2025-07-01",
+      "userEmail": "s@gmail.com"
+    },
+    {
+      "id": "ee98",
+      "amount": "10000",
+      "category": "Awards",
+      "dateOfIncome": "2025-07-19",
+      "userEmail": "s@gmail.com"
+    },
+    {
+      "id": "6662",
+      "amount": "5000",
+      "category": "Coupons",
+      "dateOfIncome": "2025-07-02",
+      "userEmail": "s@gmail.com"
     }
   ],
-  "expense": [],
+  "expense": [
+    {
+      "id": "5bd5",
+      "amount": "8000",
+      "category": "Home",
+      "dateOfExpense": "2025-07-11",
+      "paymentMode": "Cash",
+      "description": "",
+      "userEmail": "s@gmail.com"
+    }
+  ],
   "profiles": [
     {
       "id": "6dd2",
@@ -53,14 +84,13 @@
       "userId": "1b87",
       "email": "s@gmail.com",
       "income": [
-        "Salary",
         "Freelancing",
         "Rental",
         "Awards",
-        "Lottery",
         "Bussiness",
         "Coupons",
-        "Gifts"
+        "Gifts",
+        "Salary"
       ],
       "expense": [
         "Entertainment",
@@ -68,7 +98,8 @@
         "Home",
         "Shopping",
         "Transportation",
-        "sports"
+        "sports",
+        "Rent"
       ]
     }
   ],
@@ -94,6 +125,32 @@
           "name": "Education",
           "budget": {
             "limit": 10000,
+            "spent": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "1498",
+      "userId": "1b87",
+      "categories": [
+        {
+          "name": "Shopping",
+          "budget": {
+            "limit": 1000,
+            "spent": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "c12f",
+      "userId": "1b87",
+      "categories": [
+        {
+          "name": "Rent",
+          "budget": {
+            "limit": 8000,
             "spent": 0
           }
         }

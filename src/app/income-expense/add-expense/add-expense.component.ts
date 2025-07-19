@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Expense } from '../interfaces/expense';
 import { ExpenseService } from '../services/expense.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CategorylistService } from '../../shared/categorylist.service';
 
 @Component({
   selector: 'app-add-expense',
@@ -13,10 +14,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AddExpenseComponent {
   addExpenseForm!:FormGroup;
-
-  constructor(private fb:FormBuilder, private expenseService:ExpenseService, private snackBar: MatSnackBar){}
+  expenseCategories: string[] = [];
+  userId: string | null = null; 
+  categorieslist: any[] = [];
+  constructor(private fb:FormBuilder, private expenseService:ExpenseService, private snackBar: MatSnackBar,
+    private categorylistService:CategorylistService
+  ){}
 
   ngOnInit(){
+    this.userId = sessionStorage.getItem('userId');
     this.addExpenseForm = this.fb.group({
       amount:['',[Validators.required, Validators.min(0)]],
       category: ['', Validators.required],
@@ -24,6 +30,8 @@ export class AddExpenseComponent {
       paymentMode: ['', Validators.required],
       description: ['']
     });
+    this.categoriesList();
+
   }
   addData(){
     if(this.addExpenseForm.invalid){
@@ -50,4 +58,20 @@ export class AddExpenseComponent {
     });
     
   }
+
+  categoriesList() {
+  this.categorylistService.getCategoryList(this.userId!).subscribe({
+    next: (data) => {
+      console.log(data);
+      if (Array.isArray(data)) {
+      this.categorieslist = data;
+      this.expenseCategories = data[0]?.expense || [];
+    } else {
+      console.error('Expected array but got:', typeof data);
+    }
+    },
+    error:()=>{}
+  });
+  }
+
 }

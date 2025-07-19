@@ -1,11 +1,16 @@
 <div class="container py-5">
     <div class="row">
+        <div class="alert alert-primary" role="alert">
+            JULLY
+        </div>
+    </div>
+    <div class="row">
             <div class="col-md-4">
                 <div class="d-flex p-4 rounded border-2">
                     <div><img class="me-4" src="images/money-bag.png" width="50px"/></div>
                     <div>
                         <h3>Income</h3>
-                        <h5 class="text-info fw-bold">₹ 1000</h5>
+                        <h5 class="text-info fw-bold">₹ {{currentMonthIncome}}</h5>
                     </div>
                 </div>
             </div>
@@ -14,7 +19,7 @@
                     <div><img class="me-4" src="images/spending.png" width="50px"/></div>
                     <div>
                         <h3>Expense</h3>
-                        <h5 class="text-warning fw-bold">₹ 1000</h5>
+                        <h5 class="text-danger fw-bold">₹{{currentMonthExpense}}</h5>
                     </div>
                 </div>
             </div>
@@ -23,21 +28,47 @@
                     <div><img class="me-4" src="images/the-sum-of.png" width="50px"/></div>
                     <div>
                         <h3>Total</h3>
-                        <h5 class="text-danger fw-bold">₹ 1000</h5>
+                        <h5 class="text-success fw-bold">₹ {{currentMonthIncome - currentMonthExpense }}</h5>
                     </div>
                 </div>
             </div>
     </div>
     <div class="row">
         <div class="col-md-12 mt-5">
-              <div class="border text-center py-5 ">
-                <img src="images/box.png" width="200px" class="empty-img mb-3">
+              <div class="border text-center py-5 " *ngIf="!isFound">
                 <div>
+                    <img src="images/box.png" width="200px" class="empty-img mb-3">
                     <p class="mb-3">No record in this month. click on below buttons to add new expense or income</p>
                     <a routerLink="/income-expense/add-income"><button class="btn btn-add me-3">Add Income</button></a>
                     <a routerLink="/income-expense/add-expense"><button class="btn btn-add">Add Expense</button></a>
-                </div>
+                </div>                
               </div>
+              <div *ngIf="isFound">
+                    <div class="reports">
+                           <table class="table table-bordered table-light table-striped text-center">
+                            <thead class="table-dark">
+                                <tr>
+                                <th>Amount</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let txn of transactions">
+                                <td [ngStyle]="{'color': txn.type === 'income' ? 'green' : 'red'}">
+                                    {{ txn.type === 'income' ? '+' : '-' }}{{ txn.amount | currency:'INR' }}
+                                </td>
+                                <td>{{ txn.category }}</td>
+                                <td>{{ txn.date | date:'MMM d, y' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-end">
+                    <a routerLink="/income-expense/add-income"><button class="btn btn-add me-3">Add Income</button></a>
+                    <a routerLink="/income-expense/add-expense"><button class="btn btn-add">Add Expense</button></a>
+                    </div>
+                </div>
         </div>
     </div>
 </div>

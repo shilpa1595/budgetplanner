@@ -5,6 +5,8 @@ import { IncomeService } from '../services/income.service';
 import { Income } from '../interfaces/income';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { CategorylistService } from '../../shared/categorylist.service';
+
 
 @Component({
   selector: 'app-add-income',
@@ -15,16 +17,21 @@ import { Router } from '@angular/router';
 export class AddIncomeComponent {
   private incomeService = inject(IncomeService);
   addIncomeForm!: FormGroup;
+  incomeCategories: string[] = [];
+  userId: string | null = null; 
+  categorieslist: any[] = [];
 
-  constructor(private snackBar: MatSnackBar,private router:Router){}
+  constructor(private snackBar: MatSnackBar,private router:Router,private categorylistService:CategorylistService){}
   ngOnInit(): void {
+  this.userId = sessionStorage.getItem('userId');
+
   this.addIncomeForm = new FormGroup({
     amount: new FormControl('',[Validators.required]),
-    source: new FormControl('',[Validators.required]),
     category: new FormControl('',[Validators.required]),
     dateOfIncome: new FormControl('',[Validators.required]),
     userEmail: new FormControl(sessionStorage.getItem('email') || '', [Validators.required])
   })
+  this.categoriesList();
   }
   addData(){
     console.log(this.addIncomeForm.value); 
@@ -59,6 +66,21 @@ export class AddIncomeComponent {
       }
     })
 
+  }
+
+  categoriesList() {
+  this.categorylistService.getCategoryList(this.userId!).subscribe({
+    next: (data) => {
+      console.log(data);
+      if (Array.isArray(data)) {
+      this.categorieslist = data;
+      this.incomeCategories = data[0]?.income || [];
+    } else {
+      console.error('Expected array but got:', typeof data);
+    }
+    },
+    error:()=>{}
+  });
   }
 
 }

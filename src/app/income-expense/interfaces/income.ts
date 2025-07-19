@@ -4,5 +4,5 @@ export interface Income {
         amount: number;
         source: string;
         category: string;
-        date: string;
+        dateOfIncome: string;
 }
