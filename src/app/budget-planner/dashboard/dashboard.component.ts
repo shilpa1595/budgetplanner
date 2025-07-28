@@ -1,5 +1,5 @@
-  import { Component, OnInit } from '@angular/core';
-  import { RouterLink } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { IncomeService } from '../../income-expense/services/income.service';
 import { ExpenseService } from '../../income-expense/services/expense.service';
 import { CommonModule } from '@angular/common';
@@ -22,14 +22,25 @@ import { Transaction } from '../../income-expense/interfaces/transaction';
     currentMonth: number = new Date().getMonth(); // 0-based: July = 6
     currentYear: number = new Date().getFullYear();
     userEmail:string = sessionStorage.getItem('email') || '';
+    currentMonthName: string = '';
 
     isFound:boolean = false;
+
     constructor(
       private incomeService: IncomeService,
       private expenseService: ExpenseService
-    ){}
+    ){
+      
+    }
 
     ngOnInit():void{
+      const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ];
+
+      this.currentMonthName = monthNames[this.currentMonth].toUpperCase(); // JULY
+
       this.loadIncome();
       this.loadExpense();
     }
