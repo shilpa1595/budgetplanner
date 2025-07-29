@@ -1,4 +1,4 @@
-<div class="container py-5">
+<div class="container py-5 mt-4">
     <div class="row">
      <div class="col-md-8 mx-auto">        
          <form class="row g-3 shadow-lg p-5 rounded bg-color formWrapper" [formGroup]="registerForm" (ngSubmit)="onRegister()">
@@ -15,7 +15,7 @@
                          </h3>
                          <div class="mb-3">
                             <div class="position-relative">
-                             <input class="form-control rounded-corner ps-5" type="text" placeholder="Username" formControlName="uname">
+                             <input class="form-control-lg w-100 ps-5 rounded-corner" type="text" placeholder="Username" formControlName="uname">
                              <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
                                  <i class="fa-solid fa-user" aria-hidden="true"></i>
                              </span>
@@ -26,7 +26,7 @@
                          </div>
                          <div class="mb-3">
                             <div class="position-relative">
-                             <input class="form-control rounded-corner ps-5" type="email" placeholder="Email Id" formControlName="email">
+                             <input class="form-control-lg w-100 ps-5 rounded-corner" type="email" placeholder="Email Id" formControlName="email">
                              <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
                                  <i class="fa fa-envelope" aria-hidden="true"></i>
                              </span>
@@ -43,7 +43,7 @@
                          </div>
                          <div class="mb-3">
                             <div class="position-relative">
-                             <input type="password" class="form-control rounded-corner ps-5" placeholder="Password" formControlName="password">  
+                             <input type="password" class="form-control-lg w-100 ps-5 rounded-corner" placeholder="Password" formControlName="password">  
                              <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
                                  <i class="fa fa-lock" aria-hidden="true"></i>
                              </span>
@@ -54,7 +54,7 @@
                          </div>
                          <div class="mb-3">
                             <div class="position-relative">
-                            <input type="password" class="form-control rounded-corner ps-5" placeholder="Confirm Password" formControlName="cpassword">  
+                            <input type="password" class="form-control-lg w-100 ps-5 rounded-corner" placeholder="Confirm Password" formControlName="cpassword">  
                             <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
                             </span>
@@ -67,7 +67,7 @@
                                     <small class="text-danger"> Password mismatch</small>
                             }           
                         </div>          
-                             <button class="btn btnlogin w-100 rounded-corner mb-3" type="submit" [disabled]="registerForm.invalid">Register</button>
+                             <button class="btn-2 custom-btn w-100 rounded-corner mb-3" type="submit" [disabled]="registerForm.invalid">Register</button>
                              <p class="text-center mb-0 mt-5 createacc fw-bolder">
                                 Already have account ? <a routerLink="/user-management/login" class="text-primary"> Login </a>
                             </p>

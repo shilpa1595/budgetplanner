@@ -1,22 +1,9 @@
 
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
-
-html {
-  @include mat.theme((
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
-}/* You can add global styles to this file, and also import other style files */
-
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+   margin: 0; 
+  font-family: "Poppins", sans-serif !important;
+}
 
 /* From Uiverse.io by AqFox */ 
 .custom-btn {
@@ -31,16 +18,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   transition: all 0.3s ease;
   position: relative;
   display: inline-block;
-  box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
-   7px 7px 20px 0px rgba(0,0,0,.1),
-   4px 4px 5px 0px rgba(0,0,0,.1);
+  box-shadow: 4px 4px 6px 0 rgba(255,255,255,.5),
+              -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
   outline: none;
   font-size: 15px;
 }
 
 .btn-2 {
-  background: #7ed957;
-  background: linear-gradient(0deg, #7ed957 0%, #7ed957 100%);
+  background: #0cc0df;
+  background: linear-gradient(0deg, #0cc0df 0%, #0cc0df 100%);
   border: none;
 }
 
@@ -49,9 +37,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   width: 2px;
 }
 
-.btn-2:hover {
-  box-shadow: 4px 4px 6px 0 rgba(255,255,255,.5),
-              -4px -4px 6px 0 rgba(116, 125, 136, .5), 
-    inset -4px -4px 6px 0 rgba(255,255,255,.2),
-    inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+.form-control-lg{
+  font-size: 16px !important;
+  border: 1px solid #0cc0df;
+
+  &:focus{
+      border-color: #0cc0df;
+      box-shadow: none
+  }
+  &:focus-visible{
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(12, 192, 223, 0.4); /* green glow */
+      border-color: rgb(12, 192, 223);
+  }
 }

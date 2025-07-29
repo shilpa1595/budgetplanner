@@ -6,7 +6,7 @@
       <thead>
           <tr>
               <th>Income Categories</th>
-              <th class="text-end"><button class="btn btn-success addBtn" data-bs-toggle="modal" data-bs-target="#addIncomeCategoryModal">+ Add</button></th>
+              <th class="text-end"><button class="btn btn-success btn-2 custom-btn" data-bs-toggle="modal" data-bs-target="#addIncomeCategoryModal">+ Add</button></th>
           </tr>
       </thead>
       <tbody>
@@ -22,7 +22,7 @@
     <thead>
         <tr>
             <th>Expense Categories</th>
-            <th class="text-end"><button class="btn btn-success addBtn" data-bs-toggle="modal" data-bs-target="#addExpenseCategoryModal">+ Add</button></th>
+            <th class="text-end"><button class="btn btn-success btn-2 custom-btn" data-bs-toggle="modal" data-bs-target="#addExpenseCategoryModal">+ Add</button></th>
         </tr>
     </thead>
     <tbody>
@@ -38,7 +38,7 @@
 
 <!-- Add Income category -->
 <div class="modal fade" id="addIncomeCategoryModal" tabindex="-1">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
   <div class="modal-content">
       <div class="modal-header">
       <h5 class="modal-title">Add Income Category</h5>
@@ -53,14 +53,14 @@
       </form>
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-primary addBtn" (click)="addIncomeCategory()" data-bs-dismiss="modal">Save</button>
+      <button type="button" class="btn btn-primary btn-2 custom-btn" (click)="addIncomeCategory()" data-bs-dismiss="modal">Save</button>
       </div>
   </div>
   </div>
 </div>
 
 <div class="modal fade" id="addExpenseCategoryModal" tabindex="-1">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
   <div class="modal-content">
       <div class="modal-header">
       <h5 class="modal-title">Add Expense Category</h5>
@@ -75,7 +75,7 @@
       </form>
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-primary addBtn" (click)="addExpenseCategory()" data-bs-dismiss="modal">Save</button>
+      <button type="button" class="btn btn-primary btn-2 custom-btn" (click)="addExpenseCategory()" data-bs-dismiss="modal">Save</button>
       </div>
   </div>
   </div>

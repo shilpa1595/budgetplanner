@@ -1,5 +1,25 @@
-<!-- From Uiverse.io by cuzpq --> 
-<input type="checkbox" class="theme-checkbox">
-
-<app-expense-list></app-expense-list>
-<app-income-list></app-income-list>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <h2 class="text-start colored-text mb-0">Reports</h2>
+            <p class="text-start mb-5">Here you can view your financial reports and insights.</p>
+            <!-- From Uiverse.io by cssbuttons-io -->
+            <div class="d-flex align-items-center">
+                <h6 class="me-4">Expense</h6>
+                <div class="toggle-border">
+                    <input id="one" type="checkbox">
+                    <label for="one">
+                        <div class="handle"></div>
+                    </label>
+                </div>
+                <h6 class="ms-3">Income</h6>
+            </div>
+        </div>
+        <div>
+            <app-expense-list></app-expense-list>
+        </div>
+        <div>
+            <app-income-list></app-income-list>
+        </div>
+    </div>
+</div>
