@@ -47,6 +47,24 @@
       "paymentMode": "Cash",
       "description": "",
       "userEmail": "s@gmail.com"
+    },
+    {
+      "id": "0860",
+      "amount": "1000",
+      "category": "Entertainment",
+      "dateOfExpense": "2025-08-02",
+      "paymentMode": "Cash",
+      "description": "",
+      "userEmail": "s@gmail.com"
+    },
+    {
+      "id": "bba5",
+      "amount": "600",
+      "category": "Food",
+      "dateOfExpense": "2025-08-02",
+      "paymentMode": "Cash",
+      "description": "",
+      "userEmail": "s@gmail.com"
     }
   ],
   "profiles": [
@@ -104,52 +122,26 @@
   ],
   "budget": [
     {
-      "id": "e913",
+      "id": "27f7",
       "userId": "1b87",
       "categories": [
         {
-          "name": "Clothing",
+          "name": "Entertainment",
           "budget": {
-            "limit": 1000,
+            "limit": 700,
             "spent": 0
           }
         }
       ]
     },
     {
-      "id": "38a5",
+      "id": "131c",
       "userId": "1b87",
       "categories": [
         {
-          "name": "Education",
+          "name": "Food",
           "budget": {
-            "limit": 10000,
-            "spent": 0
-          }
-        }
-      ]
-    },
-    {
-      "id": "1498",
-      "userId": "1b87",
-      "categories": [
-        {
-          "name": "Shopping",
-          "budget": {
-            "limit": 1000,
-            "spent": 0
-          }
-        }
-      ]
-    },
-    {
-      "id": "c12f",
-      "userId": "1b87",
-      "categories": [
-        {
-          "name": "Rent",
-          "budget": {
-            "limit": 8000,
+            "limit": 5000,
             "spent": 0
           }
         }

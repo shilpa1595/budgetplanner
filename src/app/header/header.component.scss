@@ -3,10 +3,18 @@
     position: fixed;
     top: 0;
     width:100%;
-    z-index: 99;
+    z-index: 1;
  
   .nav-link{
-    color: #000;
+    color: #fff;
+    border-bottom: 2px solid transparent;
+
+    &:hover{
+      color: yellow;
+      border-bottom: 2px solid yellow;
+      text-decoration: none;
+      transition: border-bottom 0.2s linear;
+    }
   }
   .dropdown-menu{
     .nav-link{

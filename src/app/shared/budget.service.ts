@@ -14,7 +14,7 @@ export class BudgetService {
   setExpenseBudget(budget:Budget):Observable<Budget>{
     return this.http.post<Budget>(`${this.baseUrl}`,budget);
   }
-  getBudgetList():Observable<Budget[]>{
+  getBudgetList(userEmail: string):Observable<Budget[]>{
     return this.http.get<Budget[]>(`${this.baseUrl}`);
   }
 }

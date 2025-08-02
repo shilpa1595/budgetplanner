@@ -51,3 +51,18 @@ body {
       border-color: rgb(12, 192, 223);
   }
 }
+
+/* Ensure the container track has a light background */
+.mat-mdc-progress-bar {
+  --mdc-linear-progress-track-color: #e0e0e0; /* light gray background */
+}
+
+/* For bars with color="primary" (we'll use green) */
+.mat-mdc-progress-bar.mat-primary {
+  --mdc-linear-progress-active-indicator-color: #4caf50 !important; /* green */
+}
+
+/* For bars with color="warn" (red) */
+.mat-mdc-progress-bar.mat-warn {
+  --mdc-linear-progress-active-indicator-color: #f44336 !important; /* red */
+}
