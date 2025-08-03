@@ -50,6 +50,7 @@ export class AddExpenseComponent {
           verticalPosition:'top',
           horizontalPosition:'center'
         })
+         this.addExpenseForm.reset();
       },
       error:()=>{
         this.snackBar.open('Error adding expense. Try again!', 'Close', { duration: 3000 });

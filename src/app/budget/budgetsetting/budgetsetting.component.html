@@ -1,7 +1,8 @@
 <div class="container py-5">
     <div class="row">
-        <h2 class="text-center mb-5">Set a Budget</h2>
-
+        <div class="alert alert-info text-center fw-bolder tracking-in-contract mb-5" role="alert">
+            <h4 class="mb-0">Set a Budget Limit</h4>
+        </div>
             <div class="col-4">
                 <!-- expense categories set budget -->
                 <div class="bg-body px-3 rounded shadow-sm expense-table mb-5">
@@ -50,6 +51,11 @@
                             [value]="getProgress(cat.spent, cat.limit)"
                             [color]="getProgressColor(cat.spent, cat.limit)">
                             </mat-progress-bar>
+                            <div class="text-end d-flex justify-content-end w-100">
+                            <small class="text-danger" *ngIf="cat.spent > cat.limit">
+                            *Limit Exceed
+                            </small>
+                            </div>
                         </div>
                     </div>
                 </div>

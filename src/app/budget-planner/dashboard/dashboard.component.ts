@@ -119,4 +119,12 @@ import { Transaction } from '../../income-expense/interfaces/transaction';
         return new Date(b.date).getTime() - new Date(a.date).getTime();
       });
     }
+
+get total(): number {
+  return this.currentMonthIncome - this.currentMonthExpense;
+}
+
+abs(value: number): number {
+  return Math.abs(value);
+}
   }

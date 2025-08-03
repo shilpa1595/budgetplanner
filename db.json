@@ -47,24 +47,6 @@
       "paymentMode": "Cash",
       "description": "",
       "userEmail": "s@gmail.com"
-    },
-    {
-      "id": "0860",
-      "amount": "1000",
-      "category": "Entertainment",
-      "dateOfExpense": "2025-08-02",
-      "paymentMode": "Cash",
-      "description": "",
-      "userEmail": "s@gmail.com"
-    },
-    {
-      "id": "bba5",
-      "amount": "600",
-      "category": "Food",
-      "dateOfExpense": "2025-08-02",
-      "paymentMode": "Cash",
-      "description": "",
-      "userEmail": "s@gmail.com"
     }
   ],
   "profiles": [
@@ -102,7 +84,6 @@
       "userId": "1b87",
       "email": "s@gmail.com",
       "income": [
-        "Rental",
         "Awards",
         "Bussiness",
         "Coupons",
@@ -110,12 +91,10 @@
         "Salary"
       ],
       "expense": [
-        "Entertainment",
         "Food",
         "Home",
         "Shopping",
         "Transportation",
-        "sports",
         "Rent"
       ]
     }
@@ -140,6 +119,19 @@
       "categories": [
         {
           "name": "Food",
+          "budget": {
+            "limit": 5000,
+            "spent": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "e641",
+      "userId": "1b87",
+      "categories": [
+        {
+          "name": "Shopping",
           "budget": {
             "limit": 5000,
             "spent": 0

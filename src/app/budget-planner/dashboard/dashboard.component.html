@@ -1,7 +1,7 @@
 <div class="container py-5">
     <div class="row m-0">
-        <div class="alert alert-info text-center fw-bolder tracking-in-contract" role="alert">
-            <h4></h4>{{currentMonthName}}
+        <div class="alert alert-info text-center fw-bolder tracking-in-contract mb-5" role="alert">
+            <h4 class="mb-0">{{currentMonthName}}</h4>
         </div>
     </div>
     <div class="row">
@@ -10,7 +10,7 @@
                     <div><img class="me-4" src="images/money-bag.png" width="50px"/></div>
                     <div>
                         <h3>Income</h3>
-                        <h5 class="text-info fw-bold">₹ {{currentMonthIncome}}</h5>
+                        <h5 class="text-success fw-bold">₹ {{currentMonthIncome}}</h5>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,15 @@
                     <div><img class="me-4" src="images/the-sum-of.png" width="50px"/></div>
                     <div>
                         <h3>Total</h3>
-                        <h5 class="text-success fw-bold">₹ {{currentMonthIncome - currentMonthExpense }}</h5>
+                        <h5 [ngClass]="total < 0 ? 'text-danger fw-bold' : 'text-success fw-bold'">
+                        <ng-container *ngIf="total < 0; else positive">
+                            - ₹ {{ abs(total) }}
+                        </ng-container>
+                        <ng-template #positive>
+                            ₹ {{ total }}
+                        </ng-template>
+                        </h5>
+
                     </div>
                 </div>
             </div>
