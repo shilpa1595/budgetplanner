@@ -1,9 +1,22 @@
 
-html, body { height: 100%; }
+// =======================
+// Base styles
+// =======================
 body {
-   margin: 0; 
-  font-family: "Poppins", sans-serif !important;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f5f7fb;
+  color: #333;
+  line-height: 1.6;
+  margin: 0; 
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+html, body { height: 100%; }
+
 
 /* From Uiverse.io by AqFox */ 
 .custom-btn {

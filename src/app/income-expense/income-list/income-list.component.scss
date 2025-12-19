@@ -1,16 +1,350 @@
 // .incomeList{
 //     padding: 20px;
 // }
-.box{
-    border-radius: 3px;
-    border: none;
-    background-color: red;
-    color: white;
-    font-size: 16px;
-    height: 25px;
-    width: 25px;
+// .box{
+//     border-radius: 3px;
+//     border: none;
+//     background-color: red;
+//     color: white;
+//     font-size: 16px;
+//     height: 25px;
+//     width: 25px;
+// }
+// .editbox{
+//     background-color: deepskyblue;
+//     font-size: 11px;
+// }
+
+// =======================
+// Variables
+// =======================
+$primary-color: #4f46e5;   // Indigo blue – trust & focus
+$secondary-color: #a5b4fc; // Soft indigo – backgrounds & gradients
+
+$success-color: #22c55e;   // Fresh green – income & savings
+$danger-color: #ef4444;    // Clear red – overspending
+$warning-color: #f59e0b;   // Amber – budget alerts
+
+$light-color: #f8fafc;     // Cleaner background
+$dark-color: #0f172a;      // Strong readable text
+$gray-color: #64748b;      // Muted text
+
+$border-radius: 12px;
+$box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+$transition: all 0.3s ease;
+
+// =======================
+// Income List
+// =======================
+.incomeList {
+  padding: 30px 0 50px;
+  min-height: 100vh;
 }
-.editbox{
-    background-color: deepskyblue;
-    font-size: 11px;
+
+// =======================
+// Card
+// =======================
+.card-style {
+  background: #fff;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  border: none;
+  overflow: hidden;
+  transition: $transition;
+
+  &:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// =======================
+// Header Section
+// =======================
+.header-section {
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  color: #fff;
+  padding: 25px;
+  border-radius: $border-radius $border-radius 0 0;
+  margin-bottom: 25px;
+
+  h2 {
+    font-weight: 700;
+    margin-bottom: 5px;
+    font-size: 1.8rem;
+  }
+
+  p {
+    opacity: 0.9;
+    margin-bottom: 0;
+  }
+}
+
+// =======================
+// Filter Section
+// =======================
+.filter-section {
+  background: #fff;
+  padding: 20px;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  margin-bottom: 30px;
+
+  label {
+    font-weight: 600;
+    color: $dark-color;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .month-filter-input {
+    border: 2px solid #eaeaea;
+    border-radius: 8px;
+    padding: 10px 15px;
+    width: 100%;
+    font-weight: 500;
+    transition: $transition;
+
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 0 0.25rem rgba(78, 84, 200, 0.25);
+      outline: none;
+    }
+  }
+}
+
+// =======================
+// Table
+// =======================
+.table-container {
+  background: #fff;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  overflow: hidden;
+}
+
+.table-header {
+  background: $light-color;
+  padding: 20px;
+  border-bottom: 1px solid #eaeaea;
+
+  h3 {
+    margin: 0;
+    color: $dark-color;
+    font-size: 1.4rem;
+  }
+}
+
+.total-income {
+  background: #f0f7ff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: $primary-color;
+}
+
+.income-table {
+  margin-bottom: 0;
+
+  thead {
+    background: $light-color;
+  }
+
+  th {
+    font-weight: 600;
+    color: $dark-color;
+    padding: 18px 15px;
+    border-bottom: 2px solid #eaeaea;
+  }
+
+  tbody {
+    tr {
+      transition: $transition;
+      border-bottom: 1px solid #f0f0f0;
+
+      &:hover {
+        background: #f9f9ff;
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  td {
+    padding: 18px 15px;
+    vertical-align: middle;
+  }
+}
+
+// =======================
+// Cells
+// =======================
+.amount-cell {
+  font-weight: 700;
+  color: $success-color;
+  font-size: 1.1rem;
+}
+
+.category-cell {
+  font-weight: 500;
+}
+
+.date-cell {
+  color: $gray-color;
+}
+
+.actions-cell {
+  width: 130px;
+}
+
+// =======================
+// Buttons
+// =======================
+.btn-action {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-size: 14px;
+  transition: $transition;
+
+  &.btn-delete {
+    background: rgba(231, 76, 60, 0.1);
+    color: $danger-color;
+
+    &:hover {
+      background: $danger-color;
+      color: #fff;
+    }
+  }
+
+  &.btn-edit {
+    background: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+
+    &:hover {
+      background: #3498db;
+      color: #fff;
+    }
+  }
+}
+
+// =======================
+// No Data
+// =======================
+.no-data-row {
+  text-align: center;
+  padding: 40px !important;
+
+  .no-data-icon {
+    font-size: 3rem;
+    color: #ddd;
+    margin-bottom: 15px;
+  }
+
+  .no-data-text {
+    font-weight: 600;
+    color: #aaa;
+    font-size: 1.1rem;
+  }
+}
+
+// =======================
+// Category Badges
+// =======================
+.category-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+
+  &.category-salary {
+    background: rgba(46, 204, 113, 0.15);
+    color: $success-color;
+  }
+
+  &.category-freelance {
+    background: rgba(155, 89, 182, 0.15);
+    color: #9b59b6;
+  }
+
+  &.category-investment {
+    background: rgba(52, 152, 219, 0.15);
+    color: #3498db;
+  }
+
+  &.category-business {
+    background: rgba(241, 196, 15, 0.15);
+    color: #f1c40f;
+  }
+
+  &.category-other {
+    background: rgba(149, 165, 166, 0.15);
+    color: #95a5a6;
+  }
+}
+
+// =======================
+// Summary Cards
+// =======================
+.summary-card {
+  background: #fff;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: 25px;
+  margin-bottom: 25px;
+  transition: $transition;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  h4 {
+    font-size: 1.1rem;
+    color: $gray-color;
+    margin-bottom: 15px;
+  }
+
+  .summary-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: $primary-color;
+
+    &.success {
+      color: $success-color;
+    }
+  }
+
+  .summary-icon {
+    font-size: 2.5rem;
+    color: $primary-color;
+    opacity: 0.8;
+    margin-bottom: 15px;
+  }
+}
+
+// =======================
+// Responsive
+// =======================
+@media (max-width: 768px) {
+  .header-section {
+    padding: 20px;
+  }
+
+  .income-table {
+    th, td {
+      padding: 12px 8px;
+    }
+  }
+
+  .btn-action {
+    width: 32px;
+    height: 32px;
+  }
+
+  .summary-card {
+    margin-bottom: 15px;
+  }
 }

@@ -51,3 +51,8 @@
 .toggle-border input[type="checkbox"]:checked + label > .handle {
  left: calc(100% - 35px + 10px);
 }
+
+.bg-img{
+   background-color: rgb(227, 251, 251);
+   padding: 30px 0;
+}
