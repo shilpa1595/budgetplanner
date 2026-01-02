@@ -92,4 +92,18 @@
 .Btn:active {
   transform: translate(2px ,2px);
 }
+
+.lang-switch button {
+  margin-left: 8px;
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.lang-switch button.active {
+  background: #4e54c8;
+  color: #fff;
+  border-color: #4e54c8;
+}
 }

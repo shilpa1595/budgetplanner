@@ -85,6 +85,15 @@
       "paymentMode": "Credit Card",
       "description": "",
       "userEmail": "s@gmail.com"
+    },
+    {
+      "id": "44ea",
+      "amount": "1000",
+      "category": "Clothing",
+      "dateOfExpense": "2025-12-29",
+      "paymentMode": "Cash",
+      "description": "",
+      "userEmail": "gb@gmail.com"
     }
   ],
   "profiles": [
@@ -277,6 +286,19 @@
           "name": "Beauty",
           "budget": {
             "limit": 1000,
+            "spent": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "0482",
+      "userId": "3b18",
+      "categories": [
+        {
+          "name": "Clothing",
+          "budget": {
+            "limit": 2000,
             "spent": 0
           }
         }

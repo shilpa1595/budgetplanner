@@ -61,5 +61,21 @@
               </ul>
           </div>
       </ng-container>
+
+      <!-- Language Switcher -->
+      <div class="lang-switch">
+        <button
+          (click)="switchLanguage('en')"
+          [class.active]="currentLang === 'en'">
+          EN
+        </button>
+
+        <button
+          (click)="switchLanguage('mr')"
+          [class.active]="currentLang === 'mr'">
+          मराठी
+        </button>
+      </div>
+
     </div>
   </nav>
