@@ -6,10 +6,11 @@ import { passwordMatchValidator } from '../shared/password-mismatch.directive';
 import { AuthService } from '../services/auth.service';
 import { RegisterPostData } from '../interfaces/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule,CommonModule,RouterLink],
+  imports: [ReactiveFormsModule,CommonModule,RouterLink, TranslateModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

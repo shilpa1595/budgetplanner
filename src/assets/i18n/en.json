@@ -1,0 +1,31 @@
+{
+  "LOGIN": {
+    "TITLE": "Login",
+    "EMAIL_PLACEHOLDER": "Email Id",
+    "PASSWORD_PLACEHOLDER": "Password",
+    "EMAIL_REQUIRED": "Email is required",
+    "EMAIL_INVALID": "Email is invalid",
+    "PASSWORD_REQUIRED": "Password is required",
+    "BUTTON": "Login",
+    "CREATE_ACCOUNT": "Create your account?",
+    "REGISTER": "Register"
+  },
+
+  "REGISTER":{
+    "TITLE": "Register",
+    "NAME_PLACEHOLDER": "Full Name",
+    "EMAIL_PLACEHOLDER": "Email Id",
+    "PASSWORD_PLACEHOLDER": "Password",
+    "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm Password",
+    "NAME_REQUIRED": " Uname is required",
+    "EMAIL_REQUIRED": "Email is required",
+    "EMAIL_INVALID": "Email is invalid",
+    "PASSWORD_REQUIRED": "Password is required",
+    "CONFIRM_PASSWORD_REQUIRED": "Confirm Password is required",
+    "PASSWORD_MISMATCH": "Passwords do not match",
+    "BUTTON": "Register",
+    "ALREADY_ACCOUNT": "Already have an account?",
+    "LOGIN": "Login"
+  }
+
+}

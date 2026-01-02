@@ -20,7 +20,7 @@ export class AuthService {
           userId: userId, // User's ID from response
           uname: postData.uname, 
           email: postData.email, 
-          profilePicture: "/images/default-profile.png", // Default profile picture
+          profilePicture: "assets/images/default-profile.png", // Default profile picture
           incomeSource: ["Employer","Online Store","Stock Market","Apartment Rent","Upwork","Gifts"], // Empty array for now, can be updated later
           incomeCategories: ["Salary", "Freelancing"], // Default categories
           expenseCategories: ["Food", "Rent", "Transport"], 

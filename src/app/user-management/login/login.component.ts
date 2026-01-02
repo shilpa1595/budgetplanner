@@ -4,10 +4,12 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoaderService } from '../../shared/services/loader.service';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule,RouterLink],
+  imports: [FormsModule,RouterLink, TranslateModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

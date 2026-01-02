@@ -5,28 +5,28 @@
              <div class="col-md-12 mt-0">
                  <div class="row align-items-center">
                  <div class="col-md-6">
-                     <img src="./images/img-01.webp" alt="login image">
+                     <img src="assets/images/img-01.webp" alt="login image">
                  </div>
                  <div class="col-md-6">
                      <div class="row">
                          <div class="col-md-12">
                          <h3 class="text-center colored-text mb-3 fw-bold">
-                             Register
+                             {{ 'REGISTER.TITLE' | translate }}
                          </h3>
                          <div class="mb-3">
                             <div class="position-relative">
-                             <input class="form-control-lg w-100 ps-5 rounded-corner" type="text" placeholder="Username" formControlName="uname">
+                             <input class="form-control-lg w-100 ps-5 rounded-corner" type="text" placeholder="{{ 'REGISTER.NAME_PLACEHOLDER' | translate }}" formControlName="uname">
                              <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
                                  <i class="fa-solid fa-user" aria-hidden="true"></i>
                              </span>
                             </div>
                              @if(uname?.invalid && (uname?.dirty || uname?.touched)){
-                                <small class="text-danger"> Uname is required </small>
+                                <small class="text-danger"> {{ 'REGISTER.NAME_REQUIRED' | translate }} </small>
                              }  
                          </div>
                          <div class="mb-3">
                             <div class="position-relative">
-                             <input class="form-control-lg w-100 ps-5 rounded-corner" type="email" placeholder="Email Id" formControlName="email">
+                             <input class="form-control-lg w-100 ps-5 rounded-corner" type="email" placeholder="{{ 'REGISTER.EMAIL_PLACEHOLDER' | translate }}" formControlName="email">
                              <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
                                  <i class="fa fa-envelope" aria-hidden="true"></i>
                              </span>
@@ -34,42 +34,42 @@
                              @if(email?.invalid && (email?.dirty || email?.touched)){
                                 <small class="text-danger">
                                     @if(email?.hasError('required')){
-                                        <span>Email is required</span>
+                                        <span>{{ 'REGISTER.EMAIL_REQUIRED' | translate }}</span>
                                     }@else if(email?.hasError('email')){
-                                        <span>Email is invalid</span>
+                                        <span>{{ 'REGISTER.EMAIL_INVALID' | translate }}</span>
                                     }
                                 </small>
                              }
                          </div>
                          <div class="mb-3">
                             <div class="position-relative">
-                             <input type="password" class="form-control-lg w-100 ps-5 rounded-corner" placeholder="Password" formControlName="password">  
+                             <input type="password" class="form-control-lg w-100 ps-5 rounded-corner" placeholder="{{ 'REGISTER.PASSWORD_PLACEHOLDER' | translate }}" formControlName="password">  
                              <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
                                  <i class="fa fa-lock" aria-hidden="true"></i>
                              </span>
                              </div>
                              @if(password?.invalid && (password?.dirty || password?.touched)){
-                                <small class="text-danger"> Uname is required </small>
+                                <small class="text-danger"> {{ 'REGISTER.PASSWORD_REQUIRED' | translate }} </small>
                              }            
                          </div>
                          <div class="mb-3">
                             <div class="position-relative">
-                            <input type="password" class="form-control-lg w-100 ps-5 rounded-corner" placeholder="Confirm Password" formControlName="cpassword">  
+                            <input type="password" class="form-control-lg w-100 ps-5 rounded-corner" placeholder="{{ 'REGISTER.CONFIRM_PASSWORD_PLACEHOLDER' | translate }}" formControlName="cpassword">  
                             <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
                             </span>
                             </div>
                             @if(cpassword?.invalid && (cpassword?.dirty || cpassword?.touched)){
-                                <small class="text-danger"> Uname is required </small>
+                                <small class="text-danger"> {{ 'REGISTER.CONFIRM_PASSWORD_REQUIRED' | translate }} </small>
                              } 
                              @if(registerForm.hasError('passwordMismatch') && password?.valid &&
                              cpassword?.valid) {
-                                    <small class="text-danger"> Password mismatch</small>
+                                    <small class="text-danger"> {{ 'REGISTER.PASSWORD_MISMATCH' | translate }}</small>
                             }           
                         </div>          
-                             <button class="btn-2 custom-btn w-100 rounded-corner mb-3" type="submit" [disabled]="registerForm.invalid">Register</button>
+                             <button class="btn-2 custom-btn w-100 rounded-corner mb-3" type="submit" [disabled]="registerForm.invalid">{{ 'REGISTER.BUTTON' | translate }}</button>
                              <p class="text-center mb-0 mt-5 createacc fw-bolder">
-                                Already have account ? <a routerLink="/user-management/login" class="text-primary"> Login </a>
+                                {{ 'REGISTER.ALREADY_ACCOUNT' | translate }} <a routerLink="/user-management/login" class="text-primary"> {{ 'REGISTER.LOGIN' | translate }} </a>
                             </p>
                          </div>
                      </div>

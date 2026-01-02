@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-        <a routerLink="/"><img src="./images/FinTrack.png" alt="login image" width="100px" class="logo"></a>
+        <a routerLink="/"><img src="assets/images/FinTrack.png" alt="login image" width="100px" class="logo"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -63,19 +63,23 @@
       </ng-container>
 
       <!-- Language Switcher -->
-      <div class="lang-switch">
+      <div class="lang-switch dropdown">
         <button
-          (click)="switchLanguage('en')"
-          [class.active]="currentLang === 'en'">
-          EN
+          class="btn btn-light dropdown-toggle"
+          type="button"
+          id="langDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false">
+          {{ currentLang | uppercase }}
         </button>
-
-        <button
-          (click)="switchLanguage('mr')"
-          [class.active]="currentLang === 'mr'">
-          मराठी
-        </button>
+        <ul class="dropdown-menu" aria-labelledby="langDropdown">
+          <li>
+            <a class="dropdown-item" (click)="switchLanguage('en')">English</a>
+          </li>
+          <li>
+            <a class="dropdown-item" (click)="switchLanguage('mr')">मराठी</a>
+          </li>
+        </ul>
       </div>
-
     </div>
   </nav>

@@ -1,0 +1,29 @@
+{
+    "LOGIN": {
+        "TITLE": "लॉगिन",
+        "EMAIL_PLACEHOLDER": "ईमेल आयडी",
+        "PASSWORD_PLACEHOLDER": "पासवर्ड",
+        "EMAIL_REQUIRED": "ईमेल आवश्यक आहे",
+        "EMAIL_INVALID": "अवैध ईमेल",
+        "PASSWORD_REQUIRED": "पासवर्ड आवश्यक आहे",
+        "BUTTON": "लॉगिन करा",
+        "CREATE_ACCOUNT": "आपले खाते तयार करा?",
+        "REGISTER": "नोंदणी करा"
+    },
+    "REGISTER": {
+        "TITLE": "नोंदणी करा",
+        "NAME_PLACEHOLDER": "पूर्ण नाव",
+        "EMAIL_PLACEHOLDER": "ईमेल आयडी",
+        "PASSWORD_PLACEHOLDER": "पासवर्ड",
+        "CONFIRM_PASSWORD_PLACEHOLDER": "पासवर्ड पुष्टी करा",
+        "NAME_REQUIRED": " वापरकर्तानाव आवश्यक आहे",
+        "EMAIL_REQUIRED": "ईमेल आवश्यक आहे",
+        "EMAIL_INVALID": "अवैध ईमेल",
+        "PASSWORD_REQUIRED": "पासवर्ड आवश्यक आहे",
+        "CONFIRM_PASSWORD_REQUIRED": "पासवर्ड पुष्टी आवश्यक आहे",
+        "PASSWORD_MISMATCH": "पासवर्ड जुळत नाहीत",
+        "BUTTON": "नोंदणी करा",
+        "ALREADY_ACCOUNT": "आधीच खाते आहे?",
+        "LOGIN": "लॉगिन करा"
+    }
+}

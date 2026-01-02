@@ -102,7 +102,7 @@
       "userId": "1b87",
       "uname": "shilpa",
       "email": "s@gmail.com",
-      "profilePicture": "/images/default-profile.png",
+      "profilePicture": "assets/images/default-profile.png",
       "incomeSource": [
         "Employer",
         "Online Store",
@@ -129,7 +129,7 @@
       "userId": "3b18",
       "uname": "gayatri",
       "email": "gb@gmail.com",
-      "profilePicture": "/images/default-profile.png",
+      "profilePicture": "assets/images/default-profile.png",
       "incomeSource": [
         "Employer",
         "Online Store",

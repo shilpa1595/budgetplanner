@@ -1,12 +1,13 @@
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../user-management/services/auth.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink,NgIf],
+  imports: [RouterLink,NgIf, CommonModule,     // <-- Needed for pipes like uppercase
+    TranslateModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
