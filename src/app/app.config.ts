@@ -6,6 +6,15 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { registerLocaleData } from '@angular/common';
+import localeEn from '@angular/common/locales/en';
+import localeMr from '@angular/common/locales/mr';
+import localeHi from '@angular/common/locales/hi';
+
+// Register locales
+registerLocaleData(localeEn, 'en');
+registerLocaleData(localeMr, 'mr');
+registerLocaleData(localeHi, 'hi');
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

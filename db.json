@@ -56,6 +56,13 @@
       "category": "Award",
       "dateOfIncome": "2025-12-15",
       "userEmail": "s@gmail.com"
+    },
+    {
+      "id": "286f",
+      "amount": "50000",
+      "category": "Bussiness",
+      "dateOfIncome": "2026-01-02",
+      "userEmail": "gb@gmail.com"
     }
   ],
   "expense": [
@@ -194,8 +201,7 @@
         "Shopping",
         "Sport",
         "Transportation",
-        "Beauty",
-        "TelePhone"
+        "Beauty"
       ]
     }
   ],
