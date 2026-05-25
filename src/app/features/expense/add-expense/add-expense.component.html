@@ -1,47 +1,152 @@
-<div class="container py-5">
-  <div class="row">
-    <div class="col-md-8 mx-auto">
-      <form class="row g-3 shadow-lg p-5 rounded formWrapper" [formGroup]="addExpenseForm" (ngSubmit)="addData()">
-        <div class="col-md-12 mt-0">
-          <div class="row align-items-center">
-            <div class="col-md-6">
-              <img src="assets/images/expense_bg.png" alt="add expense" width="100%" />
-            </div>
-            <div class="col-md-6">
-              <div class="row">
-                <h3 class="text-center colored-text mb-5 fw-bold">Add Expense Details</h3>
-                <div class="col-md-12 mb-3">
-                  <input class="form-control ps-3" type="text" placeholder="Rs. 10,000" formControlName="amount" />
-                </div>
-                <div class="col-md-12 mb-3">
-                  <select class="form-select ps-3" formControlName="category">
-                    <option selected disabled value="">Category...</option>
-                    <option *ngFor="let cat of expenseCategories" [value]="cat">{{ cat }}</option>
-                  </select>
-                </div>
-                <div class="col-md-12 mb-3">
-                  <select class="form-select ps-3" formControlName="paymentMode">
-                    <option selected disabled value="">Select Payment Method</option>
-                    <option value="Cash">Cash</option>
-                    <option value="UPI">UPI</option>
-                    <option value="Credit Card">Credit Card</option>
-                    <option value="Bank Transfer">Bank Transfer</option>
-                  </select>
-                </div>
-                <div class="col-md-12 mb-3">
-                  <textarea formControlName="description" class="form-control" placeholder="Description (optional)"></textarea>
-                </div>
-                <div class="col-md-12 mb-3">
-                  <input type="date" class="form-control ps-3" formControlName="dateOfExpense" />
-                </div>
-                <div class="col-md-12 mt-4">
-                  <button class="btn-2 custom-btn w-100 mb-3 ps-3 rounded-corner"
-                    type="submit" [disabled]="addExpenseForm.invalid">Save</button>
-                </div>
-              </div>
-            </div>
+<div class="expense-page">
+
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="page-header__icon">
+      <i class="fas fa-wallet"></i>
+    </div>
+    <div>
+      <h1 class="page-header__title">Add Expense</h1>
+      <p class="page-header__sub">Record a new expense entry</p>
+    </div>
+  </div>
+
+  <!-- Split card -->
+  <div class="form-card">
+
+    <!-- Left: illustration pane -->
+    <div class="form-card__illustration">
+      <div class="illustration-bg">
+        <img src="assets/images/expense_bg.png" alt="Add expense" class="illustration-img" />
+      </div>
+      <div class="illustration-stats">
+        <div class="stat-chip">
+          <i class="fas fa-chart-pie"></i>
+          <span>Track every rupee</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: form pane -->
+    <div class="form-card__body">
+      <form [formGroup]="addExpenseForm" (ngSubmit)="addData()" class="expense-form">
+
+        <!-- Amount -->
+        <div class="field-group">
+          <label class="field-label">
+            <i class="fas fa-indian-rupee-sign label-icon"></i>
+            Amount
+          </label>
+          <div class="input-wrapper">
+            <span class="input-prefix">₹</span>
+            <input
+              class="field-input"
+              type="text"
+              placeholder="e.g. 500"
+              formControlName="amount"
+              [class.error]="addExpenseForm.get('amount')?.invalid && addExpenseForm.get('amount')?.touched"
+            />
+          </div>
+          <span class="field-error" *ngIf="addExpenseForm.get('amount')?.invalid && addExpenseForm.get('amount')?.touched">
+            Please enter a valid amount
+          </span>
+        </div>
+
+        <!-- Category -->
+        <div class="field-group">
+          <label class="field-label">
+            <i class="fas fa-tags label-icon"></i>
+            Category
+          </label>
+          <div class="input-wrapper select-wrapper">
+            <select
+              class="field-input field-select"
+              formControlName="category"
+              [class.error]="addExpenseForm.get('category')?.invalid && addExpenseForm.get('category')?.touched"
+            >
+              <option value="" disabled>Select a category...</option>
+              <option *ngFor="let cat of expenseCategories" [value]="cat">{{ cat }}</option>
+            </select>
+            <i class="fas fa-chevron-down select-arrow"></i>
+          </div>
+          <span class="field-error" *ngIf="addExpenseForm.get('category')?.invalid && addExpenseForm.get('category')?.touched">
+            Category is required
+          </span>
+        </div>
+
+        <!-- Payment Mode -->
+        <div class="field-group">
+          <label class="field-label">
+            <i class="fas fa-credit-card label-icon"></i>
+            Payment Mode
+          </label>
+          <div class="input-wrapper select-wrapper">
+            <select
+              class="field-input field-select"
+              formControlName="paymentMode"
+              [class.error]="addExpenseForm.get('paymentMode')?.invalid && addExpenseForm.get('paymentMode')?.touched"
+            >
+              <option value="" disabled>Select payment method...</option>
+              <option value="Cash">Cash</option>
+              <option value="UPI">UPI</option>
+              <option value="Credit Card">Credit Card</option>
+              <option value="Bank Transfer">Bank Transfer</option>
+            </select>
+            <i class="fas fa-chevron-down select-arrow"></i>
+          </div>
+          <span class="field-error" *ngIf="addExpenseForm.get('paymentMode')?.invalid && addExpenseForm.get('paymentMode')?.touched">
+            Payment mode is required
+          </span>
+        </div>
+
+        <!-- Date -->
+        <div class="field-group">
+          <label class="field-label">
+            <i class="fas fa-calendar label-icon"></i>
+            Date of Expense
+          </label>
+          <div class="input-wrapper">
+            <input
+              type="date"
+              class="field-input"
+              formControlName="dateOfExpense"
+              [class.error]="addExpenseForm.get('dateOfExpense')?.invalid && addExpenseForm.get('dateOfExpense')?.touched"
+            />
+          </div>
+          <span class="field-error" *ngIf="addExpenseForm.get('dateOfExpense')?.invalid && addExpenseForm.get('dateOfExpense')?.touched">
+            Date is required
+          </span>
+        </div>
+
+        <!-- Description -->
+        <div class="field-group">
+          <label class="field-label">
+            <i class="fas fa-file-lines label-icon"></i>
+            Description
+            <span class="label-optional">(optional)</span>
+          </label>
+          <div class="input-wrapper textarea-wrapper">
+            <textarea
+              class="field-input field-textarea"
+              formControlName="description"
+              placeholder="Add a note about this expense..."
+              rows="3"
+            ></textarea>
           </div>
         </div>
+
+        <!-- Submit -->
+        <button
+          class="submit-btn"
+          type="submit"
+          [disabled]="addExpenseForm.invalid"
+        >
+          <span class="submit-btn__text">
+            <i class="fas fa-plus-circle me-2"></i>Add Expense
+          </span>
+          <span class="submit-btn__ripple"></span>
+        </button>
+
       </form>
     </div>
   </div>

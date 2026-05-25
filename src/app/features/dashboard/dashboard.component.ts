@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe, DatePipe } from '@angular/common';
 import { IncomeService } from '../income/income.service';
 import { ExpenseService } from '../expense/expense.service';
 import { Transaction } from '../../core/models/income.model';
@@ -8,7 +8,7 @@ import { Transaction } from '../../core/models/income.model';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, DecimalPipe, DatePipe],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -42,7 +42,7 @@ export class DashboardComponent implements OnInit {
 
   loadIncome(): void {
     this.incomeService.getIncomes(this.userEmail).subscribe(data => {
-      this.totalIncome = data.reduce((sum, item) => sum + item.amount, 0);
+      this.totalIncome = data.reduce((sum, item) => sum + Number(item.amount.toString().replace(/,/g, '')), 0);
 
       const current = data.filter(item => {
         const d = new Date(item.dateOfIncome);
@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
 
   loadExpense(): void {
     this.expenseService.getExpenses(this.userEmail).subscribe(data => {
-      this.totalExpense = data.reduce((sum, item) => sum + item.amount, 0);
+      this.totalExpense = data.reduce((sum, item) => sum + Number(item.amount.toString().replace(/,/g, '')), 0);
 
       const current = data.filter(item => {
         const d = new Date(item.dateOfExpense);
@@ -100,5 +100,20 @@ export class DashboardComponent implements OnInit {
 
   abs(value: number): number {
     return Math.abs(value);
+  }
+
+  get userName(): string {
+    const email = sessionStorage.getItem('email') || '';
+    return email.split('@')[0] || 'there';
+  }
+
+  get spendingPercent(): number {
+    if (this.currentMonthIncome === 0) return 0;
+    return Math.min(Math.round((this.currentMonthExpense / this.currentMonthIncome) * 100), 100);
+  }
+
+  get savingsRate(): number {
+    if (this.currentMonthIncome === 0) return 0;
+    return Math.max(0, Math.round(((this.currentMonthIncome - this.currentMonthExpense) / this.currentMonthIncome) * 100));
   }
 }

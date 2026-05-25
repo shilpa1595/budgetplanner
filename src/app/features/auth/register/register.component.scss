@@ -8,3 +8,30 @@ $secondary_color: #0cc0df;
   i { color: $secondary_color; }
   .createacc { color: $secondary_color; cursor: pointer; }
 }
+
+.auth-lang {
+  position: fixed;
+  top: 16px;
+  right: 20px;
+  z-index: 999;
+
+  .lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e2235;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    transition: all 0.2s;
+
+    &:hover { border-color: $secondary_color; }
+    &::after { display: none; }
+    i { color: $secondary_color; }
+  }
+}

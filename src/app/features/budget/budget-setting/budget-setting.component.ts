@@ -3,8 +3,8 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BudgetService } from '../../../shared/budget.service';
-import { CategorylistService } from '../../../shared/categorylist.service';
+import { BudgetService } from '../../../shared/services/budget.service';
+import { CategorylistService } from '../../../shared/services/categorylist.service';
 import { ExpenseService } from '../../expense/expense.service';
 import { Categories } from '../../../core/models/budget.model';
 

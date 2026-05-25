@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgFor, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CategorylistService } from '../../shared/categorylist.service';
+import { CategorylistService } from '../../shared/services/categorylist.service';
 import { Categories } from '../../core/models/budget.model';
 
 @Component({

@@ -1,26 +1,41 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { LoaderService } from '../../../core/services/loader.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink, TranslateModule],
+  imports: [FormsModule, RouterLink, TranslateModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   login = { email: '', password: '' };
+  currentLang = 'en';
 
   private authService = inject(AuthService);
-  private router = inject(Router);
-  private loader = inject(LoaderService);
+  private router      = inject(Router);
+  private loader      = inject(LoaderService);
 
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(
+    private snackBar: MatSnackBar,
+    private translate: TranslateService
+  ) {}
+
+  ngOnInit(): void {
+    this.currentLang = localStorage.getItem('lang') || this.translate.getCurrentLang() || 'en';
+  }
+
+  switchLanguage(lang: string): void {
+    this.currentLang = lang;
+    this.translate.use(lang);
+    localStorage.setItem('lang', lang);
+  }
 
   onLogin(): void {
     const { email, password } = this.login;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ExpenseService } from '../expense.service';
 import { Expense } from '../../../core/models/expense.model';
@@ -8,7 +9,7 @@ import { Expense } from '../../../core/models/expense.model';
 @Component({
   selector: 'app-expense-list',
   standalone: true,
-  imports: [FormsModule, NgFor, NgIf],
+  imports: [FormsModule, NgFor, NgIf, DecimalPipe, DatePipe, RouterLink],
   templateUrl: './expense-list.component.html',
   styleUrl: './expense-list.component.scss'
 })
@@ -18,6 +19,8 @@ export class ExpenseListComponent implements OnInit {
   selectedMonth = '';
   userEmail: string = sessionStorage.getItem('email') || '';
   totalExpense = 0;
+  avgExpense = 0;
+  highestExpense = 0;
   selectedExpense: Expense | null = null;
 
   constructor(private expenseService: ExpenseService, private snackBar: MatSnackBar) {}
@@ -55,6 +58,10 @@ export class ExpenseListComponent implements OnInit {
       });
     }
     this.totalExpense = this.filteredExpenses.reduce((sum, e) => sum + +e.amount, 0);
+    this.avgExpense = this.filteredExpenses.length ? this.totalExpense / this.filteredExpenses.length : 0;
+    this.highestExpense = this.filteredExpenses.length
+      ? Math.max(...this.filteredExpenses.map(e => +e.amount))
+      : 0;
   }
 
   deleteExpense(id: number | undefined): void {

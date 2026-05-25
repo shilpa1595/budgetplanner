@@ -1,0 +1,39 @@
+// ── Expense feature — shared design tokens ──────────────────────
+// Import via:  @use '../expense-tokens' as t;
+
+// Brand / accent  (rose-red palette)
+$accent:        #f43f5e;
+$accent-dark:   #e11d48;
+
+// Illustration gradient
+$gradient-start: #f43f5e;
+$gradient-end:   #be123c;
+
+// Status colours
+$success:       #22c55e;
+$danger:        #ef4444;
+$warning:       #f59e0b;
+
+// Payment mode colours
+$pm-cash:       #16a34a;
+$pm-upi:        #7c3aed;
+$pm-card:       #2563eb;
+$pm-bank:       #ea580c;
+
+// Text
+$text-dark:     #1e2235;
+$text-muted:    #64748b;
+
+// Surfaces
+$input-bg:      #f8fafc;
+$input-border:  #e2e8f0;
+$page-bg:       #f1f5f9;
+
+// Radii
+$radius-sm:  8px;
+$radius-md:  12px;
+$radius-lg:  20px;
+
+// Shadows
+$shadow-card:  0 4px 24px rgba(0, 0, 0, 0.07);
+$shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.12);

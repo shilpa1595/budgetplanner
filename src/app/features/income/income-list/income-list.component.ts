@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IncomeService } from '../income.service';
@@ -9,7 +9,7 @@ import { Income } from '../../../core/models/income.model';
 @Component({
   selector: 'app-income-list',
   standalone: true,
-  imports: [FormsModule, NgFor, NgIf, RouterLink],
+  imports: [FormsModule, NgFor, NgIf, RouterLink, DecimalPipe, DatePipe],
   templateUrl: './income-list.component.html',
   styleUrl: './income-list.component.scss'
 })

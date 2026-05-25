@@ -1,3 +1,16 @@
+<!-- Language switcher — top-right corner, visible before login -->
+<div class="auth-lang dropdown">
+  <button class="lang-btn dropdown-toggle" type="button"
+    data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fa-solid fa-globe"></i>
+    <span>{{ currentLang | uppercase }}</span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item" (click)="switchLanguage('en')">🇬🇧 English</button></li>
+    <li><button class="dropdown-item" (click)="switchLanguage('mr')">🇮🇳 मराठी</button></li>
+  </ul>
+</div>
+
 <div class="container py-5 mt-4">
   <div class="row">
     <div class="col-md-8 mx-auto">

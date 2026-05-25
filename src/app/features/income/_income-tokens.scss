@@ -1,0 +1,33 @@
+// ── Income feature — shared design tokens ──────────────────────
+// Import via:  @use '../income-tokens' as t;
+
+// Brand / accent
+$accent:        #0cc0df;
+$accent-dark:   #0099b8;
+
+// Illustration gradient
+$gradient-start: #0cc0df;
+$gradient-end:   #006fa8;
+
+// Status colours
+$success:       #22c55e;
+$danger:        #ef4444;
+$warning:       #f59e0b;
+
+// Text
+$text-dark:     #1e2235;
+$text-muted:    #64748b;
+
+// Surfaces
+$input-bg:      #f8fafc;
+$input-border:  #e2e8f0;
+$page-bg:       #f1f5f9;
+
+// Radii
+$radius-sm:  8px;
+$radius-md:  12px;
+$radius-lg:  20px;
+
+// Shadows
+$shadow-card:  0 4px 24px rgba(0, 0, 0, 0.07);
+$shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.12);

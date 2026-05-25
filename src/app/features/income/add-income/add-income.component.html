@@ -1,37 +1,105 @@
-<div class="container py-5">
-  <div class="row">
-    <div class="col-md-8 mx-auto">
-      <form class="row g-3 shadow-lg p-5 rounded formWrapper" [formGroup]="addIncomeForm" (ngSubmit)="addData()">
-        <div class="col-md-12 mt-0">
-          <div class="row align-items-center">
-            <div class="col-md-6">
-              <img src="assets/images/add-income.png" alt="add income" width="100%" />
-            </div>
-            <div class="col-md-6">
-              <div class="row">
-                <h3 class="text-center colored-text mb-5 fw-bold">Add Income Details</h3>
-                <div class="col-md-12 mb-3">
-                  <input class="form-control rounded-corner ps-3" type="text"
-                    placeholder="eg. 10,000" formControlName="amount" />
-                </div>
-                <div class="col-md-12 mb-3">
-                  <select class="form-select rounded-corner ps-3" formControlName="category">
-                    <option selected disabled value="">Income Category..</option>
-                    <option *ngFor="let cat of incomeCategories" [value]="cat">{{ cat }}</option>
-                  </select>
-                </div>
-                <div class="col-md-12 mb-3">
-                  <input type="date" class="form-control rounded-corner ps-3"
-                    formControlName="dateOfIncome" placeholder="Date of Income" />
-                </div>
-                <div class="col-md-12 mt-4">
-                  <button class="btn-2 custom-btn w-100 rounded-corner mb-3"
-                    type="submit" [disabled]="addIncomeForm.invalid">Save</button>
-                </div>
-              </div>
-            </div>
-          </div>
+<div class="income-page">
+  <div class="page-header">
+    <div class="page-header__icon">
+      <i class="fas fa-plus-circle"></i>
+    </div>
+    <div>
+      <h1 class="page-header__title">Add Income</h1>
+      <p class="page-header__sub">Record a new income entry</p>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <div class="form-card__illustration">
+      <div class="illustration-bg">
+        <img src="assets/images/add-income.png" alt="Add income illustration" class="illustration-img" />
+      </div>
+      <div class="illustration-stats">
+        <div class="stat-chip">
+          <i class="fas fa-arrow-trend-up"></i>
+          <span>Track every rupee</span>
         </div>
+      </div>
+    </div>
+
+    <div class="form-card__body">
+      <form [formGroup]="addIncomeForm" (ngSubmit)="addData()" class="income-form">
+
+        <!-- Amount -->
+        <div class="field-group">
+          <label class="field-label">
+            <i class="fas fa-indian-rupee-sign label-icon"></i>
+            Amount
+          </label>
+          <div class="input-wrapper">
+            <span class="input-prefix">₹</span>
+            <input
+              class="field-input"
+              type="text"
+              placeholder="e.g. 10,000"
+              formControlName="amount"
+              [class.error]="addIncomeForm.get('amount')?.invalid && addIncomeForm.get('amount')?.touched"
+            />
+          </div>
+          <span class="field-error" *ngIf="addIncomeForm.get('amount')?.invalid && addIncomeForm.get('amount')?.touched">
+            Amount is required
+          </span>
+        </div>
+
+        <!-- Category -->
+        <div class="field-group">
+          <label class="field-label">
+            <i class="fas fa-tags label-icon"></i>
+            Category
+          </label>
+          <div class="input-wrapper select-wrapper">
+            <select
+              class="field-input field-select"
+              formControlName="category"
+              [class.error]="addIncomeForm.get('category')?.invalid && addIncomeForm.get('category')?.touched"
+            >
+              <option value="" disabled selected>Select a category...</option>
+              <option *ngFor="let cat of incomeCategories" [value]="cat">{{ cat }}</option>
+            </select>
+            <i class="fas fa-chevron-down select-arrow"></i>
+          </div>
+          <span class="field-error" *ngIf="addIncomeForm.get('category')?.invalid && addIncomeForm.get('category')?.touched">
+            Category is required
+          </span>
+        </div>
+
+        <!-- Date -->
+        <div class="field-group">
+          <label class="field-label">
+            <i class="fas fa-calendar label-icon"></i>
+            Date of Income
+          </label>
+          <div class="input-wrapper">
+            <input
+              type="date"
+              class="field-input"
+              formControlName="dateOfIncome"
+              [class.error]="addIncomeForm.get('dateOfIncome')?.invalid && addIncomeForm.get('dateOfIncome')?.touched"
+            />
+          </div>
+          <span class="field-error" *ngIf="addIncomeForm.get('dateOfIncome')?.invalid && addIncomeForm.get('dateOfIncome')?.touched">
+            Date is required
+          </span>
+        </div>
+
+        <!-- Submit -->
+        <button
+          class="submit-btn"
+          type="submit"
+          [disabled]="addIncomeForm.invalid"
+          [class.loading]="false"
+        >
+          <span class="submit-btn__text">
+            <i class="fas fa-check-circle me-2"></i>Save Income
+          </span>
+          <span class="submit-btn__ripple"></span>
+        </button>
+
       </form>
     </div>
   </div>

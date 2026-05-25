@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ExpenseService } from '../expense.service';
-import { CategorylistService } from '../../../shared/categorylist.service';
+import { CategorylistService } from '../../../shared/services/categorylist.service';
 import { Expense } from '../../../core/models/expense.model';
 
 @Component({

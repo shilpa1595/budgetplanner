@@ -1,4 +1,294 @@
-$secondary_color: #0cc0df;
-.colored-text { color: $secondary_color; }
-.rounded-corner { border-radius: 30px; }
-.formWrapper i { color: $secondary_color; }
+// ── Design tokens ────────────────────────────────────────────
+@use '../income-tokens' as t;
+
+// ── Page layout ──────────────────────────────────────────────
+.income-page {
+  padding: 28px 24px 48px;
+  animation: fadeSlideUp 0.45s ease both;
+}
+
+// ── Page header ──────────────────────────────────────────────
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+
+  &__icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, t.$accent, t.$accent-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 6px 16px rgba(t.$accent, 0.35);
+
+    i { color: #fff; font-size: 22px; }
+  }
+
+  &__title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: t.$text-dark;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  &__sub {
+    font-size: 0.875rem;
+    color: t.$text-muted;
+    margin: 4px 0 0;
+  }
+}
+
+// ── Form card ────────────────────────────────────────────────
+.form-card {
+  background: #fff;
+  border-radius: t.$radius-lg;
+  box-shadow: t.$shadow-card;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  animation: fadeSlideUp 0.5s 0.1s ease both;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Left: illustration pane ───────────────────────────────────
+.form-card__illustration {
+  background: linear-gradient(145deg, t.$gradient-start, t.$gradient-end);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 32px;
+  position: relative;
+  overflow: hidden;
+
+  // Decorative circles
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+  }
+  &::before { width: 220px; height: 220px; top: -60px; right: -60px; }
+  &::after  { width: 160px; height: 160px; bottom: -40px; left: -40px; }
+
+  @media (max-width: 768px) { display: none; }
+}
+
+.illustration-bg {
+  width: 100%;
+  max-width: 260px;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.15));
+  animation: floatImg 4s ease-in-out infinite;
+}
+
+.illustration-img { width: 100%; }
+
+.illustration-stats {
+  margin-top: 24px;
+  z-index: 1;
+}
+
+.stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  padding: 8px 18px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+
+  i { font-size: 15px; }
+}
+
+// ── Right: form pane ─────────────────────────────────────────
+.form-card__body {
+  padding: 44px 40px;
+
+  @media (max-width: 576px) { padding: 28px 20px; }
+}
+
+// ── Form ─────────────────────────────────────────────────────
+.income-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+// ── Field group ───────────────────────────────────────────────
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  animation: fadeSlideUp 0.4s ease both;
+
+  @for $i from 1 through 4 {
+    &:nth-child(#{$i}) { animation-delay: #{$i * 0.07}s; }
+  }
+}
+
+.field-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: t.$text-dark;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.label-icon { color: t.$accent; font-size: 12px; }
+
+// ── Input wrapper ─────────────────────────────────────────────
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: t.$input-bg;
+  border: 1.5px solid t.$input-border;
+  border-radius: t.$radius-md;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+
+  &:focus-within {
+    border-color: t.$accent;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(t.$accent, 0.12);
+  }
+
+  &.select-wrapper { overflow: hidden; }
+}
+
+.input-prefix {
+  padding: 0 6px 0 14px;
+  font-weight: 700;
+  color: t.$text-muted;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.select-arrow {
+  position: absolute;
+  right: 14px;
+  color: t.$text-muted;
+  font-size: 11px;
+  pointer-events: none;
+}
+
+.field-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 13px 14px;
+  font-size: 15px;
+  color: t.$text-dark;
+  width: 100%;
+
+  &::placeholder { color: #b0b8c8; }
+
+  &.field-select {
+    appearance: none;
+    cursor: pointer;
+    padding-right: 36px;
+  }
+
+  &.error ~ .input-wrapper,
+  &.error {
+    border-color: t.$danger !important;
+  }
+}
+
+// Error on wrapper when input inside has .error class
+.input-wrapper:has(.error) {
+  border-color: t.$danger;
+  box-shadow: 0 0 0 3px rgba(t.$danger, 0.1);
+}
+
+.field-error {
+  font-size: 12px;
+  color: t.$danger;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  animation: fadeIn 0.2s ease;
+
+  &::before { content: '⚠'; font-size: 11px; }
+}
+
+// ── Submit button ─────────────────────────────────────────────
+.submit-btn {
+  position: relative;
+  overflow: hidden;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, t.$accent, t.$accent-dark);
+  color: #fff;
+  border: none;
+  border-radius: t.$radius-md;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  box-shadow: 0 6px 20px rgba(t.$accent, 0.4);
+  margin-top: 4px;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(t.$accent, 0.5);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  &__text { position: relative; z-index: 1; }
+
+  // Ripple on click
+  &__ripple {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 70%);
+    opacity: 0;
+    transform: scale(0);
+    transition: transform 0.5s, opacity 0.5s;
+  }
+
+  &:active &__ripple {
+    opacity: 1;
+    transform: scale(2.5);
+    transition: none;
+  }
+}
+
+// ── Keyframes ─────────────────────────────────────────────────
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes floatImg {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}

@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { RegisterPostData } from '../../../core/models/user.model';
 import { passwordMatchValidator } from '../../../shared/directives/password-mismatch.directive';
@@ -15,10 +15,25 @@ import { passwordMatchValidator } from '../../../shared/directives/password-mism
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   private registerService = inject(AuthService);
+  currentLang = 'en';
 
-  constructor(private snackBar: MatSnackBar, private router: Router) {}
+  constructor(
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private translate: TranslateService
+  ) {}
+
+  ngOnInit(): void {
+    this.currentLang = localStorage.getItem('lang') || this.translate.getCurrentLang() || 'en';
+  }
+
+  switchLanguage(lang: string): void {
+    this.currentLang = lang;
+    this.translate.use(lang);
+    localStorage.setItem('lang', lang);
+  }
 
   registerForm = new FormGroup({
     uname:     new FormControl('', [Validators.required]),

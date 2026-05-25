@@ -1,1 +1,548 @@
-.expenseList { padding: 30px 0 50px; min-height: 100vh; }
+// ── Design tokens ────────────────────────────────────────────
+@use '../expense-tokens' as t;
+
+// ── Page ──────────────────────────────────────────────────────
+.expense-page {
+  padding: 28px 24px 48px;
+  animation: fadeSlideUp 0.45s ease both;
+}
+
+// ── Page header ───────────────────────────────────────────────
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+
+  &__icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, t.$accent, t.$accent-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 6px 16px rgba(t.$accent, 0.35);
+    i { color: #fff; font-size: 22px; }
+  }
+
+  &__text { flex: 1; }
+  &__title { font-size: 1.6rem; font-weight: 700; color: t.$text-dark; margin: 0; }
+  &__sub   { font-size: 0.875rem; color: t.$text-muted; margin: 4px 0 0; }
+}
+
+// ── Add button ────────────────────────────────────────────────
+.add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  background: linear-gradient(135deg, t.$accent, t.$accent-dark);
+  color: #fff;
+  border-radius: t.$radius-md;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(t.$accent, 0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(t.$accent, 0.45);
+    color: #fff;
+  }
+
+  &--sm {
+    padding: 9px 18px;
+    font-size: 13px;
+  }
+}
+
+// ── Stats row ────────────────────────────────────────────────
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: t.$radius-md;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: t.$shadow-card;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: fadeSlideUp 0.45s ease both;
+
+  @for $i from 1 through 3 {
+    &:nth-child(#{$i}) { animation-delay: #{$i * 0.08}s; }
+  }
+
+  &:hover { transform: translateY(-3px); box-shadow: t.$shadow-hover; }
+
+  &__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  &__label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: t.$text-muted;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  &__value {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: t.$text-dark;
+    display: block;
+  }
+
+  &--expense .stat-card__icon {
+    background: rgba(t.$accent, 0.12);
+    color: t.$accent;
+  }
+
+  &--count .stat-card__icon {
+    background: rgba(245, 158, 11, 0.12);
+    color: t.$warning;
+  }
+
+  &--avg .stat-card__icon {
+    background: rgba(t.$success, 0.12);
+    color: t.$success;
+  }
+}
+
+// ── List card ────────────────────────────────────────────────
+.list-card {
+  background: #fff;
+  border-radius: t.$radius-lg;
+  box-shadow: t.$shadow-card;
+  overflow: hidden;
+  animation: fadeSlideUp 0.5s 0.2s ease both;
+}
+
+// ── Toolbar ───────────────────────────────────────────────────
+.list-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid #f0f4f8;
+  flex-wrap: wrap;
+}
+
+.month-picker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: t.$input-bg;
+  border: 1.5px solid t.$input-border;
+  border-radius: t.$radius-md;
+  padding: 10px 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus-within {
+    border-color: t.$accent;
+    box-shadow: 0 0 0 3px rgba(t.$accent, 0.12);
+  }
+}
+
+.picker-icon { color: t.$accent; font-size: 15px; }
+
+.month-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: t.$text-dark;
+  cursor: pointer;
+}
+
+.toolbar-count {
+  font-size: 13px;
+  color: t.$text-muted;
+  font-weight: 500;
+}
+
+// ── Table ─────────────────────────────────────────────────────
+.table-wrap { overflow-x: auto; }
+
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead tr {
+    background: #f8fafc;
+    border-bottom: 2px solid #e8eef4;
+  }
+
+  th {
+    padding: 14px 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: t.$text-muted;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  td { padding: 15px 20px; border-bottom: 1px solid #f0f4f8; vertical-align: middle; }
+}
+
+// ── Table rows ────────────────────────────────────────────────
+.table-row {
+  transition: background 0.15s;
+  animation: rowIn 0.35s ease both;
+
+  &:hover { background: #fff5f6; }
+  &:last-child td { border-bottom: none; }
+}
+
+@keyframes rowIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+// ── Cells ─────────────────────────────────────────────────────
+.cell-amount .amount-badge {
+  font-size: 15px;
+  font-weight: 800;
+  color: t.$accent;
+}
+
+.cell-category .category-pill {
+  display: inline-block;
+  background: rgba(t.$accent, 0.1);
+  color: t.$accent-dark;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cell-date {
+  font-size: 14px;
+  color: t.$text-muted;
+  white-space: nowrap;
+  i { color: t.$accent; margin-right: 5px; }
+}
+
+// ── Payment badge ─────────────────────────────────────────────
+.payment-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  &--cash {
+    background: rgba(t.$pm-cash, 0.12);
+    color: t.$pm-cash;
+  }
+  &--upi {
+    background: rgba(t.$pm-upi, 0.12);
+    color: t.$pm-upi;
+  }
+  &--card {
+    background: rgba(t.$pm-card, 0.12);
+    color: t.$pm-card;
+  }
+  &--bank {
+    background: rgba(t.$pm-bank, 0.12);
+    color: t.$pm-bank;
+  }
+}
+
+// ── Description cell ──────────────────────────────────────────
+.cell-desc .desc-text {
+  font-size: 13px;
+  color: t.$text-muted;
+  max-width: 180px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.cell-actions { white-space: nowrap; }
+
+// ── Action buttons ────────────────────────────────────────────
+.action-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  & + & { margin-left: 6px; }
+
+  &--edit {
+    background: rgba(t.$accent, 0.1);
+    color: t.$accent-dark;
+    &:hover { background: t.$accent; color: #fff; transform: scale(1.1); }
+  }
+
+  &--delete {
+    background: rgba(t.$danger, 0.1);
+    color: t.$danger;
+    &:hover { background: t.$danger; color: #fff; transform: scale(1.1); }
+  }
+}
+
+// ── Empty state ───────────────────────────────────────────────
+.empty-cell { padding: 0 !important; border: none !important; }
+
+.empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  animation: fadeSlideUp 0.4s ease;
+
+  &__icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #f0f4f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    i { font-size: 28px; color: #b0bec8; }
+  }
+
+  &__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: t.$text-dark;
+    margin-bottom: 8px;
+  }
+
+  &__sub {
+    font-size: 14px;
+    color: t.$text-muted;
+    margin-bottom: 20px;
+  }
+}
+
+// ── Edit Modal ────────────────────────────────────────────────
+.edit-modal {
+  border: none;
+  border-radius: t.$radius-lg;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px 20px;
+    border-bottom: 1px solid #f0f4f8;
+  }
+
+  &__title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  &__icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, t.$accent, t.$accent-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    i { color: #fff; font-size: 17px; }
+  }
+
+  &__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: t.$text-dark;
+    margin: 0;
+  }
+
+  &__sub {
+    font-size: 13px;
+    color: t.$text-muted;
+    margin: 2px 0 0;
+  }
+
+  &__close {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    border: none;
+    background: #f0f4f8;
+    color: t.$text-muted;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    &:hover { background: t.$accent; color: #fff; }
+  }
+
+  &__body {
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__footer {
+    display: flex;
+    gap: 12px;
+    padding: 20px 28px 24px;
+    border-top: 1px solid #f0f4f8;
+  }
+}
+
+// Modal fields
+.modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modal-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: t.$text-dark;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  i { color: t.$accent; font-size: 11px; }
+}
+
+.modal-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: t.$input-bg;
+  border: 1.5px solid t.$input-border;
+  border-radius: t.$radius-md;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus-within {
+    border-color: t.$accent;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(t.$accent, 0.12);
+  }
+
+  &.select-wrap { overflow: hidden; }
+}
+
+.modal-prefix {
+  padding: 0 6px 0 12px;
+  font-weight: 700;
+  color: t.$text-muted;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.modal-arrow {
+  position: absolute;
+  right: 12px;
+  color: t.$text-muted;
+  font-size: 10px;
+  pointer-events: none;
+}
+
+.modal-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 11px 12px;
+  font-size: 14px;
+  color: t.$text-dark;
+  width: 100%;
+
+  &::placeholder { color: #b0b8c8; }
+
+  &.modal-select {
+    appearance: none;
+    cursor: pointer;
+    padding-right: 32px;
+  }
+
+  &.modal-textarea {
+    resize: vertical;
+    line-height: 1.5;
+    min-height: 60px;
+  }
+}
+
+.modal-cancel-btn {
+  flex: 1;
+  padding: 11px 20px;
+  background: #f0f4f8;
+  color: t.$text-dark;
+  border: none;
+  border-radius: t.$radius-md;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  &:hover { background: #e2e8f0; }
+}
+
+.modal-save-btn {
+  flex: 2;
+  padding: 11px 20px;
+  background: linear-gradient(135deg, t.$accent, t.$accent-dark);
+  color: #fff;
+  border: none;
+  border-radius: t.$radius-md;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(t.$accent, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(t.$accent, 0.5);
+  }
+}
+
+// ── Keyframes ─────────────────────────────────────────────────
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

@@ -1,106 +1,260 @@
-<section class="expenseList">
-  <div class="container py-5 px-0">
-    <div class="row">
-      <div class="col-md-12">
-        <h2 class="mb-2">Expense List</h2>
-        <div class="row mb-4">
-          <div class="col-md-4">
-            <label>Select Month:</label>
-            <input type="month" class="form-control" [(ngModel)]="selectedMonth" (change)="filterByMonth()" />
-          </div>
-          <div class="col-md-8 d-flex align-items-end justify-content-md-end">
-            <span class="fw-bold text-danger me-3">Total: ₹{{ totalExpense }}</span>
-          </div>
-        </div>
+<div class="expense-page">
 
-        <div class="table-responsive">
-          <table class="table table-bordered table-light table-striped text-center">
-            <thead class="table-dark">
-              <tr>
-                <th>Amount</th>
-                <th>Category</th>
-                <th>Date</th>
-                <th>Payment Method</th>
-                <th>Description</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngIf="filteredExpenses.length === 0">
-                <td colspan="6" class="text-center text-danger fw-bold">
-                  No data available for the selected month
-                </td>
-              </tr>
-              <tr *ngFor="let expense of filteredExpenses">
-                <td>{{ expense.amount }}</td>
-                <td>{{ expense.category }}</td>
-                <td>{{ expense.dateOfExpense }}</td>
-                <td>{{ expense.paymentMode }}</td>
-                <td>{{ expense.description }}</td>
-                <td>
-                  <button (click)="deleteExpense(expense.id)" class="btn btn-sm btn-danger me-2" title="Delete">
-                    <i class="fa-solid fa-xmark"></i>
-                  </button>
-                  <button data-bs-toggle="modal" data-bs-target="#editExpenseModal"
-                    (click)="openEditModal(expense)" class="btn btn-sm btn-info" title="Edit">
-                    <i class="fa-solid fa-pencil"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="page-header__icon">
+      <i class="fas fa-wallet"></i>
+    </div>
+    <div class="page-header__text">
+      <h1 class="page-header__title">Expense List</h1>
+      <p class="page-header__sub">Track and manage your spending</p>
+    </div>
+    <a routerLink="/expense/add-expense" class="add-btn ms-auto">
+      <i class="fas fa-plus"></i>
+      Add Expense
+    </a>
+  </div>
 
-        <!-- Edit Expense Modal -->
-        <div class="modal fade" id="editExpenseModal" tabindex="-1" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Edit Expense</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <form *ngIf="selectedExpense">
-                  <div class="mb-3">
-                    <label class="form-label">Amount</label>
-                    <input type="number" class="form-control" [(ngModel)]="selectedExpense.amount" name="amount" />
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">Category</label>
-                    <select class="form-select" [(ngModel)]="selectedExpense.category" name="category">
-                      <option value="Food">Food</option>
-                      <option value="Rent">Rent</option>
-                      <option value="Transport">Transport</option>
-                      <option value="Utilities">Utilities</option>
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">Date</label>
-                    <input type="date" class="form-control" [(ngModel)]="selectedExpense.dateOfExpense" name="dateOfExpense" />
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">Payment Method</label>
-                    <select class="form-select" [(ngModel)]="selectedExpense.paymentMode" name="paymentMode">
-                      <option value="Cash">Cash</option>
-                      <option value="UPI">UPI</option>
-                      <option value="Credit Card">Credit Card</option>
-                      <option value="Bank Transfer">Bank Transfer</option>
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">Description</label>
-                    <textarea class="form-control" [(ngModel)]="selectedExpense.description" name="description"></textarea>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" (click)="saveExpense()" data-bs-dismiss="modal">Save</button>
-              </div>
-            </div>
-          </div>
-        </div>
+  <!-- Stats row -->
+  <div class="stats-row">
+    <div class="stat-card stat-card--expense">
+      <div class="stat-card__icon">
+        <i class="fas fa-arrow-trend-down"></i>
+      </div>
+      <div>
+        <span class="stat-card__label">Month Total</span>
+        <span class="stat-card__value">₹{{ totalExpense | number:'1.0-0' }}</span>
+      </div>
+    </div>
+    <div class="stat-card stat-card--count">
+      <div class="stat-card__icon">
+        <i class="fas fa-receipt"></i>
+      </div>
+      <div>
+        <span class="stat-card__label">Transactions</span>
+        <span class="stat-card__value">{{ filteredExpenses.length }}</span>
+      </div>
+    </div>
+    <div class="stat-card stat-card--avg">
+      <div class="stat-card__icon">
+        <i class="fas fa-chart-bar"></i>
+      </div>
+      <div>
+        <span class="stat-card__label">Highest</span>
+        <span class="stat-card__value">₹{{ highestExpense | number:'1.0-0' }}</span>
       </div>
     </div>
   </div>
-</section>
+
+  <!-- List card -->
+  <div class="list-card">
+
+    <!-- Toolbar -->
+    <div class="list-toolbar">
+      <div class="month-picker">
+        <i class="fas fa-calendar-days picker-icon"></i>
+        <input
+          type="month"
+          class="month-input"
+          [(ngModel)]="selectedMonth"
+          (change)="filterByMonth()"
+        />
+      </div>
+      <span class="toolbar-count" *ngIf="filteredExpenses.length > 0">
+        {{ filteredExpenses.length }} record{{ filteredExpenses.length !== 1 ? 's' : '' }}
+      </span>
+      <a routerLink="/expense/add-expense" class="add-btn add-btn--sm ms-auto">
+        <i class="fas fa-plus"></i>
+        Add
+      </a>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <table class="expense-table">
+        <thead>
+          <tr>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Payment</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Empty state row -->
+          <tr *ngIf="filteredExpenses.length === 0">
+            <td colspan="6" class="empty-cell">
+              <div class="empty-state">
+                <div class="empty-state__icon">
+                  <i class="fas fa-wallet"></i>
+                </div>
+                <p class="empty-state__title">No expenses this month</p>
+                <p class="empty-state__sub">Start by adding your first expense</p>
+                <a routerLink="/expense/add-expense" class="add-btn add-btn--sm">
+                  <i class="fas fa-plus"></i>
+                  Add Expense
+                </a>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Data rows -->
+          <tr
+            *ngFor="let expense of filteredExpenses; let i = index"
+            class="table-row"
+            [style.animation-delay]="i * 0.04 + 's'"
+          >
+            <td class="cell-amount">
+              <span class="amount-badge">₹{{ expense.amount | number:'1.0-0' }}</span>
+            </td>
+            <td class="cell-category">
+              <span class="category-pill">{{ expense.category }}</span>
+            </td>
+            <td class="cell-date">
+              <i class="fas fa-calendar-check"></i>
+              {{ expense.dateOfExpense | date:'dd MMM yyyy' }}
+            </td>
+            <td class="cell-payment">
+              <span class="payment-badge"
+                [class.payment-badge--cash]="expense.paymentMode === 'Cash'"
+                [class.payment-badge--upi]="expense.paymentMode === 'UPI'"
+                [class.payment-badge--card]="expense.paymentMode === 'Credit Card'"
+                [class.payment-badge--bank]="expense.paymentMode === 'Bank Transfer'"
+              >
+                <i class="fas"
+                  [class.fa-money-bill-wave]="expense.paymentMode === 'Cash'"
+                  [class.fa-mobile-screen]="expense.paymentMode === 'UPI'"
+                  [class.fa-credit-card]="expense.paymentMode === 'Credit Card'"
+                  [class.fa-building-columns]="expense.paymentMode === 'Bank Transfer'"
+                ></i>
+                {{ expense.paymentMode }}
+              </span>
+            </td>
+            <td class="cell-desc">
+              <span class="desc-text" [title]="expense.description || ''">
+                {{ expense.description || '—' }}
+              </span>
+            </td>
+            <td class="cell-actions">
+              <button
+                class="action-btn action-btn--edit"
+                data-bs-toggle="modal"
+                data-bs-target="#editExpenseModal"
+                (click)="openEditModal(expense)"
+                title="Edit"
+              >
+                <i class="fas fa-pen"></i>
+              </button>
+              <button
+                class="action-btn action-btn--delete"
+                (click)="deleteExpense(expense.id)"
+                title="Delete"
+              >
+                <i class="fas fa-trash-can"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── Edit Expense Modal ──────────────────────────────────── -->
+<div class="modal fade" id="editExpenseModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content edit-modal">
+
+      <div class="edit-modal__header">
+        <div class="edit-modal__title-wrap">
+          <div class="edit-modal__icon">
+            <i class="fas fa-pen-to-square"></i>
+          </div>
+          <div>
+            <h5 class="edit-modal__title">Edit Expense</h5>
+            <p class="edit-modal__sub">Update the record below</p>
+          </div>
+        </div>
+        <button type="button" class="edit-modal__close" data-bs-dismiss="modal" aria-label="Close">
+          <i class="fas fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="edit-modal__body" *ngIf="selectedExpense">
+        <!-- Amount -->
+        <div class="modal-field">
+          <label class="modal-label">
+            <i class="fas fa-indian-rupee-sign"></i> Amount
+          </label>
+          <div class="modal-input-wrap">
+            <span class="modal-prefix">₹</span>
+            <input type="number" class="modal-input" [(ngModel)]="selectedExpense.amount" name="amount" placeholder="0" />
+          </div>
+        </div>
+        <!-- Category -->
+        <div class="modal-field">
+          <label class="modal-label">
+            <i class="fas fa-tags"></i> Category
+          </label>
+          <div class="modal-input-wrap select-wrap">
+            <select class="modal-input modal-select" [(ngModel)]="selectedExpense.category" name="category">
+              <option value="Food">Food</option>
+              <option value="Rent">Rent</option>
+              <option value="Transport">Transport</option>
+              <option value="Utilities">Utilities</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Other">Other</option>
+            </select>
+            <i class="fas fa-chevron-down modal-arrow"></i>
+          </div>
+        </div>
+        <!-- Payment Mode -->
+        <div class="modal-field">
+          <label class="modal-label">
+            <i class="fas fa-credit-card"></i> Payment Mode
+          </label>
+          <div class="modal-input-wrap select-wrap">
+            <select class="modal-input modal-select" [(ngModel)]="selectedExpense.paymentMode" name="paymentMode">
+              <option value="Cash">Cash</option>
+              <option value="UPI">UPI</option>
+              <option value="Credit Card">Credit Card</option>
+              <option value="Bank Transfer">Bank Transfer</option>
+            </select>
+            <i class="fas fa-chevron-down modal-arrow"></i>
+          </div>
+        </div>
+        <!-- Date -->
+        <div class="modal-field">
+          <label class="modal-label">
+            <i class="fas fa-calendar"></i> Date
+          </label>
+          <div class="modal-input-wrap">
+            <input type="date" class="modal-input" [(ngModel)]="selectedExpense.dateOfExpense" name="dateOfExpense" />
+          </div>
+        </div>
+        <!-- Description -->
+        <div class="modal-field">
+          <label class="modal-label">
+            <i class="fas fa-file-lines"></i> Description
+          </label>
+          <div class="modal-input-wrap">
+            <textarea class="modal-input modal-textarea" [(ngModel)]="selectedExpense.description" name="description" rows="2" placeholder="Optional note..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="edit-modal__footer">
+        <button type="button" class="modal-cancel-btn" data-bs-dismiss="modal">
+          <i class="fas fa-xmark me-1"></i>Cancel
+        </button>
+        <button type="button" class="modal-save-btn" (click)="saveExpense()" data-bs-dismiss="modal">
+          <i class="fas fa-check-circle me-1"></i>Save Changes
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

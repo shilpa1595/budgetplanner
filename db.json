@@ -70,6 +70,13 @@
       "dateOfIncome": "2026-05-25",
       "userEmail": "s@gmail.com",
       "id": "OdocZH-"
+    },
+    {
+      "amount": "100",
+      "category": "freelancing",
+      "dateOfIncome": "2026-05-18",
+      "userEmail": "s@gmail.com",
+      "id": "yUSW5Yi"
     }
   ],
   "expense": [
@@ -108,6 +115,15 @@
       "paymentMode": "Cash",
       "description": "",
       "userEmail": "gb@gmail.com"
+    },
+    {
+      "amount": "50",
+      "category": "food",
+      "dateOfExpense": "2026-05-19",
+      "paymentMode": "Cash",
+      "description": "",
+      "userEmail": "s@gmail.com",
+      "id": "1X1JVsJ"
     }
   ],
   "profiles": [

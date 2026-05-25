@@ -1,42 +1,117 @@
-<div class="container py-5">
-  <div class="row">
-    <div class="col-md-8 mx-auto">
-      <form class="row g-3 shadow-lg p-5 rounded formWrapper" [formGroup]="updateIncomeForm" (ngSubmit)="updateIncome()">
-        <div class="col-md-12 mt-0">
-          <div class="row align-items-center">
-            <div class="col-md-6">
-              <img src="assets/images/add-income.png" alt="edit income" width="100%" />
-            </div>
-            <div class="col-md-6">
-              <div class="row">
-                <h3 class="text-center colored-text mb-5 fw-bold">Update Income Details</h3>
-                <div class="col-md-12 mb-3">
-                  <input class="form-control rounded-corner ps-3" type="text"
-                    placeholder="eg. 10,000" formControlName="amount" />
-                </div>
-                <div class="col-md-12 mb-3">
-                  <select class="form-select rounded-corner ps-3" formControlName="category">
-                    <option selected disabled value="">Income Category..</option>
-                    <option>Salary</option>
-                    <option>Business Income</option>
-                    <option>Investment Returns</option>
-                    <option>Rental Income</option>
-                    <option>Freelance Income</option>
-                    <option>Other Income</option>
-                  </select>
-                </div>
-                <div class="col-md-12 mb-3">
-                  <input type="date" class="form-control rounded-corner ps-3"
-                    formControlName="dateOfIncome" placeholder="Date of Income" />
-                </div>
-                <div class="col-md-12 mt-4">
-                  <button class="btn-2 custom-btn w-100 rounded-corner mb-3"
-                    type="submit" [disabled]="updateIncomeForm.invalid">Update</button>
-                </div>
-              </div>
-            </div>
-          </div>
+<div class="income-page">
+  <div class="page-header">
+    <a routerLink="/income/income-list" class="back-btn" title="Back">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+    <div class="page-header__icon page-header__icon--edit">
+      <i class="fas fa-pen"></i>
+    </div>
+    <div>
+      <h1 class="page-header__title">Edit Income</h1>
+      <p class="page-header__sub">Update your income record</p>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <div class="form-card__illustration">
+      <div class="illustration-bg">
+        <img src="assets/images/add-income.png" alt="Edit income" class="illustration-img" />
+      </div>
+      <div class="illustration-stats">
+        <div class="stat-chip">
+          <i class="fas fa-pen-to-square"></i>
+          <span>Update record</span>
         </div>
+      </div>
+    </div>
+
+    <div class="form-card__body">
+      <form [formGroup]="updateIncomeForm" (ngSubmit)="updateIncome()" class="income-form">
+
+        <!-- Amount -->
+        <div class="field-group">
+          <label class="field-label">
+            <i class="fas fa-indian-rupee-sign label-icon"></i>
+            Amount
+          </label>
+          <div class="input-wrapper">
+            <span class="input-prefix">₹</span>
+            <input
+              class="field-input"
+              type="text"
+              placeholder="e.g. 10,000"
+              formControlName="amount"
+              [class.error]="updateIncomeForm.get('amount')?.invalid && updateIncomeForm.get('amount')?.touched"
+            />
+          </div>
+          <span class="field-error" *ngIf="updateIncomeForm.get('amount')?.invalid && updateIncomeForm.get('amount')?.touched">
+            Amount is required
+          </span>
+        </div>
+
+        <!-- Category -->
+        <div class="field-group">
+          <label class="field-label">
+            <i class="fas fa-tags label-icon"></i>
+            Category
+          </label>
+          <div class="input-wrapper select-wrapper">
+            <select
+              class="field-input field-select"
+              formControlName="category"
+              [class.error]="updateIncomeForm.get('category')?.invalid && updateIncomeForm.get('category')?.touched"
+            >
+              <option value="" disabled>Select a category...</option>
+              <option>Salary</option>
+              <option>Business Income</option>
+              <option>Investment Returns</option>
+              <option>Rental Income</option>
+              <option>Freelance Income</option>
+              <option>Other Income</option>
+            </select>
+            <i class="fas fa-chevron-down select-arrow"></i>
+          </div>
+          <span class="field-error" *ngIf="updateIncomeForm.get('category')?.invalid && updateIncomeForm.get('category')?.touched">
+            Category is required
+          </span>
+        </div>
+
+        <!-- Date -->
+        <div class="field-group">
+          <label class="field-label">
+            <i class="fas fa-calendar label-icon"></i>
+            Date of Income
+          </label>
+          <div class="input-wrapper">
+            <input
+              type="date"
+              class="field-input"
+              formControlName="dateOfIncome"
+              [class.error]="updateIncomeForm.get('dateOfIncome')?.invalid && updateIncomeForm.get('dateOfIncome')?.touched"
+            />
+          </div>
+          <span class="field-error" *ngIf="updateIncomeForm.get('dateOfIncome')?.invalid && updateIncomeForm.get('dateOfIncome')?.touched">
+            Date is required
+          </span>
+        </div>
+
+        <!-- Actions -->
+        <div class="form-actions">
+          <a routerLink="/income/income-list" class="cancel-btn">
+            <i class="fas fa-times me-2"></i>Cancel
+          </a>
+          <button
+            class="submit-btn"
+            type="submit"
+            [disabled]="updateIncomeForm.invalid"
+          >
+            <span class="submit-btn__text">
+              <i class="fas fa-check-circle me-2"></i>Update Income
+            </span>
+            <span class="submit-btn__ripple"></span>
+          </button>
+        </div>
+
       </form>
     </div>
   </div>

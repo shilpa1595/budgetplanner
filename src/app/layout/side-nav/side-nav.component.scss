@@ -1,120 +1,215 @@
-$brand-color: #8f5774;
-$brand-gradient: linear-gradient(135deg, #8f5774, #b7849b, #e5c6d1);
-$panel-width: 250px;
+// ── Variables ─────────────────────────────────────────────
+$nav-width:   260px;
+$nav-bg:      #1e2235;
+$nav-accent:  #0cc0df;
+$nav-text:    rgba(255, 255, 255, 0.75);
+$nav-text-active: #ffffff;
+$header-h:    64px;
 
-.toggle-btn {
-  position: fixed;
-  top: 13px;
-  left: 20px;
-  width: 40px;
-  height: 40px;
-  background: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1001;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  color: $brand-color;
-}
-
+// ── Backdrop (mobile only) ────────────────────────────────
 .backdrop {
+  display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
-  z-index: 999;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 998;
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  @media (max-width: 991px) {
+    display: block;
+    pointer-events: none;
+
+    &.visible { pointer-events: all; }
+  }
 }
 
-.side-panel {
+// ── Sidebar shell ─────────────────────────────────────────
+.sidenav {
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
-  width: $panel-width;
-  background: $brand-gradient;
-  z-index: 1000;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-  box-shadow: 4px 0 16px rgba(0, 0, 0, 0.2);
+  width: $nav-width;
+  background: $nav-bg;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease;
+  z-index: 999;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-  &.collapsed {
+  // Desktop — always visible, no transform needed
+  @media (min-width: 992px) {
+    transform: translateX(0) !important;
+  }
+
+  // Mobile — hidden by default, slides in when .open
+  @media (max-width: 991px) {
     transform: translateX(-100%);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
+
+    &.open {
+      transform: translateX(0);
+    }
   }
 }
 
+// ── Brand ─────────────────────────────────────────────────
 .brand {
-  padding: 20px 16px 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  height: $header-h;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
 
   .brand-logo {
-    width: 110px;
+    height: 34px;
     border-radius: 4px;
   }
 }
 
+// ── Nav list ──────────────────────────────────────────────
 .nav-list {
   flex: 1;
   padding: 16px 12px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
+
+  // Custom scrollbar
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
 }
 
+// ── Nav item ──────────────────────────────────────────────
 .nav-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 14px;
+  padding: 11px 14px;
   border-radius: 10px;
-  color: #fff;
+  color: $nav-text;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
-  transition: background 0.2s;
+  letter-spacing: 0.01em;
+  transition: all 0.2s;
   cursor: pointer;
+  position: relative;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.2);
+    color: $nav-text-active;
+    background: rgba(255, 255, 255, 0.08);
   }
 
   &.active {
-    background: rgba(255, 255, 255, 0.35);
-    font-weight: 700;
+    color: $nav-text-active;
+    background: rgba(12, 192, 223, 0.18);
+    font-weight: 600;
+
+    // Accent left bar
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 20%;
+      bottom: 20%;
+      width: 3px;
+      background: $nav-accent;
+      border-radius: 0 3px 3px 0;
+    }
+
+    .nav-icon { color: $nav-accent; }
   }
 
   .nav-icon {
     font-size: 20px;
     width: 20px;
     height: 20px;
+    flex-shrink: 0;
+    color: inherit;
   }
+
+  .nav-label { flex: 1; }
 }
 
-.side-footer {
-  padding: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
+// ── Footer: user info + logout ────────────────────────────
+.sidenav-footer {
+  padding: 14px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-.logout-btn {
+.user-block {
+  flex: 1;
   display: flex;
   align-items: center;
   gap: 10px;
-  width: 100%;
-  padding: 10px 14px;
-  border: none;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.15);
+  min-width: 0;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, $nav-accent, #0099b8);
   color: #fff;
+  font-weight: 700;
   font-size: 15px;
-  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+
+  .user-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: $nav-text-active;
+    line-height: 1.2;
+  }
+
+  .user-email {
+    font-size: 11px;
+    color: $nav-text;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.logout-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: $nav-text;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
+  flex-shrink: 0;
+
+  mat-icon { font-size: 18px; width: 18px; height: 18px; }
 
   &:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
   }
 }

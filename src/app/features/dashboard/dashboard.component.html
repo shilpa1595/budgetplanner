@@ -1,78 +1,259 @@
-<div class="container py-5">
-  <div class="row m-0">
-    <div class="alert alert-info text-center fw-bolder tracking-in-contract mb-5" role="alert">
-      <h4 class="mb-0">{{ currentMonthName }}</h4>
+<div class="dashboard-page">
+
+  <!-- ── Welcome header ──────────────────────────────────────── -->
+  <div class="dash-header">
+    <div class="dash-header__left">
+      <p class="dash-header__greeting">Hello, {{ userName }} 👋</p>
+      <h1 class="dash-header__title">{{ currentMonthName }} Overview</h1>
+      <p class="dash-header__sub">Here's how your finances look this month</p>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-4">
-      <div class="d-flex p-4 rounded border-2">
-        <div><img class="me-4" src="assets/images/money-bag.png" width="50px" /></div>
-        <div>
-          <h3>Income</h3>
-          <h5 class="text-success fw-bold">₹ {{ currentMonthIncome }}</h5>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="d-flex p-4 rounded border-2">
-        <div><img class="me-4" src="assets/images/spending.png" width="50px" /></div>
-        <div>
-          <h3>Expense</h3>
-          <h5 class="text-danger fw-bold">₹{{ currentMonthExpense }}</h5>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="d-flex p-4 rounded border-2">
-        <div><img class="me-4" src="assets/images/the-sum-of.png" width="50px" /></div>
-        <div>
-          <h3>Total</h3>
-          <h5 [ngClass]="total < 0 ? 'text-danger fw-bold' : 'text-success fw-bold'">
-            <ng-container *ngIf="total < 0; else positive">- ₹ {{ abs(total) }}</ng-container>
-            <ng-template #positive>₹ {{ total }}</ng-template>
-          </h5>
-        </div>
-      </div>
+    <div class="dash-header__actions">
+      <a routerLink="/income/add-income" class="action-chip action-chip--income">
+        <i class="fas fa-plus"></i> Add Income
+      </a>
+      <a routerLink="/expense/add-expense" class="action-chip action-chip--expense">
+        <i class="fas fa-minus"></i> Add Expense
+      </a>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-12 mt-5">
-      <div class="border text-center py-5" *ngIf="!isFound">
-        <div>
-          <img src="assets/images/box.png" width="200px" class="empty-img mb-3" />
-          <p class="mb-3">No record in this month. Click below to add income or expense.</p>
-          <a routerLink="/income/add-income"><button class="btn btn-add me-3">Add Income</button></a>
-          <a routerLink="/expense/add-expense"><button class="btn btn-add">Add Expense</button></a>
+  <!-- ── Stat cards ───────────────────────────────────────────── -->
+  <div class="stats-grid">
+
+    <!-- Income -->
+    <div class="stat-card stat-card--income">
+      <div class="stat-card__icon-wrap">
+        <i class="fas fa-arrow-trend-up"></i>
+      </div>
+      <div class="stat-card__body">
+        <span class="stat-card__label">Month Income</span>
+        <span class="stat-card__value">₹{{ currentMonthIncome | number:'1.0-0' }}</span>
+      </div>
+      <div class="stat-card__decoration"></div>
+    </div>
+
+    <!-- Expense -->
+    <div class="stat-card stat-card--expense">
+      <div class="stat-card__icon-wrap">
+        <i class="fas fa-arrow-trend-down"></i>
+      </div>
+      <div class="stat-card__body">
+        <span class="stat-card__label">Month Expenses</span>
+        <span class="stat-card__value">₹{{ currentMonthExpense | number:'1.0-0' }}</span>
+      </div>
+      <div class="stat-card__decoration"></div>
+    </div>
+
+    <!-- Net Balance -->
+    <div class="stat-card"
+      [class.stat-card--positive]="total >= 0"
+      [class.stat-card--negative]="total < 0">
+      <div class="stat-card__icon-wrap">
+        <i class="fas fa-scale-balanced"></i>
+      </div>
+      <div class="stat-card__body">
+        <span class="stat-card__label">Net Balance</span>
+        <span class="stat-card__value">
+          <ng-container *ngIf="total < 0; else positiveBalance">
+            − ₹{{ abs(total) | number:'1.0-0' }}
+          </ng-container>
+          <ng-template #positiveBalance>
+            ₹{{ total | number:'1.0-0' }}
+          </ng-template>
+        </span>
+      </div>
+      <div class="stat-card__decoration"></div>
+    </div>
+
+    <!-- Savings Rate -->
+    <div class="stat-card stat-card--savings">
+      <div class="stat-card__icon-wrap">
+        <i class="fas fa-piggy-bank"></i>
+      </div>
+      <div class="stat-card__body">
+        <span class="stat-card__label">Savings Rate</span>
+        <span class="stat-card__value">{{ savingsRate }}%</span>
+      </div>
+      <div class="stat-card__decoration"></div>
+    </div>
+
+  </div>
+
+  <!-- ── Body grid ────────────────────────────────────────────── -->
+  <div class="dash-body">
+
+    <!-- Left column: spending bar + transactions -->
+    <div class="dash-col dash-col--main">
+
+      <!-- Spending progress card -->
+      <div class="spending-card" *ngIf="currentMonthIncome > 0 || currentMonthExpense > 0">
+        <div class="spending-card__header">
+          <div>
+            <h3 class="spending-card__title">Budget Health</h3>
+            <p class="spending-card__sub">Spending vs income this month</p>
+          </div>
+          <div class="spending-pct-badge"
+            [class.spending-pct-badge--safe]="spendingPercent <= 60"
+            [class.spending-pct-badge--warn]="spendingPercent > 60 && spendingPercent <= 85"
+            [class.spending-pct-badge--danger]="spendingPercent > 85">
+            {{ spendingPercent }}%
+          </div>
+        </div>
+        <div class="spending-bar-wrap">
+          <div class="spending-bar">
+            <div class="spending-bar__fill"
+              [style.width.%]="spendingPercent"
+              [class.spending-bar__fill--safe]="spendingPercent <= 60"
+              [class.spending-bar__fill--warn]="spendingPercent > 60 && spendingPercent <= 85"
+              [class.spending-bar__fill--danger]="spendingPercent > 85">
+            </div>
+          </div>
+        </div>
+        <div class="spending-legend">
+          <div class="legend-item">
+            <span class="legend-dot legend-dot--income"></span>
+            <span class="legend-label">Income</span>
+            <span class="legend-value">₹{{ currentMonthIncome | number:'1.0-0' }}</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot legend-dot--expense"></span>
+            <span class="legend-label">Spent</span>
+            <span class="legend-value">₹{{ currentMonthExpense | number:'1.0-0' }}</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot legend-dot--saved"></span>
+            <span class="legend-label">Saved</span>
+            <span class="legend-value">₹{{ (total >= 0 ? total : 0) | number:'1.0-0' }}</span>
+          </div>
         </div>
       </div>
-      <div *ngIf="isFound">
-        <div class="reports">
-          <table class="table table-bordered table-light table-striped text-center">
-            <thead class="table-dark">
-              <tr>
-                <th>Amount</th>
-                <th>Category</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let txn of transactions">
-                <td [ngStyle]="{ color: txn.type === 'income' ? 'green' : 'red' }">
-                  {{ txn.type === 'income' ? '+' : '-' }}{{ txn.amount | currency: 'INR' }}
-                </td>
-                <td>{{ txn.category }}</td>
-                <td>{{ txn.date | date: 'MMM d, y' }}</td>
-              </tr>
-            </tbody>
-          </table>
+
+      <!-- Transactions card -->
+      <div class="txn-card">
+        <div class="txn-card__header">
+          <div>
+            <h3 class="txn-card__title">Recent Transactions</h3>
+            <p class="txn-card__sub">{{ currentMonthName }} activity</p>
+          </div>
+          <span class="txn-badge" *ngIf="isFound">{{ transactions.length }}</span>
         </div>
-        <div class="text-end">
-          <a routerLink="/income/add-income"><button class="btn-2 custom-btn me-3">Add Income</button></a>
-          <a routerLink="/expense/add-expense"><button class="btn-2 custom-btn">Add Expense</button></a>
+
+        <!-- Empty state -->
+        <div class="empty-state" *ngIf="!isFound">
+          <div class="empty-state__icon">
+            <i class="fas fa-inbox"></i>
+          </div>
+          <p class="empty-state__title">No records this month</p>
+          <p class="empty-state__sub">Start tracking your income and expenses</p>
+          <div class="empty-state__actions">
+            <a routerLink="/income/add-income" class="action-chip action-chip--income">
+              <i class="fas fa-plus"></i> Add Income
+            </a>
+            <a routerLink="/expense/add-expense" class="action-chip action-chip--expense">
+              <i class="fas fa-minus"></i> Add Expense
+            </a>
+          </div>
+        </div>
+
+        <!-- Transaction rows -->
+        <div class="txn-list" *ngIf="isFound">
+          <div
+            class="txn-row"
+            *ngFor="let txn of transactions; let i = index"
+            [style.animation-delay]="(i * 0.04) + 's'"
+          >
+            <div class="txn-row__icon-wrap"
+              [class.txn-row__icon-wrap--income]="txn.type === 'income'"
+              [class.txn-row__icon-wrap--expense]="txn.type === 'expense'">
+              <i class="fas"
+                [class.fa-arrow-down-long]="txn.type === 'income'"
+                [class.fa-arrow-up-long]="txn.type === 'expense'">
+              </i>
+            </div>
+            <div class="txn-row__details">
+              <span class="txn-row__category">{{ txn.category }}</span>
+              <span class="txn-row__date">
+                <i class="fas fa-calendar-days"></i>
+                {{ txn.date | date:'dd MMM yyyy' }}
+              </span>
+            </div>
+            <div class="txn-row__right">
+              <span class="txn-row__amount"
+                [class.txn-row__amount--income]="txn.type === 'income'"
+                [class.txn-row__amount--expense]="txn.type === 'expense'">
+                {{ txn.type === 'income' ? '+' : '−' }} ₹{{ txn.amount | number:'1.0-0' }}
+              </span>
+              <span class="txn-row__type-badge"
+                [class.txn-row__type-badge--income]="txn.type === 'income'"
+                [class.txn-row__type-badge--expense]="txn.type === 'expense'">
+                {{ txn.type }}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+
+    <!-- Right column: quick actions + totals -->
+    <div class="dash-col dash-col--side">
+
+      <!-- All-time totals -->
+      <div class="totals-card">
+        <h3 class="totals-card__title">All-Time Summary</h3>
+        <div class="totals-item totals-item--income">
+          <div class="totals-item__icon"><i class="fas fa-wallet"></i></div>
+          <div class="totals-item__body">
+            <span class="totals-item__label">Total Income</span>
+            <span class="totals-item__value">₹{{ totalIncome | number:'1.0-0' }}</span>
+          </div>
+        </div>
+        <div class="totals-divider"></div>
+        <div class="totals-item totals-item--expense">
+          <div class="totals-item__icon"><i class="fas fa-credit-card"></i></div>
+          <div class="totals-item__body">
+            <span class="totals-item__label">Total Expenses</span>
+            <span class="totals-item__value">₹{{ totalExpense | number:'1.0-0' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick actions -->
+      <div class="quick-actions-card">
+        <h3 class="quick-actions-card__title">Quick Actions</h3>
+        <a routerLink="/income/add-income" class="quick-action-btn quick-action-btn--income">
+          <div class="quick-action-btn__icon"><i class="fas fa-plus"></i></div>
+          <div class="quick-action-btn__text">
+            <span class="quick-action-btn__label">Add Income</span>
+            <span class="quick-action-btn__hint">Record a new income entry</span>
+          </div>
+          <i class="fas fa-chevron-right quick-action-btn__arrow"></i>
+        </a>
+        <a routerLink="/expense/add-expense" class="quick-action-btn quick-action-btn--expense">
+          <div class="quick-action-btn__icon"><i class="fas fa-minus"></i></div>
+          <div class="quick-action-btn__text">
+            <span class="quick-action-btn__label">Add Expense</span>
+            <span class="quick-action-btn__hint">Record a new expense</span>
+          </div>
+          <i class="fas fa-chevron-right quick-action-btn__arrow"></i>
+        </a>
+        <a routerLink="/income/income-list" class="quick-action-btn quick-action-btn--neutral">
+          <div class="quick-action-btn__icon"><i class="fas fa-list-ul"></i></div>
+          <div class="quick-action-btn__text">
+            <span class="quick-action-btn__label">View Income</span>
+            <span class="quick-action-btn__hint">Browse all income records</span>
+          </div>
+          <i class="fas fa-chevron-right quick-action-btn__arrow"></i>
+        </a>
+        <a routerLink="/expense/expense-list" class="quick-action-btn quick-action-btn--neutral">
+          <div class="quick-action-btn__icon"><i class="fas fa-receipt"></i></div>
+          <div class="quick-action-btn__text">
+            <span class="quick-action-btn__label">View Expenses</span>
+            <span class="quick-action-btn__hint">Browse all expense records</span>
+          </div>
+          <i class="fas fa-chevron-right quick-action-btn__arrow"></i>
+        </a>
+      </div>
+
     </div>
   </div>
 </div>

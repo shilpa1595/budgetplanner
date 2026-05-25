@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IncomeService } from '../income.service';
 import { Income } from '../../../core/models/income.model';
@@ -9,7 +9,7 @@ import { Income } from '../../../core/models/income.model';
 @Component({
   selector: 'app-edit-income',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './edit-income.component.html',
   styleUrl: './edit-income.component.scss'
 })
