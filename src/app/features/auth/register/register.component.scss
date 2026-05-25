@@ -1,0 +1,10 @@
+$secondary_color: #0cc0df;
+
+.rounded-corner { border-radius: 30px; }
+.colored-text   { color: $secondary_color; }
+.top-12         { top: 20%; }
+
+.formWrapper {
+  i { color: $secondary_color; }
+  .createacc { color: $secondary_color; cursor: pointer; }
+}

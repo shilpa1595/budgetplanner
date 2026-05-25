@@ -1,0 +1,8 @@
+.app-wrapper { padding: 30px 0; width: 100%; }
+.tab-container { background: #fff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,.08); overflow: hidden; }
+.tab-header { padding: 20px 24px 0; h1 { font-size: 1.6rem; font-weight: 700; } }
+.icon-outer {
+  cursor: pointer; width: 32px; height: 32px; border-radius: 6px;
+  display: inline-flex; align-items: center; justify-content: center;
+  &.trash { background: rgba(231,76,60,.1); color: #ef4444; &:hover { background: #ef4444; color: #fff; } }
+}

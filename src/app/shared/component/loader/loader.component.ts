@@ -1,5 +1,7 @@
+// ⚠️ LEGACY FILE — superseded by shared/components/loader/loader.component.ts
+// Will be removed in Phase 5. Import path fixed to avoid compile errors.
 import { Component } from '@angular/core';
-import { LoaderService } from '../../services/loader.service';
+import { LoaderService } from '../../../core/services/loader.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

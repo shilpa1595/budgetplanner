@@ -1,5 +1,7 @@
+// ⚠️ LEGACY FILE — superseded by core/services/loader.service.ts
+// Will be removed in Phase 5. BehaviorSubject import path fixed.
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

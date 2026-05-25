@@ -1,0 +1,24 @@
+<section class="bg-img">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-md-12 mx-auto">
+        <div class="d-flex align-items-center mb-3">
+          <h6 class="me-4 mb-0">Expense</h6>
+          <div class="toggle-border">
+            <input id="reportToggle" type="checkbox" [(ngModel)]="isIncomeSelected" />
+            <label for="reportToggle">
+              <div class="handle"></div>
+            </label>
+          </div>
+          <h6 class="ms-3 mb-0">Income</h6>
+        </div>
+      </div>
+      <div>
+        <app-expense-list *ngIf="!isIncomeSelected"></app-expense-list>
+      </div>
+      <div>
+        <app-income-list *ngIf="isIncomeSelected"></app-income-list>
+      </div>
+    </div>
+  </div>
+</section>

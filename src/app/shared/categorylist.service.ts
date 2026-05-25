@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Categories } from '../budget/interfaces/category';
+import { Categories } from '../core/models/budget.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,8 @@ export class CategorylistService {
 
   constructor(private http:HttpClient) { }
 
-  getCategoryList(userId: string):Observable<Categories>{
-    return this.http.get<Categories>(`${this.baseUrl}?userId=${userId}`);
+  getCategoryList(userId: string): Observable<Categories[]> {
+    return this.http.get<Categories[]>(`${this.baseUrl}?userId=${userId}`);
   }
   // Update a specific category in JSON Server
   updateCategory(categoryId: string, updatedCategory: any): Observable<any> {

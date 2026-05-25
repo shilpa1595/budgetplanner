@@ -1,0 +1,62 @@
+$primary-color: #4f46e5;
+$secondary-color: #a5b4fc;
+$success-color: #22c55e;
+$danger-color: #ef4444;
+$light-color: #f8fafc;
+$dark-color: #0f172a;
+$gray-color: #64748b;
+$border-radius: 12px;
+$box-shadow: 0 5px 15px rgba(0,0,0,.08);
+$transition: all .3s ease;
+
+.incomeList { padding: 30px 0 50px; min-height: 100vh; }
+
+.card-style {
+  background: #fff; border-radius: $border-radius;
+  box-shadow: $box-shadow; border: none; overflow: hidden;
+  &:hover { box-shadow: 0 10px 25px rgba(0,0,0,.1); }
+}
+
+.header-section {
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  color: #fff; padding: 25px;
+  border-radius: $border-radius $border-radius 0 0; margin-bottom: 25px;
+  h2 { font-weight: 700; font-size: 1.8rem; margin-bottom: 5px; }
+  p { opacity: .9; margin-bottom: 0; }
+}
+
+.filter-section {
+  background: #fff; padding: 20px; border-radius: $border-radius;
+  box-shadow: $box-shadow; margin-bottom: 30px;
+  label { font-weight: 600; color: $dark-color; margin-bottom: 8px; display: block; }
+  .month-filter-input {
+    border: 2px solid #eaeaea; border-radius: 8px; padding: 10px 15px;
+    width: 100%; font-weight: 500; transition: $transition;
+    &:focus { border-color: $primary-color; outline: none; }
+  }
+}
+
+.table-container { background: #fff; border-radius: $border-radius; box-shadow: $box-shadow; overflow: hidden; }
+.table-header { background: $light-color; padding: 20px; border-bottom: 1px solid #eaeaea; h3 { margin: 0; color: $dark-color; font-size: 1.4rem; } }
+
+.total-income { background: #f0f7ff; padding: 12px 20px; border-radius: 8px; font-weight: 600; color: $primary-color; }
+
+.income-table {
+  margin-bottom: 0;
+  thead { background: $light-color; }
+  th { font-weight: 600; color: $dark-color; padding: 18px 15px; border-bottom: 2px solid #eaeaea; }
+  tbody tr { transition: $transition; border-bottom: 1px solid #f0f0f0; &:hover { background: #f9f9ff; } }
+  td { padding: 18px 15px; vertical-align: middle; }
+}
+
+.amount-cell { font-weight: 700; color: $success-color; font-size: 1.1rem; }
+.category-cell { font-weight: 500; }
+.date-cell { color: $gray-color; }
+.actions-cell { width: 130px; }
+
+.btn-action {
+  width: 36px; height: 36px; border-radius: 8px; display: inline-flex;
+  align-items: center; justify-content: center; border: none; font-size: 14px; transition: $transition;
+  &.btn-delete { background: rgba(231,76,60,.1); color: $danger-color; &:hover { background: $danger-color; color: #fff; } }
+  &.btn-edit   { background: rgba(52,152,219,.1); color: #3498db;      &:hover { background: #3498db;      color: #fff; } }
+}

@@ -1,0 +1,66 @@
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="leftSide">
+        <div class="profile-container mb-4">
+          <img [src]="profile?.profilePicture" alt="Profile Picture" class="profile-pic" width="40%" />
+        </div>
+        <div>
+          <p><strong>Username:</strong> {{ profile?.uname }}</p>
+          <p><strong>Email:</strong> {{ profile?.email }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="rightSide">
+        <div class="section">
+          <h6 class="mb-3">
+            Income Sources
+            <button class="btn editBtn" (click)="addIncomeSource()"><i class="fas fa-pen"></i></button>
+          </h6>
+          <div>
+            <span *ngFor="let source of profile?.incomeSource; let i = index" class="capsule me-2 mb-2">
+              {{ source }}
+              <button class="btn p-0 ms-1" (click)="removeIncomeSource(i)">×</button>
+            </span>
+          </div>
+        </div>
+
+        <div class="section">
+          <h6 class="mb-3">
+            Income Categories
+            <button class="btn editBtn" (click)="addIncomeCategory()"><i class="fas fa-pen"></i></button>
+          </h6>
+          <div>
+            <span *ngFor="let cat of profile?.incomeCategories; let i = index" class="capsule me-2 mb-2">
+              {{ cat }}
+              <button class="btn p-0 ms-1" (click)="removeIncomeCategory(i)">×</button>
+            </span>
+          </div>
+        </div>
+
+        <div class="section">
+          <h6 class="mb-3">
+            Expense Categories
+            <button class="btn editBtn" (click)="addExpenseCategory()"><i class="fas fa-pen"></i></button>
+          </h6>
+          <div>
+            <span *ngFor="let cat of profile?.expenseCategories; let i = index" class="capsule me-2 mb-2">
+              {{ cat }}
+              <button class="btn p-0 ms-1" (click)="removeExpenseCategory(i)">×</button>
+            </span>
+          </div>
+        </div>
+
+        <div class="section">
+          <h6 class="mb-3">
+            Monthly Budget Limit
+            <button class="btn editBtn" (click)="updateBudget()"><i class="fas fa-pen"></i></button>
+          </h6>
+          <span class="capsule">₹ {{ profile?.budgetSettings?.monthlyLimit }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

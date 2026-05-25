@@ -1,0 +1,16 @@
+.summary-card {
+  background: #fff; border-radius: 12px; padding: 20px;
+  box-shadow: 0 3px 10px rgba(0,0,0,.06); border-left: 4px solid transparent;
+  transition: transform .2s; margin-bottom: 16px;
+  &:hover { transform: translateY(-2px); }
+  i { font-size: 1.4rem; opacity: .7; }
+  &.income-card  { border-left-color: #22c55e; }
+  &.expense-card { border-left-color: #ef4444; }
+  &.net-card     { border-left-color: #0cc0df; }
+}
+
+.history-table {
+  border-radius: 12px; overflow: hidden;
+  thead th { font-weight: 600; }
+  tbody tr:hover { background: #f9f9ff; }
+}

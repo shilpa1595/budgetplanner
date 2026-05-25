@@ -1,0 +1,8 @@
+.expense-table { border: 1px solid #dee2e6; }
+.progress-bar { padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+.box {
+  width: 40px; height: 40px; border-radius: 8px;
+  background: #e8f4fd; display: flex; align-items: center; justify-content: center;
+  i { color: #0cc0df; }
+}
+mat-progress-bar { width: 100%; border-radius: 4px; }

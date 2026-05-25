@@ -1,26 +1,67 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { CategoryComponent } from './category/category.component';
-import { ReportsComponent } from './reports/reports.component';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
-    {path:'',component:HomeComponent, pathMatch: 'full'},
-    {
-        path:'budget-planner', loadChildren:()=>import('./budget-planner/budget-planner.module').then(m=>m.BudgetPlannerModule)
-    },
-    {
-        path:'user-management', loadChildren:()=>import('./user-management/user-management.module').then(m=>m.UserManagementModule)
-    },
-    {
-        path:'income-expense', loadChildren:()=>import('./income-expense/income-expense.module').then(m=>m.IncomeExpenseModule)
-    },
-    {
-        path:'budget', loadChildren:()=>import('./budget/budget.module').then(m=>m.BudgetModule)
-    },
-    {
-        path:'category', component:CategoryComponent
-    },
-    {
-        path:'reports', component:ReportsComponent
-    }
+  // Public routes — auth
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('./features/auth/auth.routes').then(m => m.AUTH_ROUTES)
+  },
+
+  // Protected routes — wrapped in MainLayoutComponent shell
+  {
+    path: '',
+    loadComponent: () =>
+      import('./layout/main-layout/main-layout.component').then(m => m.MainLayoutComponent),
+    canActivate: [authGuard],
+    children: [
+      // Default redirect to dashboard
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+
+      {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('./features/dashboard/dashboard.routes').then(m => m.DASHBOARD_ROUTES)
+      },
+      {
+        path: 'income',
+        loadChildren: () =>
+          import('./features/income/income.routes').then(m => m.INCOME_ROUTES)
+      },
+      {
+        path: 'expense',
+        loadChildren: () =>
+          import('./features/expense/expense.routes').then(m => m.EXPENSE_ROUTES)
+      },
+      {
+        path: 'budget',
+        loadChildren: () =>
+          import('./features/budget/budget.routes').then(m => m.BUDGET_ROUTES)
+      },
+      {
+        path: 'categories',
+        loadChildren: () =>
+          import('./features/categories/categories.routes').then(m => m.CATEGORIES_ROUTES)
+      },
+      {
+        path: 'reports',
+        loadChildren: () =>
+          import('./features/reports/reports.routes').then(m => m.REPORTS_ROUTES)
+      },
+      {
+        path: 'history',
+        loadChildren: () =>
+          import('./features/history/history.routes').then(m => m.HISTORY_ROUTES)
+      },
+      {
+        path: 'profile',
+        loadChildren: () =>
+          import('./features/profile/profile.routes').then(m => m.PROFILE_ROUTES)
+      }
+    ]
+  },
+
+  // Fallback
+  { path: '**', redirectTo: 'auth/login' }
 ];

@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
-import { LoaderComponent } from './shared/component/loader/loader.component';
 import { TranslateService } from '@ngx-translate/core';
 
+// AppComponent is now a thin shell — just a router-outlet.
+// Header, SideNav and Loader are handled by MainLayoutComponent
+// for authenticated routes, and by individual public screens (login/register).
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,MatIconModule,HeaderComponent,LoaderComponent],
+  standalone: true,
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

@@ -1,0 +1,102 @@
+<div class="container py-5">
+  <!-- Header -->
+  <div class="alert alert-info text-center fw-bolder mb-4" role="alert">
+    <h4 class="mb-0">Transaction History</h4>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <div class="summary-card income-card">
+        <div class="d-flex align-items-center">
+          <i class="fas fa-arrow-up me-3"></i>
+          <div>
+            <small class="d-block text-muted">Total Income</small>
+            <strong class="text-success">₹ {{ totalIncome }}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="summary-card expense-card">
+        <div class="d-flex align-items-center">
+          <i class="fas fa-arrow-down me-3"></i>
+          <div>
+            <small class="d-block text-muted">Total Expense</small>
+            <strong class="text-danger">₹ {{ totalExpense }}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="summary-card net-card">
+        <div class="d-flex align-items-center">
+          <i class="fas fa-balance-scale me-3"></i>
+          <div>
+            <small class="d-block text-muted">Net Balance</small>
+            <strong [class]="totalIncome - totalExpense >= 0 ? 'text-success' : 'text-danger'">
+              ₹ {{ totalIncome - totalExpense }}
+            </strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="row mb-4 align-items-end">
+    <div class="col-md-4">
+      <label class="form-label fw-semibold">Month</label>
+      <input type="month" class="form-control" [(ngModel)]="selectedMonth" (change)="applyFilters()" />
+    </div>
+    <div class="col-md-4">
+      <label class="form-label fw-semibold">Type</label>
+      <select class="form-select" [(ngModel)]="filterType" (change)="applyFilters()">
+        <option value="all">All</option>
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border text-info" role="status"></div>
+    <p class="mt-2 text-muted">Loading transactions...</p>
+  </div>
+
+  <!-- Table -->
+  <div *ngIf="!isLoading">
+    <div *ngIf="filteredTransactions.length === 0" class="text-center py-5">
+      <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+      <p class="text-muted">No transactions found for the selected filters.</p>
+    </div>
+
+    <div class="table-responsive" *ngIf="filteredTransactions.length > 0">
+      <table class="table table-hover history-table">
+        <thead class="table-dark">
+          <tr>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let txn of filteredTransactions">
+            <td>
+              <span class="badge" [class]="txn.type === 'income' ? 'bg-success' : 'bg-danger'">
+                {{ txn.type | titlecase }}
+              </span>
+            </td>
+            <td [class]="txn.type === 'income' ? 'text-success fw-semibold' : 'text-danger fw-semibold'">
+              {{ txn.type === 'income' ? '+' : '-' }} ₹ {{ txn.amount }}
+            </td>
+            <td>{{ txn.category }}</td>
+            <td>{{ txn.date | date: 'MMM d, y' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

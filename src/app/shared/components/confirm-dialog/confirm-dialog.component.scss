@@ -1,0 +1,84 @@
+.cd-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 200;
+  animation: fadeIn 0.15s ease;
+}
+
+.cd-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 201;
+  background: #fff;
+  border-radius: 14px;
+  padding: 32px 28px 24px;
+  width: 340px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+  text-align: center;
+  animation: slideUp 0.2s ease;
+}
+
+.cd-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+
+  &.danger span { filter: none; }
+}
+
+.cd-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.cd-message {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.cd-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+
+  button {
+    flex: 1;
+    padding: 10px 0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s;
+
+    &:hover { opacity: 0.85; }
+  }
+}
+
+.btn-cancel {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.btn-confirm {
+  background: #3b82f6;
+  color: #fff;
+
+  &.danger { background: #ef4444; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translate(-50%, -44%); opacity: 0; }
+  to   { transform: translate(-50%, -50%); opacity: 1; }
+}

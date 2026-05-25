@@ -1,0 +1,115 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="app-wrapper">
+      <div class="tab-container">
+        <div class="tab-header"><h1>Categories</h1></div>
+        <ul class="nav nav-tabs" id="catTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#incomeTab"
+              type="button" role="tab">Income</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#expenseTab"
+              type="button" role="tab">Expense</button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="catTabContent">
+          <!-- Income Tab -->
+          <div class="tab-pane fade show active" id="incomeTab" role="tabpanel">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Income Categories</th>
+                  <th class="text-end">
+                    <button class="btn btn-success btn-2 custom-btn" data-bs-toggle="modal"
+                      data-bs-target="#addIncomeCategoryModal">+ Add</button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let category of categorieslist?.[0]?.income; let i = index">
+                  <td>{{ category }}</td>
+                  <td class="text-end">
+                    <span class="icon-outer trash" (click)="removeIncomeCategory(i)">
+                      <i class="fa-solid fa-trash"></i>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Expense Tab -->
+          <div class="tab-pane fade" id="expenseTab" role="tabpanel">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Expense Categories</th>
+                  <th class="text-end">
+                    <button class="btn btn-success btn-2 custom-btn" data-bs-toggle="modal"
+                      data-bs-target="#addExpenseCategoryModal">+ Add</button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let category of categorieslist?.[0]?.expense; let i = index">
+                  <td>{{ category }}</td>
+                  <td class="text-end">
+                    <span class="icon-outer trash" (click)="removeExpenseCategory(i)">
+                      <i class="fa-solid fa-trash"></i>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Income Category Modal -->
+  <div class="modal fade" id="addIncomeCategoryModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Income Category</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" [(ngModel)]="newIncomeCategory" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn-2 custom-btn"
+            (click)="addIncomeCategory()" data-bs-dismiss="modal">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Expense Category Modal -->
+  <div class="modal fade" id="addExpenseCategoryModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Expense Category</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" [(ngModel)]="newExpenseCategory" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn-2 custom-btn"
+            (click)="addExpenseCategory()" data-bs-dismiss="modal">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
