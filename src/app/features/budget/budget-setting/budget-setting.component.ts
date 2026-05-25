@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, NgClass, DecimalPipe } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BudgetService } from '../../../shared/services/budget.service';
 import { CategorylistService } from '../../../shared/services/categorylist.service';
@@ -11,7 +10,7 @@ import { Categories } from '../../../core/models/budget.model';
 @Component({
   selector: 'app-budget-setting',
   standalone: true,
-  imports: [NgFor, NgIf, ReactiveFormsModule, MatProgressBarModule],
+  imports: [NgFor, NgIf, NgClass, DecimalPipe, ReactiveFormsModule],
   templateUrl: './budget-setting.component.html',
   styleUrl: './budget-setting.component.scss'
 })
@@ -89,6 +88,7 @@ export class BudgetSettingComponent implements OnInit {
                 });
               });
             this.uniqueCategoryBudgets = Array.from(map.values());
+            if (this.uniqueCategoryBudgets.length === 0) this.noDataFound = true;
           }
         });
       },
@@ -104,7 +104,29 @@ export class BudgetSettingComponent implements OnInit {
     return spent <= 0 ? 0 : Math.min((spent / limit) * 100, 100);
   }
 
-  getProgressColor(spent: number, limit: number): 'warn' | 'primary' {
-    return spent > limit ? 'warn' : 'primary';
+  /** Returns 'safe' | 'warn' | 'danger' for CSS class bindings */
+  getProgressClass(spent: number, limit: number): string {
+    if (spent > limit) return 'danger';
+    const pct = this.getProgress(spent, limit);
+    if (pct > 85) return 'danger';
+    if (pct > 60) return 'warn';
+    return 'safe';
+  }
+
+  /** Human-readable status label */
+  getBudgetStatusLabel(spent: number, limit: number): string {
+    if (spent > limit) return 'Over limit';
+    const pct = this.getProgress(spent, limit);
+    if (pct > 85) return 'Near limit';
+    if (pct > 60) return 'Watch out';
+    return 'On track';
+  }
+
+  get totalBudgeted(): number {
+    return this.uniqueCategoryBudgets.reduce((s, c) => s + +c.limit, 0);
+  }
+
+  get totalSpent(): number {
+    return this.uniqueCategoryBudgets.reduce((s, c) => s + +c.spent, 0);
   }
 }

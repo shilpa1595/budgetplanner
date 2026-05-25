@@ -1,88 +1,265 @@
-<div class="container py-5">
-  <div class="row">
-    <div class="alert alert-info text-center fw-bolder mb-5" role="alert">
-      <h4 class="mb-0">Set a Budget Limit</h4>
+<div class="budget-page">
+
+  <!-- ── Page header ──────────────────────────────────────── -->
+  <div class="page-header">
+    <div class="page-header__icon">
+      <i class="fas fa-sliders"></i>
+    </div>
+    <div>
+      <h1 class="page-header__title">Budget Planner</h1>
+      <p class="page-header__sub">Set and track spending limits by category</p>
     </div>
 
-    <div class="col-4">
-      <div class="bg-body px-3 rounded shadow-sm expense-table mb-5">
-        <table class="table mb-0">
-          <thead>
-            <tr><th colspan="2" class="pt-0 pb-3">Expense Categories</th></tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let category of categorieslist?.[0]?.expense">
-              <td>{{ category }}</td>
-              <td class="text-end">
-                <ng-container *ngIf="!isBudgetSet(category); else budgetSet">
-                  <button type="button" class="btn btn-danger btn-2 custom-btn"
-                    (click)="setBudget(category)" data-bs-toggle="modal" data-bs-target="#budgetModal">
-                    SET BUDGET
-                  </button>
-                </ng-container>
-                <ng-template #budgetSet>
-                  <span class="badge bg-info btn-2 custom-btn">Edit</span>
-                </ng-template>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- Summary chips (only when data exists) -->
+    <div class="header-chips" *ngIf="uniqueCategoryBudgets.length > 0">
+      <div class="header-chip header-chip--budget">
+        <i class="fas fa-wallet"></i>
+        <span>Budgeted: ₹{{ totalBudgeted | number:'1.0-0' }}</span>
       </div>
-    </div>
-
-    <div class="col-1"></div>
-
-    <div class="col-7">
-      <div *ngFor="let cat of uniqueCategoryBudgets">
-        <div class="progress-bar d-flex flex-row justify-content-start mb-3">
-          <div class="box me-3"><i class="fa-solid fa-table-cells"></i></div>
-          <div class="d-flex align-items-baseline flex-column w-100">
-            <h5 class="text-dark fw-bold">{{ cat.name }}</h5>
-            <h6><span class="text-info">Limit:</span> ₹ {{ cat.limit }}</h6>
-            <h6><span class="text-warning">Spent:</span> ₹ {{ cat.spent }}</h6>
-            <h6><span class="text-success">Remaining:</span> ₹ {{ cat.spent > cat.limit ? 0 : (cat.limit - cat.spent) }}</h6>
-            <mat-progress-bar mode="determinate"
-              [value]="getProgress(cat.spent, cat.limit)"
-              [color]="getProgressColor(cat.spent, cat.limit)">
-            </mat-progress-bar>
-            <div class="text-end d-flex justify-content-end w-100">
-              <small class="text-danger" *ngIf="cat.spent > cat.limit">*Limit Exceeded</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div *ngIf="noDataFound" class="text-center py-5">
-        <i class="fa-solid fa-wallet fa-3x text-muted mb-3"></i>
-        <p class="text-muted">No budget set for this month. Set limits using the categories on the left.</p>
+      <div class="header-chip header-chip--spent">
+        <i class="fas fa-receipt"></i>
+        <span>Spent: ₹{{ totalSpent | number:'1.0-0' }}</span>
       </div>
     </div>
   </div>
 
-  <!-- Set Budget Modal -->
-  <div class="modal fade" id="budgetModal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <form [formGroup]="setBudgetForm" (ngSubmit)="saveBudget()">
-          <div class="modal-header">
-            <h5 class="modal-title">Set Budget</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <!-- ── Body grid ────────────────────────────────────────── -->
+  <div class="budget-body">
+
+    <!-- ── Left: Category panel ────────────────────────────── -->
+    <div class="categories-panel">
+      <div class="panel-card">
+        <div class="panel-card__header">
+          <div class="panel-card__icon">
+            <i class="fas fa-tags"></i>
           </div>
-          <div class="modal-body">
-            <div class="alert alert-info d-flex align-items-center mb-3" role="alert">
-              <i class="fa-solid fa-table-cells me-3"></i>
-              <h4 class="mb-0">{{ selectedCategory }}</h4>
+          <div>
+            <h3 class="panel-card__title">Expense Categories</h3>
+            <p class="panel-card__sub">Tap a category to set its limit</p>
+          </div>
+        </div>
+
+        <!-- Category list -->
+        <div class="category-list">
+          <div
+            class="category-item"
+            *ngFor="let category of categorieslist?.[0]?.expense; let i = index"
+            [style.animation-delay]="i * 0.05 + 's'"
+          >
+            <div class="category-item__icon">
+              <i class="fas fa-tag"></i>
             </div>
-            <div class="mb-3">
-              <label class="form-label">Limit (₹)</label>
-              <input type="number" class="form-control" formControlName="limit" required />
-            </div>
+            <span class="category-item__name">{{ category }}</span>
+
+            <ng-container *ngIf="!isBudgetSet(category); else budgetIsSet">
+              <button
+                class="set-btn"
+                type="button"
+                (click)="setBudget(category)"
+                data-bs-toggle="modal"
+                data-bs-target="#budgetModal"
+              >
+                <i class="fas fa-plus"></i>
+                Set Limit
+              </button>
+            </ng-container>
+
+            <ng-template #budgetIsSet>
+              <button
+                class="edit-btn"
+                type="button"
+                (click)="setBudget(category)"
+                data-bs-toggle="modal"
+                data-bs-target="#budgetModal"
+              >
+                <i class="fas fa-pen"></i>
+                Edit
+              </button>
+            </ng-template>
           </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save Budget</button>
-          </div>
-        </form>
+        </div>
+
+        <!-- Empty categories fallback -->
+        <div class="panel-empty" *ngIf="!categorieslist?.[0]?.expense?.length">
+          <i class="fas fa-folder-open"></i>
+          <p>No expense categories found</p>
+        </div>
       </div>
+    </div>
+
+    <!-- ── Right: Budget tracker ──────────────────────────── -->
+    <div class="tracker-panel">
+
+      <!-- Empty state -->
+      <div class="empty-state" *ngIf="noDataFound">
+        <div class="empty-state__icon">
+          <i class="fas fa-chart-pie"></i>
+        </div>
+        <h3 class="empty-state__title">No budgets set yet</h3>
+        <p class="empty-state__sub">
+          Select a category on the left and set a spending limit to start tracking.
+        </p>
+      </div>
+
+      <!-- Budget cards -->
+      <div class="budget-cards" *ngIf="!noDataFound">
+        <div
+          class="budget-card"
+          *ngFor="let cat of uniqueCategoryBudgets; let i = index"
+          [style.animation-delay]="i * 0.07 + 's'"
+          [class.budget-card--danger]="cat.spent > cat.limit"
+        >
+          <!-- Card header -->
+          <div class="budget-card__header">
+            <div class="budget-card__icon" [ngClass]="'budget-card__icon--' + getProgressClass(cat.spent, cat.limit)">
+              <i class="fas fa-folder"></i>
+            </div>
+            <div class="budget-card__meta">
+              <h4 class="budget-card__name">{{ cat.name }}</h4>
+              <span class="budget-card__pct">{{ getProgress(cat.spent, cat.limit) | number:'1.0-0' }}% used</span>
+            </div>
+            <span
+              class="status-badge"
+              [class.status-badge--safe]="getProgressClass(cat.spent, cat.limit) === 'safe'"
+              [class.status-badge--warn]="getProgressClass(cat.spent, cat.limit) === 'warn'"
+              [class.status-badge--danger]="getProgressClass(cat.spent, cat.limit) === 'danger'"
+            >
+              <i class="fas"
+                [class.fa-circle-check]="getProgressClass(cat.spent, cat.limit) === 'safe'"
+                [class.fa-triangle-exclamation]="getProgressClass(cat.spent, cat.limit) === 'warn'"
+                [class.fa-circle-xmark]="getProgressClass(cat.spent, cat.limit) === 'danger'"
+              ></i>
+              {{ getBudgetStatusLabel(cat.spent, cat.limit) }}
+            </span>
+          </div>
+
+          <!-- Progress bar -->
+          <div class="budget-bar-wrap">
+            <div class="budget-bar">
+              <div
+                class="budget-bar__fill"
+                [class.budget-bar__fill--safe]="getProgressClass(cat.spent, cat.limit) === 'safe'"
+                [class.budget-bar__fill--warn]="getProgressClass(cat.spent, cat.limit) === 'warn'"
+                [class.budget-bar__fill--danger]="getProgressClass(cat.spent, cat.limit) === 'danger'"
+                [style.width.%]="getProgress(cat.spent, cat.limit)"
+              ></div>
+            </div>
+            <span class="budget-bar__label">₹{{ cat.spent | number:'1.0-0' }} / ₹{{ cat.limit | number:'1.0-0' }}</span>
+          </div>
+
+          <!-- Stats row -->
+          <div class="budget-stats">
+            <div class="budget-stat">
+              <span class="budget-stat__label">
+                <i class="fas fa-bullseye"></i> Limit
+              </span>
+              <span class="budget-stat__value budget-stat__value--limit">
+                ₹{{ cat.limit | number:'1.0-0' }}
+              </span>
+            </div>
+            <div class="budget-stat">
+              <span class="budget-stat__label">
+                <i class="fas fa-fire"></i> Spent
+              </span>
+              <span class="budget-stat__value budget-stat__value--spent">
+                ₹{{ cat.spent | number:'1.0-0' }}
+              </span>
+            </div>
+            <div class="budget-stat">
+              <span class="budget-stat__label">
+                <i class="fas fa-piggy-bank"></i> Remaining
+              </span>
+              <span
+                class="budget-stat__value"
+                [class.budget-stat__value--remaining]="cat.spent <= cat.limit"
+                [class.budget-stat__value--over]="cat.spent > cat.limit"
+              >
+                {{ cat.spent > cat.limit ? '−' : '' }}₹{{ (cat.spent > cat.limit ? (cat.spent - cat.limit) : (cat.limit - cat.spent)) | number:'1.0-0' }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Exceeded warning strip -->
+          <div class="exceeded-strip" *ngIf="cat.spent > cat.limit">
+            <i class="fas fa-triangle-exclamation"></i>
+            Spending limit exceeded by ₹{{ (cat.spent - cat.limit) | number:'1.0-0' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Set Budget Modal ──────────────────────────────────────── -->
+<div class="modal fade" id="budgetModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content budget-modal">
+
+      <div class="budget-modal__header">
+        <div class="budget-modal__title-wrap">
+          <div class="budget-modal__icon">
+            <i class="fas fa-sliders"></i>
+          </div>
+          <div>
+            <h5 class="budget-modal__title">Set Spending Limit</h5>
+            <p class="budget-modal__sub">Define a monthly cap for this category</p>
+          </div>
+        </div>
+        <button type="button" class="budget-modal__close" data-bs-dismiss="modal" aria-label="Close">
+          <i class="fas fa-xmark"></i>
+        </button>
+      </div>
+
+      <form [formGroup]="setBudgetForm" (ngSubmit)="saveBudget()">
+        <div class="budget-modal__body">
+
+          <!-- Selected category chip -->
+          <div class="selected-category-chip">
+            <div class="selected-category-chip__icon">
+              <i class="fas fa-tag"></i>
+            </div>
+            <span class="selected-category-chip__name">{{ selectedCategory }}</span>
+          </div>
+
+          <!-- Limit input -->
+          <div class="modal-field">
+            <label class="modal-label">
+              <i class="fas fa-indian-rupee-sign"></i>
+              Monthly Limit (₹)
+            </label>
+            <div class="modal-input-wrap">
+              <span class="modal-prefix">₹</span>
+              <input
+                type="number"
+                class="modal-input"
+                formControlName="limit"
+                placeholder="e.g. 5000"
+                min="1"
+              />
+            </div>
+            <span class="modal-hint">
+              <i class="fas fa-circle-info"></i>
+              You'll be alerted when spending approaches this limit
+            </span>
+          </div>
+
+        </div>
+
+        <div class="budget-modal__footer">
+          <button type="button" class="modal-cancel-btn" data-bs-dismiss="modal">
+            <i class="fas fa-xmark me-1"></i> Cancel
+          </button>
+          <button
+            type="submit"
+            class="modal-save-btn"
+            data-bs-dismiss="modal"
+            [disabled]="setBudgetForm.invalid"
+          >
+            <i class="fas fa-check-circle me-1"></i> Save Budget
+          </button>
+        </div>
+      </form>
+
     </div>
   </div>
 </div>

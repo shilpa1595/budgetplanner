@@ -1,24 +1,48 @@
-<section class="bg-img">
-  <div class="container py-5">
-    <div class="row">
-      <div class="col-md-12 mx-auto">
-        <div class="d-flex align-items-center mb-3">
-          <h6 class="me-4 mb-0">Expense</h6>
-          <div class="toggle-border">
-            <input id="reportToggle" type="checkbox" [(ngModel)]="isIncomeSelected" />
-            <label for="reportToggle">
-              <div class="handle"></div>
-            </label>
-          </div>
-          <h6 class="ms-3 mb-0">Income</h6>
-        </div>
-      </div>
-      <div>
-        <app-expense-list *ngIf="!isIncomeSelected"></app-expense-list>
-      </div>
-      <div>
-        <app-income-list *ngIf="isIncomeSelected"></app-income-list>
-      </div>
+<div class="reports-page">
+
+  <!-- ── Page header ──────────────────────────────────────────── -->
+  <div class="page-header">
+    <div class="page-header__icon">
+      <i class="fas fa-chart-bar"></i>
+    </div>
+    <div class="page-header__text">
+      <h1 class="page-header__title">Reports</h1>
+      <p class="page-header__sub">Analyse your income and expense history</p>
     </div>
   </div>
-</section>
+
+  <!-- ── Segmented pill control ───────────────────────────────── -->
+  <div class="seg-wrap">
+    <div class="seg-track">
+      <button
+        class="seg-btn"
+        [class.seg-btn--active]="!isIncomeSelected"
+        (click)="isIncomeSelected = false"
+        type="button"
+      >
+        <i class="fas fa-arrow-trend-down"></i>
+        Expenses
+      </button>
+      <button
+        class="seg-btn"
+        [class.seg-btn--active]="isIncomeSelected"
+        (click)="isIncomeSelected = true"
+        type="button"
+      >
+        <i class="fas fa-arrow-trend-up"></i>
+        Income
+      </button>
+      <div
+        class="seg-pill"
+        [class.seg-pill--income]="isIncomeSelected"
+      ></div>
+    </div>
+  </div>
+
+  <!-- ── View container ───────────────────────────────────────── -->
+  <div class="reports-view">
+    <app-expense-list *ngIf="!isIncomeSelected"></app-expense-list>
+    <app-income-list  *ngIf="isIncomeSelected"></app-income-list>
+  </div>
+
+</div>

@@ -1,0 +1,27 @@
+// ── Profile feature — shared design tokens ────────────────────
+
+// Accent (teal — matches income / brand cyan)
+$accent:       #0cc0df;
+$accent-dark:  #0099b8;
+$accent-light: #e0f7fb;
+
+// Text
+$text-dark:    #1e2235;
+$text-muted:   #64748b;
+$text-light:   #94a3b8;
+
+// Surfaces
+$card-bg:      #ffffff;
+$page-bg:      #f8fafc;
+$border:       #e2e8f0;
+
+// Radii
+$radius-sm:    8px;
+$radius-md:    14px;
+$radius-lg:    24px;
+$radius-xl:    32px;
+
+// Shadows
+$shadow-card:  0 4px 24px rgba(0, 0, 0, 0.07);
+$shadow-hover: 0 10px 36px rgba(0, 0, 0, 0.12);
+$shadow-avatar: 0 8px 28px rgba(12, 192, 223, 0.30);

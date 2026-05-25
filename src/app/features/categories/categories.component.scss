@@ -1,8 +1,332 @@
-.app-wrapper { padding: 30px 0; width: 100%; }
-.tab-container { background: #fff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,.08); overflow: hidden; }
-.tab-header { padding: 20px 24px 0; h1 { font-size: 1.6rem; font-weight: 700; } }
-.icon-outer {
-  cursor: pointer; width: 32px; height: 32px; border-radius: 6px;
-  display: inline-flex; align-items: center; justify-content: center;
-  &.trash { background: rgba(231,76,60,.1); color: #ef4444; &:hover { background: #ef4444; color: #fff; } }
+// ── Design tokens ─────────────────────────────────────────────
+@use 'categories-tokens' as t;
+
+// ── Page ──────────────────────────────────────────────────────
+.cat-page {
+  padding: 32px 28px 64px;
+  animation: fadeSlideUp 0.45s ease both;
+}
+
+// ── Page header ───────────────────────────────────────────────
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+
+  &__icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.35);
+    i { color: #fff; font-size: 22px; }
+  }
+
+  &__text { flex: 1; }
+
+  &__title {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: t.$text-dark;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  &__sub {
+    font-size: 0.875rem;
+    color: t.$text-muted;
+    margin: 5px 0 0;
+  }
+
+  &__counts {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+}
+
+// ── Count chips in header ─────────────────────────────────────
+.count-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 700;
+
+  &--income {
+    background: rgba(t.$income, 0.1);
+    color: t.$income-dark;
+    i { color: t.$income; }
+  }
+
+  &--expense {
+    background: rgba(t.$expense, 0.1);
+    color: t.$expense-dark;
+    i { color: t.$expense; }
+  }
+}
+
+// ── Two-column grid ───────────────────────────────────────────
+.cat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Category card ─────────────────────────────────────────────
+.cat-card {
+  background: t.$card-bg;
+  border-radius: t.$radius-lg;
+  box-shadow: t.$shadow-card;
+  overflow: hidden;
+  animation: fadeSlideUp 0.5s ease both;
+
+  &:nth-child(1) { animation-delay: 0.05s; }
+  &:nth-child(2) { animation-delay: 0.12s; }
+
+  // Top accent bar
+  &--income  { border-top: 3px solid t.$income; }
+  &--expense { border-top: 3px solid t.$expense; }
+}
+
+// ── Card header ───────────────────────────────────────────────
+.cat-card__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid t.$input-border;
+}
+
+.cat-card__icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  flex-shrink: 0;
+
+  .cat-card--income  & { background: rgba(t.$income,  0.12); color: t.$income; }
+  .cat-card--expense & { background: rgba(t.$expense, 0.12); color: t.$expense; }
+}
+
+.cat-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: t.$text-dark;
+  margin: 0 0 3px;
+}
+
+.cat-card__sub {
+  font-size: 12px;
+  color: t.$text-muted;
+  margin: 0;
+}
+
+// ── Inline add row ────────────────────────────────────────────
+.cat-add-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 18px 28px;
+  border-bottom: 1px solid t.$input-border;
+  background: #fafbfc;
+}
+
+.cat-input-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: t.$card-bg;
+  border: 1.5px solid t.$input-border;
+  border-radius: t.$radius-md;
+  padding: 0 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus-within {
+    background: #fff;
+    .cat-card--income  & { border-color: t.$income;  box-shadow: 0 0 0 3px rgba(t.$income,  0.12); }
+    .cat-card--expense & { border-color: t.$expense; box-shadow: 0 0 0 3px rgba(t.$expense, 0.12); }
+  }
+}
+
+.cat-input-icon {
+  font-size: 12px;
+  flex-shrink: 0;
+  .cat-card--income  & { color: t.$income; }
+  .cat-card--expense & { color: t.$expense; }
+}
+
+.cat-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 11px 0;
+  font-size: 14px;
+  color: t.$text-dark;
+
+  &::placeholder { color: #b8c2cc; }
+}
+
+.cat-add-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: t.$radius-md;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &--income {
+    background: linear-gradient(135deg, t.$income, t.$income-dark);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(t.$income, 0.35);
+    &:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(t.$income, 0.45); }
+  }
+
+  &--expense {
+    background: linear-gradient(135deg, t.$expense, t.$expense-dark);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(t.$expense, 0.35);
+    &:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(t.$expense, 0.45); }
+  }
+}
+
+// ── Chips container ───────────────────────────────────────────
+.cat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 24px 28px 28px;
+}
+
+// ── Individual chip ───────────────────────────────────────────
+.cat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 30px;
+  padding: 8px 10px 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  animation: chipPop 0.3s ease both;
+  transition: box-shadow 0.2s, transform 0.2s;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-2px);
+    .cat-chip__del { opacity: 1; transform: scale(1); }
+  }
+
+  &--income {
+    background: rgba(t.$income, 0.1);
+    color: t.$income-dark;
+    border: 1px solid rgba(t.$income, 0.2);
+
+    .cat-chip__icon { color: t.$income; }
+
+    &:hover { box-shadow: 0 4px 12px rgba(t.$income, 0.2); }
+  }
+
+  &--expense {
+    background: rgba(t.$expense, 0.1);
+    color: t.$expense-dark;
+    border: 1px solid rgba(t.$expense, 0.2);
+
+    .cat-chip__icon { color: t.$expense; }
+
+    &:hover { box-shadow: 0 4px 12px rgba(t.$expense, 0.2); }
+  }
+
+  &__icon {
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  &__name {
+    line-height: 1;
+  }
+
+  // Delete button — hidden by default, revealed on chip hover
+  &__del {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.12);
+    color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 10px;
+    flex-shrink: 0;
+    opacity: 0;
+    transform: scale(0.7);
+    transition: opacity 0.18s ease, transform 0.18s ease, background 0.15s;
+
+    &:hover {
+      background: t.$danger;
+      color: #fff;
+    }
+  }
+}
+
+// ── Empty state ───────────────────────────────────────────────
+.cat-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 28px 40px;
+  text-align: center;
+  animation: fadeSlideUp 0.35s ease;
+
+  &__icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    i { font-size: 26px; color: #b0bec8; }
+  }
+
+  &__text {
+    font-size: 14px;
+    color: t.$text-muted;
+    line-height: 1.65;
+    margin: 0;
+  }
+}
+
+// ── Keyframes ─────────────────────────────────────────────────
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes chipPop {
+  0%   { opacity: 0; transform: scale(0.75); }
+  70%  { transform: scale(1.06); }
+  100% { opacity: 1; transform: scale(1); }
 }

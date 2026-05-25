@@ -1,8 +1,278 @@
-.profile-pic { border-radius: 50%; border: 3px solid #0cc0df; }
-.section { margin-bottom: 24px; border-bottom: 1px solid #f0f0f0; padding-bottom: 16px; }
-.capsule {
-  display: inline-flex; align-items: center;
-  background: #e8f4fd; border-radius: 20px; padding: 4px 14px;
-  font-size: 0.9rem; color: #0cc0df; font-weight: 500;
+// ── Design tokens ─────────────────────────────────────────────
+@use 'profile-tokens' as t;
+
+// ── Page ──────────────────────────────────────────────────────
+.prof-page {
+  padding: 32px 28px 64px;
+  animation: fadeSlideUp 0.45s ease both;
+  max-width: 580px;
 }
-.editBtn { color: #0cc0df; padding: 2px 8px; font-size: 0.8rem; }
+
+// ── Page header ───────────────────────────────────────────────
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 36px;
+
+  &__icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, t.$accent, t.$accent-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 6px 20px rgba(t.$accent, 0.35);
+    i { color: #fff; font-size: 22px; }
+  }
+
+  &__text { flex: 1; }
+
+  &__title {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: t.$text-dark;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  &__sub {
+    font-size: 0.875rem;
+    color: t.$text-muted;
+    margin: 5px 0 0;
+  }
+}
+
+// ── Loading ───────────────────────────────────────────────────
+.prof-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 80px 0;
+  color: t.$text-muted;
+  font-size: 14px;
+}
+
+.prof-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid t.$border;
+  border-top-color: t.$accent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+// ── Profile card ──────────────────────────────────────────────
+.prof-card {
+  background: t.$card-bg;
+  border-radius: t.$radius-xl;
+  box-shadow: t.$shadow-card;
+  overflow: hidden;
+  animation: fadeSlideUp 0.5s 0.1s ease both;
+  transition: box-shadow 0.3s;
+
+  &:hover { box-shadow: t.$shadow-hover; }
+}
+
+// ── Hero banner ───────────────────────────────────────────────
+.prof-hero {
+  height: 130px;
+  background: linear-gradient(135deg, t.$accent 0%, t.$accent-dark 60%, #0077a8 100%);
+  position: relative;
+  overflow: hidden;
+
+  &__wave {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background: t.$card-bg;
+    border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+  }
+}
+
+// Subtle animated shimmer over the hero
+.prof-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.12) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  animation: heroShimmer 3.5s ease-in-out infinite;
+}
+
+// ── Avatar ─────────────────────────────────────────────────────
+.prof-avatar-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: -54px;
+  position: relative;
+  z-index: 1;
+}
+
+.prof-avatar {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, t.$accent, t.$accent-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid t.$card-bg;
+  box-shadow: t.$shadow-avatar;
+  animation: avatarPop 0.6s 0.2s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+  position: relative;
+  z-index: 2;
+
+  &--img {
+    object-fit: cover;
+  }
+
+  &__initials {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 0.02em;
+    user-select: none;
+  }
+}
+
+// Pulsing ring behind avatar
+.prof-avatar__ring {
+  position: absolute;
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
+  border: 2px solid rgba(t.$accent, 0.25);
+  animation: ringPulse 2.4s ease-in-out infinite;
+  z-index: 1;
+}
+
+// ── Identity block ────────────────────────────────────────────
+.prof-identity {
+  text-align: center;
+  padding: 18px 28px 0;
+
+  &__name {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: t.$text-dark;
+    margin: 0 0 6px;
+  }
+
+  &__email {
+    font-size: 0.875rem;
+    color: t.$text-muted;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    &::before {
+      content: '\f0e0'; // fa-envelope unicode
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      font-size: 11px;
+      color: t.$accent;
+    }
+  }
+}
+
+// ── Divider ───────────────────────────────────────────────────
+.prof-divider {
+  height: 1px;
+  background: t.$border;
+  margin: 28px 28px 0;
+}
+
+// ── Info rows ─────────────────────────────────────────────────
+.prof-info {
+  padding: 8px 28px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 16px 0;
+    border-bottom: 1px solid t.$border;
+    animation: fadeSlideUp 0.4s ease both;
+
+    &:last-child { border-bottom: none; }
+
+    @for $i from 1 through 3 {
+      &:nth-child(#{$i}) { animation-delay: #{0.1 + $i * 0.07}s; }
+    }
+  }
+
+  &__icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: t.$accent-light;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    i { color: t.$accent; font-size: 16px; }
+  }
+
+  &__label {
+    font-size: 11px;
+    font-weight: 700;
+    color: t.$text-light;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 4px;
+  }
+
+  &__value {
+    font-size: 14px;
+    font-weight: 600;
+    color: t.$text-dark;
+    margin: 0;
+    word-break: break-all;
+
+    &--mono {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: t.$text-muted;
+    }
+  }
+}
+
+// ── Keyframes ─────────────────────────────────────────────────
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes avatarPop {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes ringPulse {
+  0%, 100% { transform: scale(1);    opacity: 0.6; }
+  50%       { transform: scale(1.12); opacity: 0;   }
+}
+
+@keyframes heroShimmer {
+  0%, 100% { background-position: 200% 0; }
+  50%       { background-position: -200% 0; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

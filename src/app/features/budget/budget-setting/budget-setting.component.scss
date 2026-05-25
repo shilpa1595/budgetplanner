@@ -1,8 +1,647 @@
-.expense-table { border: 1px solid #dee2e6; }
-.progress-bar { padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
-.box {
-  width: 40px; height: 40px; border-radius: 8px;
-  background: #e8f4fd; display: flex; align-items: center; justify-content: center;
-  i { color: #0cc0df; }
+// ── Design tokens ─────────────────────────────────────────────
+@use '../budget-tokens' as t;
+
+// ── Page ──────────────────────────────────────────────────────
+.budget-page {
+  padding: 32px 28px 64px;
+  animation: fadeSlideUp 0.45s ease both;
 }
-mat-progress-bar { width: 100%; border-radius: 4px; }
+
+// ── Page header ───────────────────────────────────────────────
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+
+  &__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, t.$accent, t.$accent-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 6px 20px rgba(t.$accent, 0.35);
+    i { color: #fff; font-size: 22px; }
+  }
+
+  &__title {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: t.$text-dark;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  &__sub {
+    font-size: 0.875rem;
+    color: t.$text-muted;
+    margin: 5px 0 0;
+  }
+}
+
+// ── Header summary chips ──────────────────────────────────────
+.header-chips {
+  display: flex;
+  gap: 12px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.header-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 700;
+
+  &--budget {
+    background: rgba(t.$accent, 0.1);
+    color: t.$accent-dark;
+    i { color: t.$accent; }
+  }
+
+  &--spent {
+    background: rgba(t.$danger, 0.1);
+    color: t.$danger;
+    i { color: t.$danger; }
+  }
+}
+
+// ── Two-column body ───────────────────────────────────────────
+.budget-body {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 28px;
+  align-items: start;
+
+  @media (max-width: 960px) { grid-template-columns: 1fr; }
+}
+
+// ── Categories panel ──────────────────────────────────────────
+.categories-panel {
+  animation: fadeSlideUp 0.5s 0.05s ease both;
+}
+
+.panel-card {
+  background: t.$card-bg;
+  border-radius: t.$radius-lg;
+  box-shadow: t.$shadow-card;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 24px 24px 20px;
+    border-bottom: 1px solid t.$input-border;
+  }
+
+  &__icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: rgba(t.$accent, 0.12);
+    color: t.$accent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: t.$text-dark;
+    margin: 0 0 3px;
+  }
+
+  &__sub {
+    font-size: 12px;
+    color: t.$text-muted;
+    margin: 0;
+  }
+}
+
+// ── Category list ─────────────────────────────────────────────
+.category-list { padding: 10px 0; }
+
+.category-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 24px;
+  border-bottom: 1px solid #f5f7fa;
+  transition: background 0.15s;
+  animation: fadeSlideUp 0.35s ease both;
+
+  &:last-child { border-bottom: none; }
+  &:hover { background: #f8fafc; }
+
+  &__icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: rgba(t.$accent, 0.1);
+    color: t.$accent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  &__name {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+    color: t.$text-dark;
+  }
+}
+
+// Set / Edit buttons
+.set-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: linear-gradient(135deg, t.$accent, t.$accent-dark);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px rgba(t.$accent, 0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(t.$accent, 0.45);
+  }
+}
+
+.edit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: rgba(t.$accent, 0.1);
+  color: t.$accent-dark;
+  border: none;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover { background: t.$accent; color: #fff; }
+}
+
+.panel-empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: t.$text-muted;
+  i { font-size: 30px; margin-bottom: 12px; display: block; opacity: 0.35; }
+  p { font-size: 13px; margin: 0; }
+}
+
+// ── Tracker panel ─────────────────────────────────────────────
+.tracker-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: fadeSlideUp 0.5s 0.1s ease both;
+}
+
+// ── Empty state ───────────────────────────────────────────────
+.empty-state {
+  background: t.$card-bg;
+  border-radius: t.$radius-lg;
+  box-shadow: t.$shadow-card;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 72px 40px;
+  text-align: center;
+
+  &__icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(t.$accent, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    i { font-size: 32px; color: t.$accent; }
+  }
+
+  &__title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: t.$text-dark;
+    margin: 0 0 12px;
+  }
+
+  &__sub {
+    font-size: 14px;
+    color: t.$text-muted;
+    max-width: 360px;
+    margin: 0;
+    line-height: 1.7;
+  }
+}
+
+// ── Budget cards — single-column, full-width ──────────────────
+.budget-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+// ── Budget card ───────────────────────────────────────────────
+.budget-card {
+  background: t.$card-bg;
+  border-radius: t.$radius-lg;
+  box-shadow: t.$shadow-card;
+  padding: 28px 32px;
+  transition: transform 0.25s, box-shadow 0.25s;
+  animation: fadeSlideUp 0.45s ease both;
+
+  &:hover { transform: translateY(-3px); box-shadow: t.$shadow-hover; }
+
+  &--danger { border-left: 4px solid t.$danger; }
+
+  // ── Card header ────────────────────────────────────────────
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  &__icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+
+    &--safe   { background: rgba(t.$safe,   0.14); color: t.$safe; }
+    &--warn   { background: rgba(t.$warn,   0.14); color: t.$warn; }
+    &--danger { background: rgba(t.$danger, 0.14); color: t.$danger; }
+  }
+
+  &__meta { flex: 1; min-width: 0; }
+
+  &__name {
+    font-size: 16px;
+    font-weight: 700;
+    color: t.$text-dark;
+    margin: 0 0 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__pct {
+    font-size: 12px;
+    color: t.$text-muted;
+    font-weight: 500;
+  }
+}
+
+// ── Status badge ──────────────────────────────────────────────
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  &--safe   { background: rgba(t.$safe,   0.12); color: t.$safe-dark; }
+  &--warn   { background: rgba(t.$warn,   0.15); color: t.$warn-dark; }
+  &--danger { background: rgba(t.$danger, 0.12); color: t.$danger; }
+}
+
+// ── Progress bar ──────────────────────────────────────────────
+.budget-bar-wrap {
+  margin-bottom: 24px;
+}
+
+.budget-bar {
+  height: 10px;
+  background: #eef2f7;
+  border-radius: 30px;
+  overflow: hidden;
+  margin-bottom: 8px;
+
+  &__fill {
+    height: 100%;
+    border-radius: 30px;
+    transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: barGrow 0.9s 0.3s ease both;
+
+    &--safe   { background: linear-gradient(90deg, t.$safe,   t.$safe-dark); }
+    &--warn   { background: linear-gradient(90deg, t.$warn,   t.$warn-dark); }
+    &--danger { background: linear-gradient(90deg, t.$danger, t.$danger-dark); }
+  }
+
+  &__label {
+    display: block;
+    font-size: 12px;
+    color: t.$text-muted;
+    font-weight: 500;
+  }
+}
+
+@keyframes barGrow {
+  from { width: 0 !important; }
+}
+
+// ── Budget stats row ──────────────────────────────────────────
+.budget-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  padding-top: 20px;
+  border-top: 1px solid #f0f4f8;
+}
+
+.budget-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 20px 0 0;
+
+  // Vertical dividers between stats
+  & + & {
+    padding-left: 20px;
+    border-left: 1px solid #f0f4f8;
+    padding-right: 0;
+  }
+
+  &__label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: t.$text-muted;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    i { font-size: 10px; }
+  }
+
+  &__value {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: t.$text-dark;
+
+    &--limit     { color: t.$accent; }
+    &--spent     { color: t.$danger; }
+    &--remaining { color: t.$safe; }
+    &--over      { color: t.$danger; }
+  }
+}
+
+// ── Exceeded warning strip ────────────────────────────────────
+.exceeded-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 20px -32px -28px;
+  padding: 12px 32px;
+  background: rgba(t.$danger, 0.07);
+  color: t.$danger;
+  font-size: 12px;
+  font-weight: 700;
+  border-top: 1px solid rgba(t.$danger, 0.12);
+
+  i { font-size: 13px; }
+}
+
+// ── Budget Modal ──────────────────────────────────────────────
+.budget-modal {
+  border: none;
+  border-radius: t.$radius-lg;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.14);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px 20px;
+    border-bottom: 1px solid t.$input-border;
+  }
+
+  &__title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  &__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, t.$accent, t.$accent-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    i { color: #fff; font-size: 17px; }
+  }
+
+  &__title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: t.$text-dark;
+    margin: 0 0 3px;
+  }
+
+  &__sub {
+    font-size: 12px;
+    color: t.$text-muted;
+    margin: 0;
+  }
+
+  &__close {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: none;
+    background: #f0f4f8;
+    color: t.$text-muted;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    &:hover { background: t.$accent; color: #fff; }
+  }
+
+  &__body {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__footer {
+    display: flex;
+    gap: 12px;
+    padding: 20px 28px 24px;
+    border-top: 1px solid t.$input-border;
+  }
+}
+
+// Selected category chip inside modal
+.selected-category-chip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: rgba(t.$accent, 0.06);
+  border-radius: t.$radius-md;
+  border: 1px solid rgba(t.$accent, 0.18);
+
+  &__icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: rgba(t.$accent, 0.15);
+    color: t.$accent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  &__name {
+    font-size: 15px;
+    font-weight: 700;
+    color: t.$text-dark;
+  }
+}
+
+// Modal field
+.modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: t.$text-dark;
+  i { color: t.$accent; font-size: 11px; }
+}
+
+.modal-input-wrap {
+  display: flex;
+  align-items: center;
+  background: t.$input-bg;
+  border: 1.5px solid t.$input-border;
+  border-radius: t.$radius-md;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus-within {
+    border-color: t.$accent;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(t.$accent, 0.12);
+  }
+}
+
+.modal-prefix {
+  padding: 0 6px 0 16px;
+  font-weight: 700;
+  color: t.$text-muted;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.modal-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 14px 16px;
+  font-size: 15px;
+  color: t.$text-dark;
+  width: 100%;
+  &::placeholder { color: #b0b8c8; }
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  &[type=number] { -moz-appearance: textfield; }
+}
+
+.modal-hint {
+  font-size: 12px;
+  color: t.$text-muted;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  i { font-size: 11px; color: t.$accent; }
+}
+
+.modal-cancel-btn {
+  flex: 1;
+  padding: 12px 20px;
+  background: #f0f4f8;
+  color: t.$text-dark;
+  border: none;
+  border-radius: t.$radius-md;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  &:hover { background: #e2e8f0; }
+}
+
+.modal-save-btn {
+  flex: 2;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, t.$accent, t.$accent-dark);
+  color: #fff;
+  border: none;
+  border-radius: t.$radius-md;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(t.$accent, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(t.$accent, 0.5); }
+  &:disabled { opacity: 0.55; cursor: not-allowed; box-shadow: none; }
+}
+
+// ── Keyframes ─────────────────────────────────────────────────
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

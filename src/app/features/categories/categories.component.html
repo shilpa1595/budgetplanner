@@ -1,115 +1,157 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="app-wrapper">
-      <div class="tab-container">
-        <div class="tab-header"><h1>Categories</h1></div>
-        <ul class="nav nav-tabs" id="catTab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#incomeTab"
-              type="button" role="tab">Income</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#expenseTab"
-              type="button" role="tab">Expense</button>
-          </li>
-        </ul>
+<div class="cat-page">
 
-        <div class="tab-content" id="catTabContent">
-          <!-- Income Tab -->
-          <div class="tab-pane fade show active" id="incomeTab" role="tabpanel">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Income Categories</th>
-                  <th class="text-end">
-                    <button class="btn btn-success btn-2 custom-btn" data-bs-toggle="modal"
-                      data-bs-target="#addIncomeCategoryModal">+ Add</button>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let category of categorieslist?.[0]?.income; let i = index">
-                  <td>{{ category }}</td>
-                  <td class="text-end">
-                    <span class="icon-outer trash" (click)="removeIncomeCategory(i)">
-                      <i class="fa-solid fa-trash"></i>
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Expense Tab -->
-          <div class="tab-pane fade" id="expenseTab" role="tabpanel">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Expense Categories</th>
-                  <th class="text-end">
-                    <button class="btn btn-success btn-2 custom-btn" data-bs-toggle="modal"
-                      data-bs-target="#addExpenseCategoryModal">+ Add</button>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let category of categorieslist?.[0]?.expense; let i = index">
-                  <td>{{ category }}</td>
-                  <td class="text-end">
-                    <span class="icon-outer trash" (click)="removeExpenseCategory(i)">
-                      <i class="fa-solid fa-trash"></i>
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+  <!-- ── Page header ─────────────────────────────────────────── -->
+  <div class="page-header">
+    <div class="page-header__icon">
+      <i class="fas fa-layer-group"></i>
+    </div>
+    <div class="page-header__text">
+      <h1 class="page-header__title">Categories</h1>
+      <p class="page-header__sub">Manage your income and expense categories</p>
+    </div>
+    <div class="page-header__counts" *ngIf="categorieslist?.[0]">
+      <span class="count-chip count-chip--income">
+        <i class="fas fa-arrow-trend-up"></i>
+        {{ categorieslist[0].income.length }} Income
+      </span>
+      <span class="count-chip count-chip--expense">
+        <i class="fas fa-arrow-trend-down"></i>
+        {{ categorieslist[0].expense.length }} Expense
+      </span>
     </div>
   </div>
 
-  <!-- Add Income Category Modal -->
-  <div class="modal fade" id="addIncomeCategoryModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add Income Category</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" class="form-control" [(ngModel)]="newIncomeCategory" />
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary btn-2 custom-btn"
-            (click)="addIncomeCategory()" data-bs-dismiss="modal">Save</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- ── Two-column grid ─────────────────────────────────────── -->
+  <div class="cat-grid">
 
-  <!-- Add Expense Category Modal -->
-  <div class="modal fade" id="addExpenseCategoryModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add Expense Category</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- ── Income card ───────────────────────────────────────── -->
+    <div class="cat-card cat-card--income">
+
+      <div class="cat-card__header">
+        <div class="cat-card__icon">
+          <i class="fas fa-arrow-trend-up"></i>
         </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" class="form-control" [(ngModel)]="newExpenseCategory" />
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary btn-2 custom-btn"
-            (click)="addExpenseCategory()" data-bs-dismiss="modal">Save</button>
+        <div class="cat-card__meta">
+          <h3 class="cat-card__title">Income Categories</h3>
+          <p class="cat-card__sub">
+            {{ categorieslist[0].income.length }}
+            {{ categorieslist[0].income.length === 1 ? 'category' : 'categories' }}
+          </p>
         </div>
       </div>
+
+      <!-- Inline add row -->
+      <div class="cat-add-row">
+        <div class="cat-input-wrap">
+          <i class="fas fa-plus cat-input-icon"></i>
+          <input
+            type="text"
+            class="cat-input"
+            [(ngModel)]="newIncomeCategory"
+            (keyup.enter)="addIncomeCategory()"
+            placeholder="New income category..."
+            maxlength="40"
+          />
+        </div>
+        <button class="cat-add-btn cat-add-btn--income" (click)="addIncomeCategory()">
+          Add
+        </button>
+      </div>
+
+      <!-- Chips -->
+      <div class="cat-chips" *ngIf="categorieslist?.[0]?.income?.length; else incomeEmpty">
+        <div
+          class="cat-chip cat-chip--income"
+          *ngFor="let cat of categorieslist[0].income; let i = index"
+          [style.animation-delay]="i * 0.04 + 's'"
+        >
+          <i class="fas fa-tag cat-chip__icon"></i>
+          <span class="cat-chip__name">{{ cat }}</span>
+          <button
+            class="cat-chip__del"
+            (click)="removeIncomeCategory(i)"
+            title="Remove"
+            type="button"
+          >
+            <i class="fas fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <ng-template #incomeEmpty>
+        <div class="cat-empty">
+          <div class="cat-empty__icon">
+            <i class="fas fa-folder-open"></i>
+          </div>
+          <p class="cat-empty__text">No income categories yet.<br>Add your first one above.</p>
+        </div>
+      </ng-template>
+
+    </div>
+
+    <!-- ── Expense card ───────────────────────────────────────── -->
+    <div class="cat-card cat-card--expense">
+
+      <div class="cat-card__header">
+        <div class="cat-card__icon">
+          <i class="fas fa-arrow-trend-down"></i>
+        </div>
+        <div class="cat-card__meta">
+          <h3 class="cat-card__title">Expense Categories</h3>
+          <p class="cat-card__sub">
+            {{ categorieslist[0].expense.length }}
+            {{ categorieslist[0].expense.length === 1 ? 'category' : 'categories' }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Inline add row -->
+      <div class="cat-add-row">
+        <div class="cat-input-wrap">
+          <i class="fas fa-plus cat-input-icon"></i>
+          <input
+            type="text"
+            class="cat-input"
+            [(ngModel)]="newExpenseCategory"
+            (keyup.enter)="addExpenseCategory()"
+            placeholder="New expense category..."
+            maxlength="40"
+          />
+        </div>
+        <button class="cat-add-btn cat-add-btn--expense" (click)="addExpenseCategory()">
+          Add
+        </button>
+      </div>
+
+      <!-- Chips -->
+      <div class="cat-chips" *ngIf="categorieslist?.[0]?.expense?.length; else expenseEmpty">
+        <div
+          class="cat-chip cat-chip--expense"
+          *ngFor="let cat of categorieslist[0].expense; let i = index"
+          [style.animation-delay]="i * 0.04 + 's'"
+        >
+          <i class="fas fa-tag cat-chip__icon"></i>
+          <span class="cat-chip__name">{{ cat }}</span>
+          <button
+            class="cat-chip__del"
+            (click)="removeExpenseCategory(i)"
+            title="Remove"
+            type="button"
+          >
+            <i class="fas fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <ng-template #expenseEmpty>
+        <div class="cat-empty">
+          <div class="cat-empty__icon">
+            <i class="fas fa-folder-open"></i>
+          </div>
+          <p class="cat-empty__text">No expense categories yet.<br>Add your first one above.</p>
+        </div>
+      </ng-template>
+
     </div>
   </div>
 </div>
