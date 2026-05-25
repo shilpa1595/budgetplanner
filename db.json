@@ -63,6 +63,13 @@
       "category": "Bussiness",
       "dateOfIncome": "2026-01-02",
       "userEmail": "gb@gmail.com"
+    },
+    {
+      "amount": "500",
+      "category": "spot award",
+      "dateOfIncome": "2026-05-25",
+      "userEmail": "s@gmail.com",
+      "id": "OdocZH-"
     }
   ],
   "expense": [
@@ -309,6 +316,19 @@
           }
         }
       ]
+    },
+    {
+      "userId": "1b87",
+      "categories": [
+        {
+          "name": "shopping",
+          "budget": {
+            "limit": 2000,
+            "spent": 0
+          }
+        }
+      ],
+      "id": "HyKzsCJ"
     }
   ]
 }
