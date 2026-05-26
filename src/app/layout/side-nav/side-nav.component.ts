@@ -2,13 +2,14 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../core/services/auth.service';
 import { LayoutService } from '../layout.service';
 
 @Component({
   selector: 'app-side-nav',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, MatIconModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive, MatIconModule, TranslateModule],
   templateUrl: './side-nav.component.html',
   styleUrl: './side-nav.component.scss'
 })
@@ -16,14 +17,14 @@ export class SideNavComponent {
   readonly layout = inject(LayoutService);
 
   navItems = [
-    { label: 'Dashboard',  icon: 'dashboard',              route: '/dashboard' },
-    { label: 'Income',     icon: 'trending_up',            route: '/income/income-list' },
-    { label: 'Expense',    icon: 'trending_down',          route: '/expense/expense-list' },
-    { label: 'Budget',     icon: 'account_balance_wallet', route: '/budget/budget-setting' },
-    { label: 'Categories', icon: 'category',               route: '/categories' },
-    { label: 'Reports',    icon: 'bar_chart',              route: '/reports' },
-    { label: 'History',    icon: 'history',                route: '/history' },
-    { label: 'Profile',    icon: 'person',                 route: '/profile' },
+    { labelKey: 'NAV.DASHBOARD',  icon: 'dashboard',              route: '/dashboard' },
+    { labelKey: 'NAV.INCOME',     icon: 'trending_up',            route: '/income/income-list' },
+    { labelKey: 'NAV.EXPENSE',    icon: 'trending_down',          route: '/expense/expense-list' },
+    { labelKey: 'NAV.BUDGET',     icon: 'account_balance_wallet', route: '/budget/budget-setting' },
+    { labelKey: 'NAV.CATEGORIES', icon: 'category',               route: '/categories' },
+    { labelKey: 'NAV.REPORTS',    icon: 'bar_chart',              route: '/reports' },
+    { labelKey: 'NAV.HISTORY',    icon: 'history',                route: '/history' },
+    { labelKey: 'NAV.PROFILE',    icon: 'person',                 route: '/profile' },
   ];
 
   userEmail    = sessionStorage.getItem('email') || '';

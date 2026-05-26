@@ -6,19 +6,19 @@
       <i class="fas fa-sliders"></i>
     </div>
     <div>
-      <h1 class="page-header__title">Budget Planner</h1>
-      <p class="page-header__sub">Set and track spending limits by category</p>
+      <h1 class="page-header__title">{{ 'BUDGET.PAGE_TITLE' | translate }}</h1>
+      <p class="page-header__sub">{{ 'BUDGET.PAGE_SUB' | translate }}</p>
     </div>
 
     <!-- Summary chips (only when data exists) -->
     <div class="header-chips" *ngIf="uniqueCategoryBudgets.length > 0">
       <div class="header-chip header-chip--budget">
         <i class="fas fa-wallet"></i>
-        <span>Budgeted: ₹{{ totalBudgeted | number:'1.0-0' }}</span>
+        <span>{{ 'BUDGET.BUDGETED' | translate }}: ₹{{ totalBudgeted | number:'1.0-0' }}</span>
       </div>
       <div class="header-chip header-chip--spent">
         <i class="fas fa-receipt"></i>
-        <span>Spent: ₹{{ totalSpent | number:'1.0-0' }}</span>
+        <span>{{ 'BUDGET.SPENT_CHIP' | translate }}: ₹{{ totalSpent | number:'1.0-0' }}</span>
       </div>
     </div>
   </div>
@@ -34,8 +34,8 @@
             <i class="fas fa-tags"></i>
           </div>
           <div>
-            <h3 class="panel-card__title">Expense Categories</h3>
-            <p class="panel-card__sub">Tap a category to set its limit</p>
+            <h3 class="panel-card__title">{{ 'BUDGET.EXPENSE_CATS' | translate }}</h3>
+            <p class="panel-card__sub">{{ 'BUDGET.EXPENSE_CATS_SUB' | translate }}</p>
           </div>
         </div>
 
@@ -60,7 +60,7 @@
                 data-bs-target="#budgetModal"
               >
                 <i class="fas fa-plus"></i>
-                Set Limit
+                {{ 'BUDGET.SET_LIMIT' | translate }}
               </button>
             </ng-container>
 
@@ -73,7 +73,7 @@
                 data-bs-target="#budgetModal"
               >
                 <i class="fas fa-pen"></i>
-                Edit
+                {{ 'BUDGET.EDIT' | translate }}
               </button>
             </ng-template>
           </div>
@@ -82,7 +82,7 @@
         <!-- Empty categories fallback -->
         <div class="panel-empty" *ngIf="!categorieslist?.[0]?.expense?.length">
           <i class="fas fa-folder-open"></i>
-          <p>No expense categories found</p>
+          <p>{{ 'BUDGET.NO_CATS' | translate }}</p>
         </div>
       </div>
     </div>
@@ -95,9 +95,9 @@
         <div class="empty-state__icon">
           <i class="fas fa-chart-pie"></i>
         </div>
-        <h3 class="empty-state__title">No budgets set yet</h3>
+        <h3 class="empty-state__title">{{ 'BUDGET.EMPTY_TITLE' | translate }}</h3>
         <p class="empty-state__sub">
-          Select a category on the left and set a spending limit to start tracking.
+          {{ 'BUDGET.EMPTY_SUB' | translate }}
         </p>
       </div>
 
@@ -116,7 +116,7 @@
             </div>
             <div class="budget-card__meta">
               <h4 class="budget-card__name">{{ cat.name }}</h4>
-              <span class="budget-card__pct">{{ getProgress(cat.spent, cat.limit) | number:'1.0-0' }}% used</span>
+              <span class="budget-card__pct">{{ getProgress(cat.spent, cat.limit) | number:'1.0-0' }}{{ 'BUDGET.PCT_USED' | translate }}</span>
             </div>
             <span
               class="status-badge"
@@ -129,7 +129,7 @@
                 [class.fa-triangle-exclamation]="getProgressClass(cat.spent, cat.limit) === 'warn'"
                 [class.fa-circle-xmark]="getProgressClass(cat.spent, cat.limit) === 'danger'"
               ></i>
-              {{ getBudgetStatusLabel(cat.spent, cat.limit) }}
+              {{ getBudgetStatusLabel(cat.spent, cat.limit) | translate }}
             </span>
           </div>
 
@@ -151,7 +151,7 @@
           <div class="budget-stats">
             <div class="budget-stat">
               <span class="budget-stat__label">
-                <i class="fas fa-bullseye"></i> Limit
+                <i class="fas fa-bullseye"></i> {{ 'BUDGET.STAT_LIMIT' | translate }}
               </span>
               <span class="budget-stat__value budget-stat__value--limit">
                 ₹{{ cat.limit | number:'1.0-0' }}
@@ -159,7 +159,7 @@
             </div>
             <div class="budget-stat">
               <span class="budget-stat__label">
-                <i class="fas fa-fire"></i> Spent
+                <i class="fas fa-fire"></i> {{ 'BUDGET.STAT_SPENT' | translate }}
               </span>
               <span class="budget-stat__value budget-stat__value--spent">
                 ₹{{ cat.spent | number:'1.0-0' }}
@@ -167,7 +167,7 @@
             </div>
             <div class="budget-stat">
               <span class="budget-stat__label">
-                <i class="fas fa-piggy-bank"></i> Remaining
+                <i class="fas fa-piggy-bank"></i> {{ 'BUDGET.STAT_REMAINING' | translate }}
               </span>
               <span
                 class="budget-stat__value"
@@ -182,7 +182,7 @@
           <!-- Exceeded warning strip -->
           <div class="exceeded-strip" *ngIf="cat.spent > cat.limit">
             <i class="fas fa-triangle-exclamation"></i>
-            Spending limit exceeded by ₹{{ (cat.spent - cat.limit) | number:'1.0-0' }}
+            {{ 'BUDGET.EXCEEDED_BY' | translate }} ₹{{ (cat.spent - cat.limit) | number:'1.0-0' }}
           </div>
         </div>
       </div>
@@ -201,8 +201,8 @@
             <i class="fas fa-sliders"></i>
           </div>
           <div>
-            <h5 class="budget-modal__title">Set Spending Limit</h5>
-            <p class="budget-modal__sub">Define a monthly cap for this category</p>
+            <h5 class="budget-modal__title">{{ 'BUDGET.MODAL_TITLE' | translate }}</h5>
+            <p class="budget-modal__sub">{{ 'BUDGET.MODAL_SUB' | translate }}</p>
           </div>
         </div>
         <button type="button" class="budget-modal__close" data-bs-dismiss="modal" aria-label="Close">
@@ -225,7 +225,7 @@
           <div class="modal-field">
             <label class="modal-label">
               <i class="fas fa-indian-rupee-sign"></i>
-              Monthly Limit (₹)
+              {{ 'BUDGET.MODAL_FIELD_LABEL' | translate }}
             </label>
             <div class="modal-input-wrap">
               <span class="modal-prefix">₹</span>
@@ -239,7 +239,7 @@
             </div>
             <span class="modal-hint">
               <i class="fas fa-circle-info"></i>
-              You'll be alerted when spending approaches this limit
+              {{ 'BUDGET.MODAL_HINT' | translate }}
             </span>
           </div>
 
@@ -247,7 +247,7 @@
 
         <div class="budget-modal__footer">
           <button type="button" class="modal-cancel-btn" data-bs-dismiss="modal">
-            <i class="fas fa-xmark me-1"></i> Cancel
+            <i class="fas fa-xmark me-1"></i> {{ 'BUDGET.MODAL_CANCEL' | translate }}
           </button>
           <button
             type="submit"
@@ -255,7 +255,7 @@
             data-bs-dismiss="modal"
             [disabled]="setBudgetForm.invalid"
           >
-            <i class="fas fa-check-circle me-1"></i> Save Budget
+            <i class="fas fa-check-circle me-1"></i> {{ 'BUDGET.MODAL_SAVE' | translate }}
           </button>
         </div>
       </form>

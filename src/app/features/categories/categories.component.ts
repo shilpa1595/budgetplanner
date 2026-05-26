@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { NgFor, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateModule } from '@ngx-translate/core';
 import { CategorylistService } from '../../shared/services/categorylist.service';
 import { Categories } from '../../core/models/budget.model';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [NgFor, CommonModule, FormsModule],
+  imports: [NgFor, CommonModule, FormsModule, TranslateModule],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })

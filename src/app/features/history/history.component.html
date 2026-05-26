@@ -6,8 +6,8 @@
       <i class="fas fa-clock-rotate-left"></i>
     </div>
     <div class="page-header__text">
-      <h1 class="page-header__title">Transaction History</h1>
-      <p class="page-header__sub">Your complete financial timeline</p>
+      <h1 class="page-header__title">{{ 'HISTORY.PAGE_TITLE' | translate }}</h1>
+      <p class="page-header__sub">{{ 'HISTORY.PAGE_SUB' | translate }}</p>
     </div>
   </div>
 
@@ -19,7 +19,7 @@
         <i class="fas fa-arrow-trend-up"></i>
       </div>
       <div class="stat-card__body">
-        <p class="stat-card__label">Total Income</p>
+        <p class="stat-card__label">{{ 'HISTORY.TOTAL_INCOME' | translate }}</p>
         <p class="stat-card__value">₹ {{ totalIncome | number:'1.0-2' }}</p>
       </div>
     </div>
@@ -29,7 +29,7 @@
         <i class="fas fa-arrow-trend-down"></i>
       </div>
       <div class="stat-card__body">
-        <p class="stat-card__label">Total Expense</p>
+        <p class="stat-card__label">{{ 'HISTORY.TOTAL_EXPENSE' | translate }}</p>
         <p class="stat-card__value">₹ {{ totalExpense | number:'1.0-2' }}</p>
       </div>
     </div>
@@ -41,7 +41,7 @@
         <i class="fas fa-scale-balanced"></i>
       </div>
       <div class="stat-card__body">
-        <p class="stat-card__label">Net Balance</p>
+        <p class="stat-card__label">{{ 'HISTORY.NET_BALANCE' | translate }}</p>
         <p class="stat-card__value">
           {{ totalIncome - totalExpense >= 0 ? '+' : '' }}₹ {{ totalIncome - totalExpense | number:'1.0-2' }}
         </p>
@@ -55,7 +55,7 @@
 
     <div class="filter-bar__field">
       <label class="filter-bar__label">
-        <i class="fas fa-calendar-days"></i> Month
+        <i class="fas fa-calendar-days"></i> {{ 'HISTORY.FILTER_MONTH' | translate }}
       </label>
       <input
         type="month"
@@ -67,7 +67,7 @@
 
     <div class="filter-bar__field">
       <label class="filter-bar__label">
-        <i class="fas fa-filter"></i> Type
+        <i class="fas fa-filter"></i> {{ 'HISTORY.FILTER_TYPE' | translate }}
       </label>
       <div class="type-pills">
         <button
@@ -75,14 +75,14 @@
           [class.type-pill--active]="filterType === 'all'"
           (click)="filterType = 'all'; applyFilters()"
           type="button"
-        >All</button>
+        >{{ 'HISTORY.ALL' | translate }}</button>
         <button
           class="type-pill type-pill--income"
           [class.type-pill--active]="filterType === 'income'"
           (click)="filterType = 'income'; applyFilters()"
           type="button"
         >
-          <i class="fas fa-arrow-trend-up"></i> Income
+          <i class="fas fa-arrow-trend-up"></i> {{ 'HISTORY.INCOME' | translate }}
         </button>
         <button
           class="type-pill type-pill--expense"
@@ -90,7 +90,7 @@
           (click)="filterType = 'expense'; applyFilters()"
           type="button"
         >
-          <i class="fas fa-arrow-trend-down"></i> Expense
+          <i class="fas fa-arrow-trend-down"></i> {{ 'HISTORY.EXPENSE' | translate }}
         </button>
       </div>
     </div>
@@ -98,7 +98,7 @@
     <div class="filter-bar__count" *ngIf="!isLoading">
       <i class="fas fa-list-ul"></i>
       {{ filteredTransactions.length }}
-      {{ filteredTransactions.length === 1 ? 'transaction' : 'transactions' }}
+      {{ filteredTransactions.length === 1 ? ('HISTORY.TRANSACTION' | translate) : ('HISTORY.TRANSACTIONS' | translate) }}
     </div>
 
   </div>
@@ -123,8 +123,8 @@
       <div class="txn-empty__icon">
         <i class="fas fa-folder-open"></i>
       </div>
-      <p class="txn-empty__title">No transactions found</p>
-      <p class="txn-empty__sub">Try adjusting the month or type filter.</p>
+      <p class="txn-empty__title">{{ 'HISTORY.EMPTY_TITLE' | translate }}</p>
+      <p class="txn-empty__sub">{{ 'HISTORY.EMPTY_SUB' | translate }}</p>
     </div>
 
     <!-- Rows -->
@@ -158,7 +158,7 @@
           class="txn-badge"
           [class.txn-badge--income]="txn.type === 'income'"
           [class.txn-badge--expense]="txn.type === 'expense'"
-        >{{ txn.type | titlecase }}</span>
+        >{{ txn.type === 'income' ? ('COMMON.INCOME' | translate) : ('COMMON.EXPENSE' | translate) }}</span>
         <p
           class="txn-row__amount"
           [class.txn-row__amount--income]="txn.type === 'income'"

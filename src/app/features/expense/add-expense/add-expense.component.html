@@ -6,8 +6,8 @@
       <i class="fas fa-wallet"></i>
     </div>
     <div>
-      <h1 class="page-header__title">Add Expense</h1>
-      <p class="page-header__sub">Record a new expense entry</p>
+      <h1 class="page-header__title">{{ 'EXPENSE.ADD_FORM_TITLE' | translate }}</h1>
+      <p class="page-header__sub">{{ 'EXPENSE.ADD_FORM_SUB' | translate }}</p>
     </div>
   </div>
 
@@ -22,7 +22,7 @@
       <div class="illustration-stats">
         <div class="stat-chip">
           <i class="fas fa-chart-pie"></i>
-          <span>Track every rupee</span>
+          <span>{{ 'EXPENSE.TRACK_LABEL' | translate }}</span>
         </div>
       </div>
     </div>
@@ -35,20 +35,20 @@
         <div class="field-group">
           <label class="field-label">
             <i class="fas fa-indian-rupee-sign label-icon"></i>
-            Amount
+            {{ 'EXPENSE.FORM_AMOUNT' | translate }}
           </label>
           <div class="input-wrapper">
             <span class="input-prefix">₹</span>
             <input
               class="field-input"
               type="text"
-              placeholder="e.g. 500"
+              [placeholder]="'EXPENSE.FORM_AMOUNT_PLACEHOLDER' | translate"
               formControlName="amount"
               [class.error]="addExpenseForm.get('amount')?.invalid && addExpenseForm.get('amount')?.touched"
             />
           </div>
           <span class="field-error" *ngIf="addExpenseForm.get('amount')?.invalid && addExpenseForm.get('amount')?.touched">
-            Please enter a valid amount
+            {{ 'EXPENSE.ERR_AMOUNT' | translate }}
           </span>
         </div>
 
@@ -56,7 +56,7 @@
         <div class="field-group">
           <label class="field-label">
             <i class="fas fa-tags label-icon"></i>
-            Category
+            {{ 'EXPENSE.FORM_CATEGORY' | translate }}
           </label>
           <div class="input-wrapper select-wrapper">
             <select
@@ -64,13 +64,13 @@
               formControlName="category"
               [class.error]="addExpenseForm.get('category')?.invalid && addExpenseForm.get('category')?.touched"
             >
-              <option value="" disabled>Select a category...</option>
+              <option value="" disabled>{{ 'EXPENSE.FORM_CATEGORY_PLACEHOLDER' | translate }}</option>
               <option *ngFor="let cat of expenseCategories" [value]="cat">{{ cat }}</option>
             </select>
             <i class="fas fa-chevron-down select-arrow"></i>
           </div>
           <span class="field-error" *ngIf="addExpenseForm.get('category')?.invalid && addExpenseForm.get('category')?.touched">
-            Category is required
+            {{ 'EXPENSE.ERR_CATEGORY' | translate }}
           </span>
         </div>
 
@@ -78,7 +78,7 @@
         <div class="field-group">
           <label class="field-label">
             <i class="fas fa-credit-card label-icon"></i>
-            Payment Mode
+            {{ 'EXPENSE.FORM_PAYMENT' | translate }}
           </label>
           <div class="input-wrapper select-wrapper">
             <select
@@ -86,7 +86,7 @@
               formControlName="paymentMode"
               [class.error]="addExpenseForm.get('paymentMode')?.invalid && addExpenseForm.get('paymentMode')?.touched"
             >
-              <option value="" disabled>Select payment method...</option>
+              <option value="" disabled>{{ 'EXPENSE.FORM_PAYMENT_PLACEHOLDER' | translate }}</option>
               <option value="Cash">Cash</option>
               <option value="UPI">UPI</option>
               <option value="Credit Card">Credit Card</option>
@@ -95,7 +95,7 @@
             <i class="fas fa-chevron-down select-arrow"></i>
           </div>
           <span class="field-error" *ngIf="addExpenseForm.get('paymentMode')?.invalid && addExpenseForm.get('paymentMode')?.touched">
-            Payment mode is required
+            {{ 'EXPENSE.ERR_PAYMENT' | translate }}
           </span>
         </div>
 
@@ -103,7 +103,7 @@
         <div class="field-group">
           <label class="field-label">
             <i class="fas fa-calendar label-icon"></i>
-            Date of Expense
+            {{ 'EXPENSE.FORM_DATE' | translate }}
           </label>
           <div class="input-wrapper">
             <input
@@ -114,7 +114,7 @@
             />
           </div>
           <span class="field-error" *ngIf="addExpenseForm.get('dateOfExpense')?.invalid && addExpenseForm.get('dateOfExpense')?.touched">
-            Date is required
+            {{ 'EXPENSE.ERR_DATE' | translate }}
           </span>
         </div>
 
@@ -122,14 +122,14 @@
         <div class="field-group">
           <label class="field-label">
             <i class="fas fa-file-lines label-icon"></i>
-            Description
-            <span class="label-optional">(optional)</span>
+            {{ 'EXPENSE.FORM_DESC' | translate }}
+            <span class="label-optional">{{ 'EXPENSE.FORM_DESC_OPTIONAL' | translate }}</span>
           </label>
           <div class="input-wrapper textarea-wrapper">
             <textarea
               class="field-input field-textarea"
               formControlName="description"
-              placeholder="Add a note about this expense..."
+              [placeholder]="'EXPENSE.FORM_DESC_PLACEHOLDER' | translate"
               rows="3"
             ></textarea>
           </div>
@@ -142,7 +142,7 @@
           [disabled]="addExpenseForm.invalid"
         >
           <span class="submit-btn__text">
-            <i class="fas fa-plus-circle me-2"></i>Add Expense
+            <i class="fas fa-plus-circle me-2"></i>{{ 'EXPENSE.FORM_SUBMIT' | translate }}
           </span>
           <span class="submit-btn__ripple"></span>
         </button>

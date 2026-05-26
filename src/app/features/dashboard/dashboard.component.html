@@ -3,16 +3,16 @@
   <!-- ── Welcome header ──────────────────────────────────────── -->
   <div class="dash-header">
     <div class="dash-header__left">
-      <p class="dash-header__greeting">Hello, {{ userName }} 👋</p>
-      <h1 class="dash-header__title">{{ currentMonthName }} Overview</h1>
-      <p class="dash-header__sub">Here's how your finances look this month</p>
+      <p class="dash-header__greeting">{{ 'DASHBOARD.GREETING' | translate }} {{ userName }} 👋</p>
+      <h1 class="dash-header__title">{{ currentMonthName }} {{ 'DASHBOARD.OVERVIEW' | translate }}</h1>
+      <p class="dash-header__sub">{{ 'DASHBOARD.SUB' | translate }}</p>
     </div>
     <div class="dash-header__actions">
       <a routerLink="/income/add-income" class="action-chip action-chip--income">
-        <i class="fas fa-plus"></i> Add Income
+        <i class="fas fa-plus"></i> {{ 'DASHBOARD.ADD_INCOME' | translate }}
       </a>
       <a routerLink="/expense/add-expense" class="action-chip action-chip--expense">
-        <i class="fas fa-minus"></i> Add Expense
+        <i class="fas fa-minus"></i> {{ 'DASHBOARD.ADD_EXPENSE' | translate }}
       </a>
     </div>
   </div>
@@ -26,7 +26,7 @@
         <i class="fas fa-arrow-trend-up"></i>
       </div>
       <div class="stat-card__body">
-        <span class="stat-card__label">Month Income</span>
+        <span class="stat-card__label">{{ 'DASHBOARD.MONTH_INCOME' | translate }}</span>
         <span class="stat-card__value">₹{{ currentMonthIncome | number:'1.0-0' }}</span>
       </div>
       <div class="stat-card__decoration"></div>
@@ -38,7 +38,7 @@
         <i class="fas fa-arrow-trend-down"></i>
       </div>
       <div class="stat-card__body">
-        <span class="stat-card__label">Month Expenses</span>
+        <span class="stat-card__label">{{ 'DASHBOARD.MONTH_EXPENSES' | translate }}</span>
         <span class="stat-card__value">₹{{ currentMonthExpense | number:'1.0-0' }}</span>
       </div>
       <div class="stat-card__decoration"></div>
@@ -52,7 +52,7 @@
         <i class="fas fa-scale-balanced"></i>
       </div>
       <div class="stat-card__body">
-        <span class="stat-card__label">Net Balance</span>
+        <span class="stat-card__label">{{ 'DASHBOARD.NET_BALANCE' | translate }}</span>
         <span class="stat-card__value">
           <ng-container *ngIf="total < 0; else positiveBalance">
             − ₹{{ abs(total) | number:'1.0-0' }}
@@ -71,7 +71,7 @@
         <i class="fas fa-piggy-bank"></i>
       </div>
       <div class="stat-card__body">
-        <span class="stat-card__label">Savings Rate</span>
+        <span class="stat-card__label">{{ 'DASHBOARD.SAVINGS_RATE' | translate }}</span>
         <span class="stat-card__value">{{ savingsRate }}%</span>
       </div>
       <div class="stat-card__decoration"></div>
@@ -89,8 +89,8 @@
       <div class="spending-card" *ngIf="currentMonthIncome > 0 || currentMonthExpense > 0">
         <div class="spending-card__header">
           <div>
-            <h3 class="spending-card__title">Budget Health</h3>
-            <p class="spending-card__sub">Spending vs income this month</p>
+            <h3 class="spending-card__title">{{ 'DASHBOARD.BUDGET_HEALTH' | translate }}</h3>
+            <p class="spending-card__sub">{{ 'DASHBOARD.SPENDING_VS_INCOME' | translate }}</p>
           </div>
           <div class="spending-pct-badge"
             [class.spending-pct-badge--safe]="spendingPercent <= 60"
@@ -112,17 +112,17 @@
         <div class="spending-legend">
           <div class="legend-item">
             <span class="legend-dot legend-dot--income"></span>
-            <span class="legend-label">Income</span>
+            <span class="legend-label">{{ 'DASHBOARD.INCOME_LEGEND' | translate }}</span>
             <span class="legend-value">₹{{ currentMonthIncome | number:'1.0-0' }}</span>
           </div>
           <div class="legend-item">
             <span class="legend-dot legend-dot--expense"></span>
-            <span class="legend-label">Spent</span>
+            <span class="legend-label">{{ 'DASHBOARD.SPENT_LEGEND' | translate }}</span>
             <span class="legend-value">₹{{ currentMonthExpense | number:'1.0-0' }}</span>
           </div>
           <div class="legend-item">
             <span class="legend-dot legend-dot--saved"></span>
-            <span class="legend-label">Saved</span>
+            <span class="legend-label">{{ 'DASHBOARD.SAVED_LEGEND' | translate }}</span>
             <span class="legend-value">₹{{ (total >= 0 ? total : 0) | number:'1.0-0' }}</span>
           </div>
         </div>
@@ -132,8 +132,8 @@
       <div class="txn-card">
         <div class="txn-card__header">
           <div>
-            <h3 class="txn-card__title">Recent Transactions</h3>
-            <p class="txn-card__sub">{{ currentMonthName }} activity</p>
+            <h3 class="txn-card__title">{{ 'DASHBOARD.RECENT_TXN' | translate }}</h3>
+            <p class="txn-card__sub">{{ currentMonthName }} {{ 'DASHBOARD.ACTIVITY' | translate }}</p>
           </div>
           <span class="txn-badge" *ngIf="isFound">{{ transactions.length }}</span>
         </div>
@@ -143,14 +143,14 @@
           <div class="empty-state__icon">
             <i class="fas fa-inbox"></i>
           </div>
-          <p class="empty-state__title">No records this month</p>
-          <p class="empty-state__sub">Start tracking your income and expenses</p>
+          <p class="empty-state__title">{{ 'DASHBOARD.NO_RECORDS' | translate }}</p>
+          <p class="empty-state__sub">{{ 'DASHBOARD.START_TRACKING' | translate }}</p>
           <div class="empty-state__actions">
             <a routerLink="/income/add-income" class="action-chip action-chip--income">
-              <i class="fas fa-plus"></i> Add Income
+              <i class="fas fa-plus"></i> {{ 'DASHBOARD.ADD_INCOME' | translate }}
             </a>
             <a routerLink="/expense/add-expense" class="action-chip action-chip--expense">
-              <i class="fas fa-minus"></i> Add Expense
+              <i class="fas fa-minus"></i> {{ 'DASHBOARD.ADD_EXPENSE' | translate }}
             </a>
           </div>
         </div>
@@ -186,7 +186,7 @@
               <span class="txn-row__type-badge"
                 [class.txn-row__type-badge--income]="txn.type === 'income'"
                 [class.txn-row__type-badge--expense]="txn.type === 'expense'">
-                {{ txn.type }}
+                {{ txn.type === 'income' ? ('COMMON.INCOME' | translate) : ('COMMON.EXPENSE' | translate) }}
               </span>
             </div>
           </div>
@@ -199,11 +199,11 @@
 
       <!-- All-time totals -->
       <div class="totals-card">
-        <h3 class="totals-card__title">All-Time Summary</h3>
+        <h3 class="totals-card__title">{{ 'DASHBOARD.ALL_TIME' | translate }}</h3>
         <div class="totals-item totals-item--income">
           <div class="totals-item__icon"><i class="fas fa-wallet"></i></div>
           <div class="totals-item__body">
-            <span class="totals-item__label">Total Income</span>
+            <span class="totals-item__label">{{ 'DASHBOARD.TOTAL_INCOME' | translate }}</span>
             <span class="totals-item__value">₹{{ totalIncome | number:'1.0-0' }}</span>
           </div>
         </div>
@@ -211,7 +211,7 @@
         <div class="totals-item totals-item--expense">
           <div class="totals-item__icon"><i class="fas fa-credit-card"></i></div>
           <div class="totals-item__body">
-            <span class="totals-item__label">Total Expenses</span>
+            <span class="totals-item__label">{{ 'DASHBOARD.TOTAL_EXPENSES' | translate }}</span>
             <span class="totals-item__value">₹{{ totalExpense | number:'1.0-0' }}</span>
           </div>
         </div>
@@ -219,36 +219,36 @@
 
       <!-- Quick actions -->
       <div class="quick-actions-card">
-        <h3 class="quick-actions-card__title">Quick Actions</h3>
+        <h3 class="quick-actions-card__title">{{ 'DASHBOARD.QUICK_ACTIONS' | translate }}</h3>
         <a routerLink="/income/add-income" class="quick-action-btn quick-action-btn--income">
           <div class="quick-action-btn__icon"><i class="fas fa-plus"></i></div>
           <div class="quick-action-btn__text">
-            <span class="quick-action-btn__label">Add Income</span>
-            <span class="quick-action-btn__hint">Record a new income entry</span>
+            <span class="quick-action-btn__label">{{ 'DASHBOARD.ADD_INCOME' | translate }}</span>
+            <span class="quick-action-btn__hint">{{ 'DASHBOARD.ADD_INCOME_HINT' | translate }}</span>
           </div>
           <i class="fas fa-chevron-right quick-action-btn__arrow"></i>
         </a>
         <a routerLink="/expense/add-expense" class="quick-action-btn quick-action-btn--expense">
           <div class="quick-action-btn__icon"><i class="fas fa-minus"></i></div>
           <div class="quick-action-btn__text">
-            <span class="quick-action-btn__label">Add Expense</span>
-            <span class="quick-action-btn__hint">Record a new expense</span>
+            <span class="quick-action-btn__label">{{ 'DASHBOARD.ADD_EXPENSE' | translate }}</span>
+            <span class="quick-action-btn__hint">{{ 'DASHBOARD.ADD_EXPENSE_HINT' | translate }}</span>
           </div>
           <i class="fas fa-chevron-right quick-action-btn__arrow"></i>
         </a>
         <a routerLink="/income/income-list" class="quick-action-btn quick-action-btn--neutral">
           <div class="quick-action-btn__icon"><i class="fas fa-list-ul"></i></div>
           <div class="quick-action-btn__text">
-            <span class="quick-action-btn__label">View Income</span>
-            <span class="quick-action-btn__hint">Browse all income records</span>
+            <span class="quick-action-btn__label">{{ 'DASHBOARD.VIEW_INCOME' | translate }}</span>
+            <span class="quick-action-btn__hint">{{ 'DASHBOARD.VIEW_INCOME_HINT' | translate }}</span>
           </div>
           <i class="fas fa-chevron-right quick-action-btn__arrow"></i>
         </a>
         <a routerLink="/expense/expense-list" class="quick-action-btn quick-action-btn--neutral">
           <div class="quick-action-btn__icon"><i class="fas fa-receipt"></i></div>
           <div class="quick-action-btn__text">
-            <span class="quick-action-btn__label">View Expenses</span>
-            <span class="quick-action-btn__hint">Browse all expense records</span>
+            <span class="quick-action-btn__label">{{ 'DASHBOARD.VIEW_EXPENSES' | translate }}</span>
+            <span class="quick-action-btn__hint">{{ 'DASHBOARD.VIEW_EXPENSES_HINT' | translate }}</span>
           </div>
           <i class="fas fa-chevron-right quick-action-btn__arrow"></i>
         </a>

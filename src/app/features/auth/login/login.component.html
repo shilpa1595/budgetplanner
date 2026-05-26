@@ -1,81 +1,158 @@
-<!-- Language switcher — top-right corner, visible before login -->
-<div class="auth-lang dropdown">
-  <button class="lang-btn dropdown-toggle" type="button"
-    data-bs-toggle="dropdown" aria-expanded="false">
-    <i class="fa-solid fa-globe"></i>
-    <span>{{ currentLang | uppercase }}</span>
-  </button>
-  <ul class="dropdown-menu dropdown-menu-end">
-    <li>
-      <button class="dropdown-item" (click)="switchLanguage('en')">
-        <span>🇬🇧</span> English
-      </button>
-    </li>
-    <li>
-      <button class="dropdown-item" (click)="switchLanguage('mr')">
-        <span>🇮🇳</span> मराठी
-      </button>
-    </li>
-  </ul>
-</div>
+<div class="auth-root">
 
-<div class="container py-5 mt-4">
-  <div class="row">
-    <div class="col-md-8 mx-auto">
-      <form class="row g-3 shadow-lg p-5 rounded formWrapper" #loginForm="ngForm" (ngSubmit)="onLogin()">
-        <div class="col-md-12 mt-0">
-          <div class="row align-items-center">
-            <div class="col-md-6">
-              <img src="assets/images/img-01.webp" alt="login image" />
-            </div>
-            <div class="col-md-6">
-              <h3 class="text-center colored-text mb-3 fw-bold">{{ 'LOGIN.TITLE' | translate }}</h3>
+  <!-- ════ Brand panel (left) ════════════════════════════════════ -->
+  <aside class="brand-side">
+    <div class="brand-blob brand-blob--a"></div>
+    <div class="brand-blob brand-blob--b"></div>
+    <div class="brand-blob brand-blob--c"></div>
 
-              <div class="mb-3">
-                <div class="position-relative">
-                  <input class="form-control-lg w-100 rounded-corner ps-5" type="email"
-                    placeholder="{{ 'LOGIN.EMAIL_PLACEHOLDER' | translate }}"
-                    [(ngModel)]="login.email" #email="ngModel" name="email"
-                    pattern="[a-z0-9\._%\+\-]+@[a-z0-9\.\-]+\.[a-z]{2,}$" required />
-                  <span class="symbol-input100 position-absolute">
-                    <i class="fa fa-envelope"></i>
-                  </span>
-                </div>
-                @if(email.invalid && (email.dirty || email.touched)){
-                  <small class="text-danger">
-                    @if(email.hasError('required')){ <span>{{ 'LOGIN.EMAIL_REQUIRED' | translate }}</span> }
-                    @else if(email.hasError('pattern')){ <span>{{ 'LOGIN.EMAIL_INVALID' | translate }}</span> }
-                  </small>
-                }
-              </div>
+    <div class="brand-content">
+      <div class="brand-logo">
+        <i class="fas fa-wallet"></i>
+      </div>
+      <h1 class="brand-name">BudgetPlanner</h1>
+      <p class="brand-tagline">{{ 'LOGIN.BRAND_TAGLINE' | translate }}</p>
 
-              <div class="mb-3">
-                <div class="position-relative">
-                  <input type="password" class="form-control-lg w-100 ps-5 rounded-corner"
-                    placeholder="{{ 'LOGIN.PASSWORD_PLACEHOLDER' | translate }}"
-                    [(ngModel)]="login.password" #password="ngModel" name="password" required />
-                  <span class="symbol-input100 position-absolute">
-                    <i class="fa fa-lock"></i>
-                  </span>
-                </div>
-                @if(password.invalid && (password.dirty || password.touched)){
-                  <small class="text-danger">{{ 'LOGIN.PASSWORD_REQUIRED' | translate }}</small>
-                }
-              </div>
+      <ul class="brand-features">
+        <li>
+          <span class="feat-icon"><i class="fas fa-chart-line"></i></span>
+          {{ 'LOGIN.FEATURE_1' | translate }}
+        </li>
+        <li>
+          <span class="feat-icon"><i class="fas fa-bullseye"></i></span>
+          {{ 'LOGIN.FEATURE_2' | translate }}
+        </li>
+        <li>
+          <span class="feat-icon"><i class="fas fa-shield-halved"></i></span>
+          {{ 'LOGIN.FEATURE_3' | translate }}
+        </li>
+      </ul>
 
-              <button class="btn-2 custom-btn w-100 rounded-corner mb-3"
-                type="submit" [disabled]="loginForm.invalid">
-                {{ 'LOGIN.BUTTON' | translate }}
-              </button>
-
-              <p class="text-center mb-0 mt-5 createacc fw-bolder">
-                {{ 'LOGIN.CREATE_ACCOUNT' | translate }}
-                <a routerLink="/auth/register" class="text-primary">{{ 'LOGIN.REGISTER' | translate }}</a>
-              </p>
-            </div>
-          </div>
+      <div class="brand-stats">
+        <div class="bstat">
+          <span class="bstat__val">10K+</span>
+          <span class="bstat__label">{{ 'LOGIN.STAT_USERS' | translate }}</span>
         </div>
-      </form>
+        <div class="bstat-sep"></div>
+        <div class="bstat">
+          <span class="bstat__val">₹2Cr+</span>
+          <span class="bstat__label">{{ 'LOGIN.STAT_TRACKED' | translate }}</span>
+        </div>
+        <div class="bstat-sep"></div>
+        <div class="bstat">
+          <span class="bstat__val">99%</span>
+          <span class="bstat__label">{{ 'LOGIN.STAT_RATING' | translate }}</span>
+        </div>
+      </div>
     </div>
-  </div>
+  </aside>
+
+  <!-- ════ Form panel (right) ════════════════════════════════════ -->
+  <main class="form-side">
+
+    <!-- Language pill -->
+    <div class="lang-pill dropdown">
+      <button class="lang-pill__btn dropdown-toggle" type="button"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa-solid fa-globe"></i>
+        <span>{{ currentLang === 'mr' ? 'मराठी' : 'English' }}</span>
+        <i class="fa-solid fa-chevron-down lp-chevron"></i>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><button class="dropdown-item" (click)="switchLanguage('en')">🇬🇧 English</button></li>
+        <li><button class="dropdown-item" (click)="switchLanguage('mr')">🇮🇳 मराठी</button></li>
+      </ul>
+    </div>
+
+    <!-- Auth card -->
+    <div class="auth-card">
+
+      <!-- Mobile-only brand strip -->
+      <div class="mobile-brand">
+        <div class="mobile-brand__logo"><i class="fas fa-wallet"></i></div>
+        <span class="mobile-brand__name">BudgetPlanner</span>
+      </div>
+
+      <!-- Card header -->
+      <div class="card-head">
+        <div class="card-head__icon">
+          <i class="fas fa-right-to-bracket"></i>
+        </div>
+        <h2 class="card-head__title">{{ 'LOGIN.TITLE' | translate }}</h2>
+        <p class="card-head__sub">{{ 'LOGIN.SUBTITLE' | translate }}</p>
+      </div>
+
+      <!-- Form -->
+      <form #loginForm="ngForm" (ngSubmit)="onLogin()" novalidate>
+
+        <!-- Email -->
+        <div class="field" [class.field--err]="email.invalid && (email.dirty || email.touched)">
+          <label class="field__label" for="l-email">{{ 'LOGIN.EMAIL_LABEL' | translate }}</label>
+          <div class="field__wrap">
+            <i class="fas fa-envelope field__ico"></i>
+            <input
+              id="l-email"
+              class="field__input"
+              type="email"
+              [placeholder]="'LOGIN.EMAIL_PLACEHOLDER' | translate"
+              [(ngModel)]="login.email"
+              #email="ngModel"
+              name="email"
+              pattern="[a-z0-9\._%\+\-]+@[a-z0-9\.\-]+\.[a-z]{2,}$"
+              required
+            />
+          </div>
+          @if(email.invalid && (email.dirty || email.touched)) {
+            <p class="field__err-msg">
+              <i class="fas fa-triangle-exclamation"></i>
+              @if(email.hasError('required')) { {{ 'LOGIN.EMAIL_REQUIRED' | translate }} }
+              @else if(email.hasError('pattern')) { {{ 'LOGIN.EMAIL_INVALID' | translate }} }
+            </p>
+          }
+        </div>
+
+        <!-- Password -->
+        <div class="field" [class.field--err]="password.invalid && (password.dirty || password.touched)">
+          <label class="field__label" for="l-pass">{{ 'LOGIN.PASSWORD_LABEL' | translate }}</label>
+          <div class="field__wrap">
+            <i class="fas fa-lock field__ico"></i>
+            <input
+              id="l-pass"
+              class="field__input field__input--pass"
+              [type]="showPassword ? 'text' : 'password'"
+              [placeholder]="'LOGIN.PASSWORD_PLACEHOLDER' | translate"
+              [(ngModel)]="login.password"
+              #password="ngModel"
+              name="password"
+              required
+            />
+            <button type="button" class="field__eye" (click)="showPassword = !showPassword"
+              tabindex="-1" [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+              <i class="fas" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+            </button>
+          </div>
+          @if(password.invalid && (password.dirty || password.touched)) {
+            <p class="field__err-msg">
+              <i class="fas fa-triangle-exclamation"></i>
+              {{ 'LOGIN.PASSWORD_REQUIRED' | translate }}
+            </p>
+          }
+        </div>
+
+        <!-- CTA -->
+        <button class="cta-btn" type="submit" [disabled]="loginForm.invalid">
+          <span>{{ 'LOGIN.BUTTON' | translate }}</span>
+          <i class="fas fa-arrow-right cta-btn__arrow"></i>
+        </button>
+
+      </form>
+
+      <p class="switch-link">
+        {{ 'LOGIN.CREATE_ACCOUNT' | translate }}
+        <a routerLink="/auth/register">{{ 'LOGIN.REGISTER' | translate }}</a>
+      </p>
+
+    </div>
+  </main>
+
 </div>

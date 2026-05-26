@@ -6,12 +6,12 @@
       <i class="fas fa-wallet"></i>
     </div>
     <div class="page-header__text">
-      <h1 class="page-header__title">Expense List</h1>
-      <p class="page-header__sub">Track and manage your spending</p>
+      <h1 class="page-header__title">{{ 'EXPENSE.PAGE_TITLE' | translate }}</h1>
+      <p class="page-header__sub">{{ 'EXPENSE.PAGE_SUB' | translate }}</p>
     </div>
     <a routerLink="/expense/add-expense" class="add-btn ms-auto">
       <i class="fas fa-plus"></i>
-      Add Expense
+      {{ 'EXPENSE.ADD_BTN' | translate }}
     </a>
   </div>
 
@@ -22,7 +22,7 @@
         <i class="fas fa-arrow-trend-down"></i>
       </div>
       <div>
-        <span class="stat-card__label">Month Total</span>
+        <span class="stat-card__label">{{ 'EXPENSE.MONTH_TOTAL' | translate }}</span>
         <span class="stat-card__value">₹{{ totalExpense | number:'1.0-0' }}</span>
       </div>
     </div>
@@ -31,7 +31,7 @@
         <i class="fas fa-receipt"></i>
       </div>
       <div>
-        <span class="stat-card__label">Transactions</span>
+        <span class="stat-card__label">{{ 'EXPENSE.TRANSACTIONS' | translate }}</span>
         <span class="stat-card__value">{{ filteredExpenses.length }}</span>
       </div>
     </div>
@@ -40,7 +40,7 @@
         <i class="fas fa-chart-bar"></i>
       </div>
       <div>
-        <span class="stat-card__label">Highest</span>
+        <span class="stat-card__label">{{ 'EXPENSE.HIGHEST' | translate }}</span>
         <span class="stat-card__value">₹{{ highestExpense | number:'1.0-0' }}</span>
       </div>
     </div>
@@ -65,7 +65,7 @@
       </span>
       <a routerLink="/expense/add-expense" class="add-btn add-btn--sm ms-auto">
         <i class="fas fa-plus"></i>
-        Add
+        {{ 'COMMON.ADD' | translate }}
       </a>
     </div>
 
@@ -74,12 +74,12 @@
       <table class="expense-table">
         <thead>
           <tr>
-            <th>Amount</th>
-            <th>Category</th>
-            <th>Date</th>
-            <th>Payment</th>
-            <th>Description</th>
-            <th>Actions</th>
+            <th>{{ 'EXPENSE.TABLE_AMOUNT' | translate }}</th>
+            <th>{{ 'EXPENSE.TABLE_CATEGORY' | translate }}</th>
+            <th>{{ 'EXPENSE.TABLE_DATE' | translate }}</th>
+            <th>{{ 'EXPENSE.TABLE_PAYMENT' | translate }}</th>
+            <th>{{ 'EXPENSE.TABLE_DESC' | translate }}</th>
+            <th>{{ 'EXPENSE.TABLE_ACTIONS' | translate }}</th>
           </tr>
         </thead>
         <tbody>
@@ -90,11 +90,11 @@
                 <div class="empty-state__icon">
                   <i class="fas fa-wallet"></i>
                 </div>
-                <p class="empty-state__title">No expenses this month</p>
-                <p class="empty-state__sub">Start by adding your first expense</p>
+                <p class="empty-state__title">{{ 'EXPENSE.EMPTY_TITLE' | translate }}</p>
+                <p class="empty-state__sub">{{ 'EXPENSE.EMPTY_SUB' | translate }}</p>
                 <a routerLink="/expense/add-expense" class="add-btn add-btn--sm">
                   <i class="fas fa-plus"></i>
-                  Add Expense
+                  {{ 'EXPENSE.ADD_BTN' | translate }}
                 </a>
               </div>
             </td>
@@ -140,8 +140,6 @@
             <td class="cell-actions">
               <button
                 class="action-btn action-btn--edit"
-                data-bs-toggle="modal"
-                data-bs-target="#editExpenseModal"
                 (click)="openEditModal(expense)"
                 title="Edit"
               >
@@ -162,99 +160,11 @@
   </div>
 </div>
 
-<!-- ── Edit Expense Modal ──────────────────────────────────── -->
-<div class="modal fade" id="editExpenseModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content edit-modal">
-
-      <div class="edit-modal__header">
-        <div class="edit-modal__title-wrap">
-          <div class="edit-modal__icon">
-            <i class="fas fa-pen-to-square"></i>
-          </div>
-          <div>
-            <h5 class="edit-modal__title">Edit Expense</h5>
-            <p class="edit-modal__sub">Update the record below</p>
-          </div>
-        </div>
-        <button type="button" class="edit-modal__close" data-bs-dismiss="modal" aria-label="Close">
-          <i class="fas fa-xmark"></i>
-        </button>
-      </div>
-
-      <div class="edit-modal__body" *ngIf="selectedExpense">
-        <!-- Amount -->
-        <div class="modal-field">
-          <label class="modal-label">
-            <i class="fas fa-indian-rupee-sign"></i> Amount
-          </label>
-          <div class="modal-input-wrap">
-            <span class="modal-prefix">₹</span>
-            <input type="number" class="modal-input" [(ngModel)]="selectedExpense.amount" name="amount" placeholder="0" />
-          </div>
-        </div>
-        <!-- Category -->
-        <div class="modal-field">
-          <label class="modal-label">
-            <i class="fas fa-tags"></i> Category
-          </label>
-          <div class="modal-input-wrap select-wrap">
-            <select class="modal-input modal-select" [(ngModel)]="selectedExpense.category" name="category">
-              <option value="Food">Food</option>
-              <option value="Rent">Rent</option>
-              <option value="Transport">Transport</option>
-              <option value="Utilities">Utilities</option>
-              <option value="Entertainment">Entertainment</option>
-              <option value="Healthcare">Healthcare</option>
-              <option value="Other">Other</option>
-            </select>
-            <i class="fas fa-chevron-down modal-arrow"></i>
-          </div>
-        </div>
-        <!-- Payment Mode -->
-        <div class="modal-field">
-          <label class="modal-label">
-            <i class="fas fa-credit-card"></i> Payment Mode
-          </label>
-          <div class="modal-input-wrap select-wrap">
-            <select class="modal-input modal-select" [(ngModel)]="selectedExpense.paymentMode" name="paymentMode">
-              <option value="Cash">Cash</option>
-              <option value="UPI">UPI</option>
-              <option value="Credit Card">Credit Card</option>
-              <option value="Bank Transfer">Bank Transfer</option>
-            </select>
-            <i class="fas fa-chevron-down modal-arrow"></i>
-          </div>
-        </div>
-        <!-- Date -->
-        <div class="modal-field">
-          <label class="modal-label">
-            <i class="fas fa-calendar"></i> Date
-          </label>
-          <div class="modal-input-wrap">
-            <input type="date" class="modal-input" [(ngModel)]="selectedExpense.dateOfExpense" name="dateOfExpense" />
-          </div>
-        </div>
-        <!-- Description -->
-        <div class="modal-field">
-          <label class="modal-label">
-            <i class="fas fa-file-lines"></i> Description
-          </label>
-          <div class="modal-input-wrap">
-            <textarea class="modal-input modal-textarea" [(ngModel)]="selectedExpense.description" name="description" rows="2" placeholder="Optional note..."></textarea>
-          </div>
-        </div>
-      </div>
-
-      <div class="edit-modal__footer">
-        <button type="button" class="modal-cancel-btn" data-bs-dismiss="modal">
-          <i class="fas fa-xmark me-1"></i>Cancel
-        </button>
-        <button type="button" class="modal-save-btn" (click)="saveExpense()" data-bs-dismiss="modal">
-          <i class="fas fa-check-circle me-1"></i>Save Changes
-        </button>
-      </div>
-
-    </div>
-  </div>
-</div>
+<!-- Edit Expense Modal -->
+@if (editingExpense) {
+  <app-edit-expense-modal
+    [expense]="editingExpense"
+    (saved)="onModalSaved()"
+    (closed)="onModalClosed()">
+  </app-edit-expense-modal>
+}

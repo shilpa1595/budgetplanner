@@ -1,0 +1,96 @@
+<div class="modal-backdrop" [class.closing]="isClosing" (click)="onBackdropClick($event)">
+  <div class="modal-card" [class.closing]="isClosing" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <div class="modal-header__icon">
+        <i class="fas fa-pen-to-square"></i>
+      </div>
+      <div class="modal-header__text">
+        <h2 class="modal-header__title" id="modal-title">{{ 'INCOME.EDIT_TITLE' | translate }}</h2>
+        <p class="modal-header__sub">{{ 'INCOME.EDIT_SUB' | translate }}</p>
+      </div>
+      <button class="modal-close" type="button" (click)="close()" aria-label="Close modal">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="form" (ngSubmit)="submit()" class="modal-form" novalidate>
+
+      <!-- Amount -->
+      <div class="field-group">
+        <label class="field-label">
+          <i class="fas fa-indian-rupee-sign label-icon"></i>
+          {{ 'INCOME.FORM_AMOUNT' | translate }}
+        </label>
+        <div class="input-wrapper" [class.has-error]="f['amount'].invalid && f['amount'].touched">
+          <span class="input-prefix">₹</span>
+          <input
+            class="field-input"
+            type="number"
+            [placeholder]="'INCOME.FORM_AMOUNT_PLACEHOLDER' | translate"
+            formControlName="amount"
+            min="1"
+          />
+        </div>
+        <span class="field-error" *ngIf="f['amount'].invalid && f['amount'].touched">
+          {{ 'INCOME.EDIT_AMOUNT_ERR' | translate }}
+        </span>
+      </div>
+
+      <!-- Category -->
+      <div class="field-group">
+        <label class="field-label">
+          <i class="fas fa-tags label-icon"></i>
+          {{ 'INCOME.FORM_CATEGORY' | translate }}
+        </label>
+        <div class="input-wrapper select-wrapper" [class.has-error]="f['category'].invalid && f['category'].touched">
+          <select class="field-input field-select" formControlName="category">
+            <option value="" disabled>{{ 'INCOME.FORM_CATEGORY_PLACEHOLDER' | translate }}</option>
+            <option *ngFor="let cat of incomeCategories" [value]="cat">{{ cat }}</option>
+          </select>
+          <i class="fas fa-chevron-down select-arrow"></i>
+        </div>
+        <span class="field-error" *ngIf="f['category'].invalid && f['category'].touched">
+          {{ 'INCOME.EDIT_CATEGORY_ERR' | translate }}
+        </span>
+      </div>
+
+      <!-- Date -->
+      <div class="field-group">
+        <label class="field-label">
+          <i class="fas fa-calendar label-icon"></i>
+          {{ 'INCOME.FORM_DATE' | translate }}
+        </label>
+        <div class="input-wrapper" [class.has-error]="f['dateOfIncome'].invalid && f['dateOfIncome'].touched">
+          <input
+            type="date"
+            class="field-input"
+            formControlName="dateOfIncome"
+          />
+        </div>
+        <span class="field-error" *ngIf="f['dateOfIncome'].invalid && f['dateOfIncome'].touched">
+          {{ 'INCOME.EDIT_DATE_ERR' | translate }}
+        </span>
+      </div>
+
+      <!-- Actions -->
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" (click)="close()">
+          <i class="fas fa-times"></i>
+          {{ 'COMMON.CANCEL' | translate }}
+        </button>
+        <button type="submit" class="submit-btn" [disabled]="form.invalid || isSubmitting">
+          <span class="submit-btn__text">
+            <i class="fas fa-circle-check"></i>
+            {{ isSubmitting ? ('COMMON.SAVING' | translate) : ('INCOME.EDIT_SUBMIT' | translate) }}
+          </span>
+          <span class="submit-btn__ripple"></span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+

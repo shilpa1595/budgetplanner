@@ -6,17 +6,17 @@
       <i class="fas fa-layer-group"></i>
     </div>
     <div class="page-header__text">
-      <h1 class="page-header__title">Categories</h1>
-      <p class="page-header__sub">Manage your income and expense categories</p>
+      <h1 class="page-header__title">{{ 'CATEGORIES.PAGE_TITLE' | translate }}</h1>
+      <p class="page-header__sub">{{ 'CATEGORIES.PAGE_SUB' | translate }}</p>
     </div>
     <div class="page-header__counts" *ngIf="categorieslist?.[0]">
       <span class="count-chip count-chip--income">
         <i class="fas fa-arrow-trend-up"></i>
-        {{ categorieslist[0].income.length }} Income
+        {{ categorieslist[0].income.length }} {{ 'CATEGORIES.INCOME_COUNT' | translate }}
       </span>
       <span class="count-chip count-chip--expense">
         <i class="fas fa-arrow-trend-down"></i>
-        {{ categorieslist[0].expense.length }} Expense
+        {{ categorieslist[0].expense.length }} {{ 'CATEGORIES.EXPENSE_COUNT' | translate }}
       </span>
     </div>
   </div>
@@ -32,10 +32,10 @@
           <i class="fas fa-arrow-trend-up"></i>
         </div>
         <div class="cat-card__meta">
-          <h3 class="cat-card__title">Income Categories</h3>
+          <h3 class="cat-card__title">{{ 'CATEGORIES.INCOME_TITLE' | translate }}</h3>
           <p class="cat-card__sub">
             {{ categorieslist[0].income.length }}
-            {{ categorieslist[0].income.length === 1 ? 'category' : 'categories' }}
+            {{ categorieslist[0].income.length === 1 ? ('CATEGORIES.CATEGORY' | translate) : ('CATEGORIES.CATEGORIES_PLURAL' | translate) }}
           </p>
         </div>
       </div>
@@ -49,12 +49,12 @@
             class="cat-input"
             [(ngModel)]="newIncomeCategory"
             (keyup.enter)="addIncomeCategory()"
-            placeholder="New income category..."
+            [placeholder]="'CATEGORIES.INCOME_PLACEHOLDER' | translate"
             maxlength="40"
           />
         </div>
         <button class="cat-add-btn cat-add-btn--income" (click)="addIncomeCategory()">
-          Add
+          {{ 'CATEGORIES.ADD_BTN' | translate }}
         </button>
       </div>
 
@@ -70,7 +70,7 @@
           <button
             class="cat-chip__del"
             (click)="removeIncomeCategory(i)"
-            title="Remove"
+            [title]="'CATEGORIES.REMOVE' | translate"
             type="button"
           >
             <i class="fas fa-xmark"></i>
@@ -83,7 +83,7 @@
           <div class="cat-empty__icon">
             <i class="fas fa-folder-open"></i>
           </div>
-          <p class="cat-empty__text">No income categories yet.<br>Add your first one above.</p>
+          <p class="cat-empty__text">{{ 'CATEGORIES.INCOME_EMPTY' | translate }}</p>
         </div>
       </ng-template>
 
@@ -97,10 +97,10 @@
           <i class="fas fa-arrow-trend-down"></i>
         </div>
         <div class="cat-card__meta">
-          <h3 class="cat-card__title">Expense Categories</h3>
+          <h3 class="cat-card__title">{{ 'CATEGORIES.EXPENSE_TITLE' | translate }}</h3>
           <p class="cat-card__sub">
             {{ categorieslist[0].expense.length }}
-            {{ categorieslist[0].expense.length === 1 ? 'category' : 'categories' }}
+            {{ categorieslist[0].expense.length === 1 ? ('CATEGORIES.CATEGORY' | translate) : ('CATEGORIES.CATEGORIES_PLURAL' | translate) }}
           </p>
         </div>
       </div>
@@ -114,12 +114,12 @@
             class="cat-input"
             [(ngModel)]="newExpenseCategory"
             (keyup.enter)="addExpenseCategory()"
-            placeholder="New expense category..."
+            [placeholder]="'CATEGORIES.EXPENSE_PLACEHOLDER' | translate"
             maxlength="40"
           />
         </div>
         <button class="cat-add-btn cat-add-btn--expense" (click)="addExpenseCategory()">
-          Add
+          {{ 'CATEGORIES.ADD_BTN' | translate }}
         </button>
       </div>
 
@@ -135,7 +135,7 @@
           <button
             class="cat-chip__del"
             (click)="removeExpenseCategory(i)"
-            title="Remove"
+            [title]="'CATEGORIES.REMOVE' | translate"
             type="button"
           >
             <i class="fas fa-xmark"></i>
@@ -148,7 +148,7 @@
           <div class="cat-empty__icon">
             <i class="fas fa-folder-open"></i>
           </div>
-          <p class="cat-empty__text">No expense categories yet.<br>Add your first one above.</p>
+          <p class="cat-empty__text">{{ 'CATEGORIES.EXPENSE_EMPTY' | translate }}</p>
         </div>
       </ng-template>
 

@@ -18,6 +18,8 @@ import { passwordMatchValidator } from '../../../shared/directives/password-mism
 export class RegisterComponent implements OnInit {
   private registerService = inject(AuthService);
   currentLang = 'en';
+  showPassword = false;
+  showConfirmPassword = false;
 
   constructor(
     private snackBar: MatSnackBar,

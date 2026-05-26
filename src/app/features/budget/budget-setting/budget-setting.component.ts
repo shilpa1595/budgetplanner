@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgFor, NgIf, NgClass, DecimalPipe } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateModule } from '@ngx-translate/core';
 import { BudgetService } from '../../../shared/services/budget.service';
 import { CategorylistService } from '../../../shared/services/categorylist.service';
 import { ExpenseService } from '../../expense/expense.service';
@@ -10,7 +11,7 @@ import { Categories } from '../../../core/models/budget.model';
 @Component({
   selector: 'app-budget-setting',
   standalone: true,
-  imports: [NgFor, NgIf, NgClass, DecimalPipe, ReactiveFormsModule],
+  imports: [NgFor, NgIf, NgClass, DecimalPipe, ReactiveFormsModule, TranslateModule],
   templateUrl: './budget-setting.component.html',
   styleUrl: './budget-setting.component.scss'
 })
@@ -113,13 +114,13 @@ export class BudgetSettingComponent implements OnInit {
     return 'safe';
   }
 
-  /** Human-readable status label */
+  /** Returns i18n key for the status label */
   getBudgetStatusLabel(spent: number, limit: number): string {
-    if (spent > limit) return 'Over limit';
+    if (spent > limit) return 'BUDGET.STATUS_DANGER';
     const pct = this.getProgress(spent, limit);
-    if (pct > 85) return 'Near limit';
-    if (pct > 60) return 'Watch out';
-    return 'On track';
+    if (pct > 85) return 'BUDGET.STATUS_DANGER';
+    if (pct > 60) return 'BUDGET.STATUS_WARN';
+    return 'BUDGET.STATUS_SAFE';
   }
 
   get totalBudgeted(): number {

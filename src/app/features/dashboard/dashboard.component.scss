@@ -1,4 +1,5 @@
 // ── Design tokens ─────────────────────────────────────────────
+@use 'sass:color';
 @use 'dashboard-tokens' as t;
 
 // ── Page ──────────────────────────────────────────────────────
@@ -249,7 +250,7 @@
   flex-shrink: 0;
 
   &--safe   { background: rgba(t.$positive, 0.12); color: t.$positive; }
-  &--warn   { background: rgba(t.$warning, 0.15);  color: darken(#f59e0b, 10%); }
+  &--warn   { background: rgba(t.$warning, 0.15);  color: color.adjust(#f59e0b, $lightness: -10%); }
   &--danger { background: rgba(t.$negative, 0.12); color: t.$negative; }
 }
 

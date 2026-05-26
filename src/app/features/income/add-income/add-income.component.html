@@ -4,8 +4,8 @@
       <i class="fas fa-plus-circle"></i>
     </div>
     <div>
-      <h1 class="page-header__title">Add Income</h1>
-      <p class="page-header__sub">Record a new income entry</p>
+      <h1 class="page-header__title">{{ 'INCOME.ADD_FORM_TITLE' | translate }}</h1>
+      <p class="page-header__sub">{{ 'INCOME.ADD_FORM_SUB' | translate }}</p>
     </div>
   </div>
 
@@ -17,7 +17,7 @@
       <div class="illustration-stats">
         <div class="stat-chip">
           <i class="fas fa-arrow-trend-up"></i>
-          <span>Track every rupee</span>
+          <span>{{ 'INCOME.TRACK_LABEL' | translate }}</span>
         </div>
       </div>
     </div>
@@ -29,20 +29,20 @@
         <div class="field-group">
           <label class="field-label">
             <i class="fas fa-indian-rupee-sign label-icon"></i>
-            Amount
+            {{ 'INCOME.FORM_AMOUNT' | translate }}
           </label>
           <div class="input-wrapper">
             <span class="input-prefix">₹</span>
             <input
               class="field-input"
               type="text"
-              placeholder="e.g. 10,000"
+              [placeholder]="'INCOME.FORM_AMOUNT_PLACEHOLDER' | translate"
               formControlName="amount"
               [class.error]="addIncomeForm.get('amount')?.invalid && addIncomeForm.get('amount')?.touched"
             />
           </div>
           <span class="field-error" *ngIf="addIncomeForm.get('amount')?.invalid && addIncomeForm.get('amount')?.touched">
-            Amount is required
+            {{ 'INCOME.ERR_AMOUNT' | translate }}
           </span>
         </div>
 
@@ -50,7 +50,7 @@
         <div class="field-group">
           <label class="field-label">
             <i class="fas fa-tags label-icon"></i>
-            Category
+            {{ 'INCOME.FORM_CATEGORY' | translate }}
           </label>
           <div class="input-wrapper select-wrapper">
             <select
@@ -58,13 +58,13 @@
               formControlName="category"
               [class.error]="addIncomeForm.get('category')?.invalid && addIncomeForm.get('category')?.touched"
             >
-              <option value="" disabled selected>Select a category...</option>
+              <option value="" disabled selected>{{ 'INCOME.FORM_CATEGORY_PLACEHOLDER' | translate }}</option>
               <option *ngFor="let cat of incomeCategories" [value]="cat">{{ cat }}</option>
             </select>
             <i class="fas fa-chevron-down select-arrow"></i>
           </div>
           <span class="field-error" *ngIf="addIncomeForm.get('category')?.invalid && addIncomeForm.get('category')?.touched">
-            Category is required
+            {{ 'INCOME.ERR_CATEGORY' | translate }}
           </span>
         </div>
 
@@ -72,7 +72,7 @@
         <div class="field-group">
           <label class="field-label">
             <i class="fas fa-calendar label-icon"></i>
-            Date of Income
+            {{ 'INCOME.FORM_DATE' | translate }}
           </label>
           <div class="input-wrapper">
             <input
@@ -83,7 +83,7 @@
             />
           </div>
           <span class="field-error" *ngIf="addIncomeForm.get('dateOfIncome')?.invalid && addIncomeForm.get('dateOfIncome')?.touched">
-            Date is required
+            {{ 'INCOME.ERR_DATE' | translate }}
           </span>
         </div>
 
@@ -95,7 +95,7 @@
           [class.loading]="false"
         >
           <span class="submit-btn__text">
-            <i class="fas fa-check-circle me-2"></i>Save Income
+            <i class="fas fa-check-circle me-2"></i>{{ 'INCOME.FORM_SUBMIT' | translate }}
           </span>
           <span class="submit-btn__ripple"></span>
         </button>

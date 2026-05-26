@@ -17,6 +17,7 @@ import { LoaderService } from '../../../core/services/loader.service';
 export class LoginComponent implements OnInit {
   login = { email: '', password: '' };
   currentLang = 'en';
+  showPassword = false;
 
   private authService = inject(AuthService);
   private router      = inject(Router);

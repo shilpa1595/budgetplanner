@@ -6,15 +6,15 @@
       <i class="fas fa-user-circle"></i>
     </div>
     <div class="page-header__text">
-      <h1 class="page-header__title">My Profile</h1>
-      <p class="page-header__sub">Your account details</p>
+      <h1 class="page-header__title">{{ 'PROFILE.PAGE_TITLE' | translate }}</h1>
+      <p class="page-header__sub">{{ 'PROFILE.PAGE_SUB' | translate }}</p>
     </div>
   </div>
 
   <!-- ── Loading state ────────────────────────────────────────── -->
   <div class="prof-loading" *ngIf="!profile">
     <div class="prof-spinner"></div>
-    <p>Loading profile…</p>
+    <p>{{ 'PROFILE.LOADING' | translate }}</p>
   </div>
 
   <!-- ── Profile card ─────────────────────────────────────────── -->
@@ -56,7 +56,7 @@
           <i class="fas fa-user"></i>
         </div>
         <div class="prof-info__body">
-          <p class="prof-info__label">Username</p>
+          <p class="prof-info__label">{{ 'PROFILE.USERNAME' | translate }}</p>
           <p class="prof-info__value">{{ profile.uname }}</p>
         </div>
       </div>
@@ -66,7 +66,7 @@
           <i class="fas fa-envelope"></i>
         </div>
         <div class="prof-info__body">
-          <p class="prof-info__label">Email address</p>
+          <p class="prof-info__label">{{ 'PROFILE.EMAIL' | translate }}</p>
           <p class="prof-info__value">{{ profile.email }}</p>
         </div>
       </div>
@@ -76,7 +76,7 @@
           <i class="fas fa-fingerprint"></i>
         </div>
         <div class="prof-info__body">
-          <p class="prof-info__label">Account ID</p>
+          <p class="prof-info__label">{{ 'PROFILE.ACCOUNT_ID' | translate }}</p>
           <p class="prof-info__value prof-info__value--mono">{{ profile.userId }}</p>
         </div>
       </div>

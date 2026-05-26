@@ -22,7 +22,7 @@
       [routerLinkActiveOptions]="{ exact: item.route === '/dashboard' }"
       (click)="layout.close()">
       <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
-      <span class="nav-label">{{ item.label }}</span>
+      <span class="nav-label">{{ item.labelKey | translate }}</span>
     </a>
   </nav>
 
@@ -31,7 +31,7 @@
     <div class="user-block">
       <div class="user-avatar">{{ userInitial }}</div>
       <div class="user-meta">
-        <span class="user-name">My Account</span>
+        <span class="user-name">{{ 'NAV.MY_ACCOUNT' | translate }}</span>
         <span class="user-email">{{ userEmail }}</span>
       </div>
     </div>

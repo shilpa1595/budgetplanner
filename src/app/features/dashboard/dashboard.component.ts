@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule, DecimalPipe, DatePipe } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { IncomeService } from '../income/income.service';
 import { ExpenseService } from '../expense/expense.service';
 import { Transaction } from '../../core/models/income.model';
@@ -8,7 +9,7 @@ import { Transaction } from '../../core/models/income.model';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterLink, CommonModule, DecimalPipe, DatePipe],
+  imports: [RouterLink, CommonModule, DecimalPipe, DatePipe, TranslateModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -27,17 +28,29 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private incomeService: IncomeService,
-    private expenseService: ExpenseService
+    private expenseService: ExpenseService,
+    private translate: TranslateService
   ) {}
 
+  private activeLang = 'en';
+
   ngOnInit(): void {
-    const monthNames = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-    this.currentMonthName = monthNames[this.currentMonth].toUpperCase();
+    this.activeLang = localStorage.getItem('lang') || 'en';
+    this.updateMonthName();
+    this.translate.onLangChange.subscribe(event => {
+      this.activeLang = event.lang;
+      this.updateMonthName();
+    });
     this.loadIncome();
     this.loadExpense();
+  }
+
+  private updateMonthName(): void {
+    const lang = this.activeLang;
+    const locale = lang === 'mr' ? 'mr-IN' : 'en-IN';
+    this.currentMonthName = new Intl.DateTimeFormat(locale, { month: 'long' })
+      .format(new Date(this.currentYear, this.currentMonth))
+      .toUpperCase();
   }
 
   loadIncome(): void {

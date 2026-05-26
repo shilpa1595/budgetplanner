@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateModule } from '@ngx-translate/core';
 import { IncomeService } from '../income.service';
 import { CategorylistService } from '../../../shared/services/categorylist.service';
 import { Income } from '../../../core/models/income.model';
@@ -9,7 +10,7 @@ import { Income } from '../../../core/models/income.model';
 @Component({
   selector: 'app-add-income',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, TranslateModule],
   templateUrl: './add-income.component.html',
   styleUrl: './add-income.component.scss'
 })

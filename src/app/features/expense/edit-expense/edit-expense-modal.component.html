@@ -1,0 +1,130 @@
+<div class="modal-backdrop" [class.closing]="isClosing" (click)="onBackdropClick($event)">
+  <div class="modal-card" [class.closing]="isClosing" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <div class="modal-header__icon">
+        <i class="fas fa-pen-to-square"></i>
+      </div>
+      <div class="modal-header__text">
+        <h2 class="modal-header__title" id="modal-title">{{ 'EXPENSE.EDIT_TITLE' | translate }}</h2>
+        <p class="modal-header__sub">{{ 'EXPENSE.EDIT_SUB' | translate }}</p>
+      </div>
+      <button class="modal-close" type="button" (click)="close()" aria-label="Close modal">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="form" (ngSubmit)="submit()" class="modal-form" novalidate>
+
+      <!-- Amount -->
+      <div class="field-group">
+        <label class="field-label">
+          <i class="fas fa-indian-rupee-sign label-icon"></i>
+          {{ 'EXPENSE.FORM_AMOUNT' | translate }}
+        </label>
+        <div class="input-wrapper" [class.has-error]="f['amount'].invalid && f['amount'].touched">
+          <span class="input-prefix">₹</span>
+          <input
+            class="field-input"
+            type="number"
+            [placeholder]="'EXPENSE.FORM_AMOUNT_PLACEHOLDER' | translate"
+            formControlName="amount"
+            min="1"
+          />
+        </div>
+        <span class="field-error" *ngIf="f['amount'].invalid && f['amount'].touched">
+          {{ 'EXPENSE.EDIT_AMOUNT_ERR' | translate }}
+        </span>
+      </div>
+
+      <!-- Category -->
+      <div class="field-group">
+        <label class="field-label">
+          <i class="fas fa-tags label-icon"></i>
+          {{ 'EXPENSE.FORM_CATEGORY' | translate }}
+        </label>
+        <div class="input-wrapper select-wrapper" [class.has-error]="f['category'].invalid && f['category'].touched">
+          <select class="field-input field-select" formControlName="category">
+            <option value="" disabled>{{ 'EXPENSE.FORM_CATEGORY_PLACEHOLDER' | translate }}</option>
+            <option *ngFor="let cat of expenseCategories" [value]="cat">{{ cat }}</option>
+          </select>
+          <i class="fas fa-chevron-down select-arrow"></i>
+        </div>
+        <span class="field-error" *ngIf="f['category'].invalid && f['category'].touched">
+          {{ 'EXPENSE.EDIT_CATEGORY_ERR' | translate }}
+        </span>
+      </div>
+
+      <!-- Payment Mode -->
+      <div class="field-group">
+        <label class="field-label">
+          <i class="fas fa-credit-card label-icon"></i>
+          {{ 'EXPENSE.FORM_PAYMENT' | translate }}
+        </label>
+        <div class="input-wrapper select-wrapper" [class.has-error]="f['paymentMode'].invalid && f['paymentMode'].touched">
+          <select class="field-input field-select" formControlName="paymentMode">
+            <option value="" disabled>{{ 'EXPENSE.FORM_PAYMENT_PLACEHOLDER' | translate }}</option>
+            <option *ngFor="let mode of paymentModes" [value]="mode">{{ mode }}</option>
+          </select>
+          <i class="fas fa-chevron-down select-arrow"></i>
+        </div>
+        <span class="field-error" *ngIf="f['paymentMode'].invalid && f['paymentMode'].touched">
+          {{ 'EXPENSE.EDIT_PAYMENT_ERR' | translate }}
+        </span>
+      </div>
+
+      <!-- Date -->
+      <div class="field-group">
+        <label class="field-label">
+          <i class="fas fa-calendar label-icon"></i>
+          {{ 'EXPENSE.FORM_DATE' | translate }}
+        </label>
+        <div class="input-wrapper" [class.has-error]="f['dateOfExpense'].invalid && f['dateOfExpense'].touched">
+          <input
+            type="date"
+            class="field-input"
+            formControlName="dateOfExpense"
+          />
+        </div>
+        <span class="field-error" *ngIf="f['dateOfExpense'].invalid && f['dateOfExpense'].touched">
+          {{ 'EXPENSE.EDIT_DATE_ERR' | translate }}
+        </span>
+      </div>
+
+      <!-- Description -->
+      <div class="field-group">
+        <label class="field-label">
+          <i class="fas fa-file-lines label-icon"></i>
+          {{ 'EXPENSE.FORM_DESC' | translate }}
+          <span class="label-optional">{{ 'EXPENSE.EDIT_DESC_OPTIONAL' | translate }}</span>
+        </label>
+        <div class="input-wrapper textarea-wrapper">
+          <textarea
+            class="field-input field-textarea"
+            formControlName="description"
+            [placeholder]="'EXPENSE.FORM_DESC_PLACEHOLDER' | translate"
+            rows="2"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" (click)="close()">
+          <i class="fas fa-times"></i>
+          {{ 'COMMON.CANCEL' | translate }}
+        </button>
+        <button type="submit" class="submit-btn" [disabled]="form.invalid || isSubmitting">
+          <span class="submit-btn__text">
+            <i class="fas fa-circle-check"></i>
+            {{ isSubmitting ? ('COMMON.SAVING' | translate) : ('EXPENSE.EDIT_SUBMIT' | translate) }}
+          </span>
+          <span class="submit-btn__ripple"></span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

@@ -3,13 +3,15 @@ import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateModule } from '@ngx-translate/core';
 import { ExpenseService } from '../expense.service';
 import { Expense } from '../../../core/models/expense.model';
+import { EditExpenseModalComponent } from '../edit-expense/edit-expense-modal.component';
 
 @Component({
   selector: 'app-expense-list',
   standalone: true,
-  imports: [FormsModule, NgFor, NgIf, DecimalPipe, DatePipe, RouterLink],
+  imports: [FormsModule, NgFor, NgIf, DecimalPipe, DatePipe, RouterLink, EditExpenseModalComponent, TranslateModule],
   templateUrl: './expense-list.component.html',
   styleUrl: './expense-list.component.scss'
 })
@@ -21,7 +23,7 @@ export class ExpenseListComponent implements OnInit {
   totalExpense = 0;
   avgExpense = 0;
   highestExpense = 0;
-  selectedExpense: Expense | null = null;
+  editingExpense: Expense | null = null;
 
   constructor(private expenseService: ExpenseService, private snackBar: MatSnackBar) {}
 
@@ -78,17 +80,15 @@ export class ExpenseListComponent implements OnInit {
   }
 
   openEditModal(expense: Expense): void {
-    this.selectedExpense = { ...expense };
+    this.editingExpense = { ...expense };
   }
 
-  saveExpense(): void {
-    if (!this.selectedExpense) return;
-    this.expenseService.updateExpense(this.selectedExpense).subscribe({
-      next: () => {
-        this.snackBar.open('Expense updated!', 'Close', { duration: 3000 });
-        this.selectedExpense = null;
-        this.fetchExpenses();
-      }
-    });
+  onModalSaved(): void {
+    this.editingExpense = null;
+    this.fetchExpenses();
+  }
+
+  onModalClosed(): void {
+    this.editingExpense = null;
   }
 }

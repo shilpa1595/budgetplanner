@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateModule } from '@ngx-translate/core';
 import { ExpenseService } from '../expense.service';
 import { CategorylistService } from '../../../shared/services/categorylist.service';
 import { Expense } from '../../../core/models/expense.model';
@@ -9,7 +10,7 @@ import { Expense } from '../../../core/models/expense.model';
 @Component({
   selector: 'app-add-expense',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, TranslateModule],
   templateUrl: './add-expense.component.html',
   styleUrl: './add-expense.component.scss'
 })

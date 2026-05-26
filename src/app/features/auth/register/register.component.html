@@ -1,94 +1,197 @@
-<!-- Language switcher — top-right corner, visible before login -->
-<div class="auth-lang dropdown">
-  <button class="lang-btn dropdown-toggle" type="button"
-    data-bs-toggle="dropdown" aria-expanded="false">
-    <i class="fa-solid fa-globe"></i>
-    <span>{{ currentLang | uppercase }}</span>
-  </button>
-  <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item" (click)="switchLanguage('en')">🇬🇧 English</button></li>
-    <li><button class="dropdown-item" (click)="switchLanguage('mr')">🇮🇳 मराठी</button></li>
-  </ul>
-</div>
+<div class="auth-root">
 
-<div class="container py-5 mt-4">
-  <div class="row">
-    <div class="col-md-8 mx-auto">
-      <form class="row g-3 shadow-lg p-5 rounded formWrapper" [formGroup]="registerForm" (ngSubmit)="onRegister()">
-        <div class="col-md-12 mt-0">
-          <div class="row align-items-center">
-            <div class="col-md-6">
-              <img src="assets/images/img-01.webp" alt="register image">
-            </div>
-            <div class="col-md-6">
-              <h3 class="text-center colored-text mb-3 fw-bold">{{ 'REGISTER.TITLE' | translate }}</h3>
+  <!-- ════ Brand panel (left) ════════════════════════════════════ -->
+  <aside class="brand-side">
+    <div class="brand-blob brand-blob--a"></div>
+    <div class="brand-blob brand-blob--b"></div>
+    <div class="brand-blob brand-blob--c"></div>
 
-              <div class="mb-3">
-                <div class="position-relative">
-                  <input class="form-control-lg w-100 ps-5 rounded-corner" type="text"
-                    placeholder="{{ 'REGISTER.NAME_PLACEHOLDER' | translate }}" formControlName="uname">
-                  <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
-                    <i class="fa-solid fa-user"></i>
-                  </span>
-                </div>
-                @if(uname?.invalid && (uname?.dirty || uname?.touched)){
-                  <small class="text-danger">{{ 'REGISTER.NAME_REQUIRED' | translate }}</small>
-                }
-              </div>
+    <div class="brand-content">
+      <div class="brand-logo">
+        <i class="fas fa-wallet"></i>
+      </div>
+      <h1 class="brand-name">BudgetPlanner</h1>
+      <p class="brand-tagline">{{ 'REGISTER.BRAND_TAGLINE' | translate }}</p>
 
-              <div class="mb-3">
-                <div class="position-relative">
-                  <input class="form-control-lg w-100 ps-5 rounded-corner" type="email"
-                    placeholder="{{ 'REGISTER.EMAIL_PLACEHOLDER' | translate }}" formControlName="email">
-                  <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
-                    <i class="fa fa-envelope"></i>
-                  </span>
-                </div>
-                @if(email?.invalid && (email?.dirty || email?.touched)){
-                  <small class="text-danger">
-                    @if(email?.hasError('required')){ <span>{{ 'REGISTER.EMAIL_REQUIRED' | translate }}</span> }
-                    @else if(email?.hasError('email')){ <span>{{ 'REGISTER.EMAIL_INVALID' | translate }}</span> }
-                  </small>
-                }
-              </div>
+      <ul class="brand-features">
+        <li>
+          <span class="feat-icon"><i class="fas fa-chart-line"></i></span>
+          {{ 'REGISTER.FEATURE_1' | translate }}
+        </li>
+        <li>
+          <span class="feat-icon"><i class="fas fa-bullseye"></i></span>
+          {{ 'REGISTER.FEATURE_2' | translate }}
+        </li>
+        <li>
+          <span class="feat-icon"><i class="fas fa-shield-halved"></i></span>
+          {{ 'REGISTER.FEATURE_3' | translate }}
+        </li>
+      </ul>
 
-              <div class="mb-3">
-                <div class="position-relative">
-                  <input type="password" class="form-control-lg w-100 ps-5 rounded-corner"
-                    placeholder="{{ 'REGISTER.PASSWORD_PLACEHOLDER' | translate }}" formControlName="password">
-                  <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
-                    <i class="fa fa-lock"></i>
-                  </span>
-                </div>
-                @if(password?.invalid && (password?.dirty || password?.touched)){
-                  <small class="text-danger">{{ 'REGISTER.PASSWORD_REQUIRED' | translate }}</small>
-                }
-              </div>
-
-              <div class="mb-3">
-                <div class="position-relative">
-                  <input type="password" class="form-control-lg w-100 ps-5 rounded-corner"
-                    placeholder="{{ 'REGISTER.CONFIRM_PASSWORD_PLACEHOLDER' | translate }}" formControlName="cpassword">
-                  <span class="symbol-input100 position-absolute top-12 start-0 ps-4">
-                    <i class="fa fa-lock"></i>
-                  </span>
-                </div>
-                @if(registerForm.hasError('passwordMismatch') && password?.valid && cpassword?.valid){
-                  <small class="text-danger">{{ 'REGISTER.PASSWORD_MISMATCH' | translate }}</small>
-                }
-              </div>
-
-              <button class="btn-2 custom-btn w-100 rounded-corner mb-3" type="submit"
-                [disabled]="registerForm.invalid">{{ 'REGISTER.BUTTON' | translate }}</button>
-
-              <p class="text-center mb-0 mt-4 createacc fw-bolder">
-                {{ 'REGISTER.ALREADY_ACCOUNT' | translate }}
-                <a routerLink="/auth/login" class="text-primary">{{ 'REGISTER.LOGIN' | translate }}</a>
-              </p>
-            </div>
-          </div>
+      <div class="brand-stats">
+        <div class="bstat">
+          <span class="bstat__val">10K+</span>
+          <span class="bstat__label">{{ 'REGISTER.STAT_USERS' | translate }}</span>
         </div>
-      </form>
+        <div class="bstat-sep"></div>
+        <div class="bstat">
+          <span class="bstat__val">₹2Cr+</span>
+          <span class="bstat__label">{{ 'REGISTER.STAT_TRACKED' | translate }}</span>
+        </div>
+        <div class="bstat-sep"></div>
+        <div class="bstat">
+          <span class="bstat__val">99%</span>
+          <span class="bstat__label">{{ 'REGISTER.STAT_RATING' | translate }}</span>
+        </div>
+      </div>
     </div>
-  </div>
+  </aside>
+
+  <!-- ════ Form panel (right) ════════════════════════════════════ -->
+  <main class="form-side">
+
+    <!-- Language pill -->
+    <div class="lang-pill dropdown">
+      <button class="lang-pill__btn dropdown-toggle" type="button"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa-solid fa-globe"></i>
+        <span>{{ currentLang === 'mr' ? 'मराठी' : 'English' }}</span>
+        <i class="fa-solid fa-chevron-down lp-chevron"></i>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><button class="dropdown-item" (click)="switchLanguage('en')">🇬🇧 English</button></li>
+        <li><button class="dropdown-item" (click)="switchLanguage('mr')">🇮🇳 मराठी</button></li>
+      </ul>
+    </div>
+
+    <!-- Auth card -->
+    <div class="auth-card">
+
+      <!-- Mobile-only brand strip -->
+      <div class="mobile-brand">
+        <div class="mobile-brand__logo"><i class="fas fa-wallet"></i></div>
+        <span class="mobile-brand__name">BudgetPlanner</span>
+      </div>
+
+      <!-- Card header -->
+      <div class="card-head">
+        <div class="card-head__icon">
+          <i class="fas fa-user-plus"></i>
+        </div>
+        <h2 class="card-head__title">{{ 'REGISTER.TITLE' | translate }}</h2>
+        <p class="card-head__sub">{{ 'REGISTER.SUBTITLE' | translate }}</p>
+      </div>
+
+      <!-- Form -->
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()" novalidate>
+
+        <!-- Full Name -->
+        <div class="field" [class.field--err]="uname?.invalid && (uname?.dirty || uname?.touched)">
+          <label class="field__label" for="r-name">{{ 'REGISTER.NAME_LABEL' | translate }}</label>
+          <div class="field__wrap">
+            <i class="fas fa-user field__ico"></i>
+            <input
+              id="r-name"
+              class="field__input"
+              type="text"
+              [placeholder]="'REGISTER.NAME_PLACEHOLDER' | translate"
+              formControlName="uname"
+            />
+          </div>
+          @if(uname?.invalid && (uname?.dirty || uname?.touched)) {
+            <p class="field__err-msg">
+              <i class="fas fa-triangle-exclamation"></i>
+              {{ 'REGISTER.NAME_REQUIRED' | translate }}
+            </p>
+          }
+        </div>
+
+        <!-- Email -->
+        <div class="field" [class.field--err]="email?.invalid && (email?.dirty || email?.touched)">
+          <label class="field__label" for="r-email">{{ 'REGISTER.EMAIL_LABEL' | translate }}</label>
+          <div class="field__wrap">
+            <i class="fas fa-envelope field__ico"></i>
+            <input
+              id="r-email"
+              class="field__input"
+              type="email"
+              [placeholder]="'REGISTER.EMAIL_PLACEHOLDER' | translate"
+              formControlName="email"
+            />
+          </div>
+          @if(email?.invalid && (email?.dirty || email?.touched)) {
+            <p class="field__err-msg">
+              <i class="fas fa-triangle-exclamation"></i>
+              @if(email?.hasError('required')) { {{ 'REGISTER.EMAIL_REQUIRED' | translate }} }
+              @else if(email?.hasError('email')) { {{ 'REGISTER.EMAIL_INVALID' | translate }} }
+            </p>
+          }
+        </div>
+
+        <!-- Password -->
+        <div class="field" [class.field--err]="password?.invalid && (password?.dirty || password?.touched)">
+          <label class="field__label" for="r-pass">{{ 'REGISTER.PASSWORD_LABEL' | translate }}</label>
+          <div class="field__wrap">
+            <i class="fas fa-lock field__ico"></i>
+            <input
+              id="r-pass"
+              class="field__input field__input--pass"
+              [type]="showPassword ? 'text' : 'password'"
+              [placeholder]="'REGISTER.PASSWORD_PLACEHOLDER' | translate"
+              formControlName="password"
+            />
+            <button type="button" class="field__eye" (click)="showPassword = !showPassword"
+              tabindex="-1" [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+              <i class="fas" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+            </button>
+          </div>
+          @if(password?.invalid && (password?.dirty || password?.touched)) {
+            <p class="field__err-msg">
+              <i class="fas fa-triangle-exclamation"></i>
+              {{ 'REGISTER.PASSWORD_REQUIRED' | translate }}
+            </p>
+          }
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="field" [class.field--err]="registerForm.hasError('passwordMismatch') && password?.valid && cpassword?.valid">
+          <label class="field__label" for="r-cpass">{{ 'REGISTER.CONFIRM_PASSWORD_LABEL' | translate }}</label>
+          <div class="field__wrap">
+            <i class="fas fa-lock-open field__ico"></i>
+            <input
+              id="r-cpass"
+              class="field__input field__input--pass"
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              [placeholder]="'REGISTER.CONFIRM_PASSWORD_PLACEHOLDER' | translate"
+              formControlName="cpassword"
+            />
+            <button type="button" class="field__eye" (click)="showConfirmPassword = !showConfirmPassword"
+              tabindex="-1" [attr.aria-label]="showConfirmPassword ? 'Hide password' : 'Show password'">
+              <i class="fas" [class.fa-eye]="!showConfirmPassword" [class.fa-eye-slash]="showConfirmPassword"></i>
+            </button>
+          </div>
+          @if(registerForm.hasError('passwordMismatch') && password?.valid && cpassword?.valid) {
+            <p class="field__err-msg">
+              <i class="fas fa-triangle-exclamation"></i>
+              {{ 'REGISTER.PASSWORD_MISMATCH' | translate }}
+            </p>
+          }
+        </div>
+
+        <!-- CTA -->
+        <button class="cta-btn" type="submit" [disabled]="registerForm.invalid">
+          <span>{{ 'REGISTER.BUTTON' | translate }}</span>
+          <i class="fas fa-arrow-right cta-btn__arrow"></i>
+        </button>
+
+      </form>
+
+      <p class="switch-link">
+        {{ 'REGISTER.ALREADY_ACCOUNT' | translate }}
+        <a routerLink="/auth/login">{{ 'REGISTER.LOGIN' | translate }}</a>
+      </p>
+
+    </div>
+  </main>
+
 </div>

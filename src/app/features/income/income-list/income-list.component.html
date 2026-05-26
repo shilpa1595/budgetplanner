@@ -6,12 +6,12 @@
       <i class="fas fa-wallet"></i>
     </div>
     <div class="page-header__text">
-      <h1 class="page-header__title">Income</h1>
-      <p class="page-header__sub">Track and manage all your income sources</p>
+      <h1 class="page-header__title">{{ 'INCOME.PAGE_TITLE' | translate }}</h1>
+      <p class="page-header__sub">{{ 'INCOME.PAGE_SUB' | translate }}</p>
     </div>
     <a routerLink="/income/add-income" class="add-btn">
       <i class="fas fa-plus"></i>
-      <span>Add Income</span>
+      <span>{{ 'INCOME.ADD_BTN' | translate }}</span>
     </a>
   </div>
 
@@ -20,24 +20,26 @@
     <div class="stat-card stat-card--income">
       <div class="stat-card__icon"><i class="fas fa-arrow-trend-up"></i></div>
       <div class="stat-card__body">
-        <span class="stat-card__label">Month Total</span>
+        <span class="stat-card__label">{{ 'INCOME.MONTH_TOTAL' | translate }}</span>
         <span class="stat-card__value">₹ {{ totalIncome | number:'1.0-0' }}</span>
       </div>
     </div>
     <div class="stat-card stat-card--count">
       <div class="stat-card__icon"><i class="fas fa-list-check"></i></div>
       <div class="stat-card__body">
-        <span class="stat-card__label">Transactions</span>
+        <span class="stat-card__label">{{ 'INCOME.TRANSACTIONS' | translate }}</span>
         <span class="stat-card__value">{{ filteredIncomes.length }}</span>
       </div>
     </div>
-    <div class="stat-card stat-card--avg" *ngIf="filteredIncomes.length > 0">
-      <div class="stat-card__icon"><i class="fas fa-chart-bar"></i></div>
-      <div class="stat-card__body">
-        <span class="stat-card__label">Average</span>
-        <span class="stat-card__value">₹ {{ (totalIncome / filteredIncomes.length) | number:'1.0-0' }}</span>
+    @if (filteredIncomes.length > 0) {
+      <div class="stat-card stat-card--avg">
+        <div class="stat-card__icon"><i class="fas fa-chart-bar"></i></div>
+        <div class="stat-card__body">
+          <span class="stat-card__label">{{ 'INCOME.AVERAGE' | translate }}</span>
+          <span class="stat-card__value">₹ {{ (totalIncome / filteredIncomes.length) | number:'1.0-0' }}</span>
+        </div>
       </div>
-    </div>
+    }
   </div>
 
   <!-- Main card -->
@@ -58,59 +60,72 @@
 
     <!-- Table -->
     <div class="table-wrap">
-      <table class="income-table" *ngIf="filteredIncomes.length > 0">
-        <thead>
-          <tr>
-            <th>Amount</th>
-            <th>Category</th>
-            <th>Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let income of filteredIncomes; let i = index"
-              class="table-row"
-              [style.animation-delay]="i * 40 + 'ms'">
-            <td class="cell-amount">
-              <span class="amount-badge">₹ {{ income.amount }}</span>
-            </td>
-            <td class="cell-category">
-              <span class="category-pill">{{ income.category }}</span>
-            </td>
-            <td class="cell-date">
-              <i class="fas fa-calendar-day me-1"></i>
-              {{ income.dateOfIncome | date:'MMM d, y' }}
-            </td>
-            <td class="cell-actions">
-              <button
-                class="action-btn action-btn--edit"
-                [routerLink]="['/income/edit-income', income.id]"
-                title="Edit">
-                <i class="fas fa-pen"></i>
-              </button>
-              <button
-                class="action-btn action-btn--delete"
-                (click)="deleteIncome(income.id)"
-                title="Delete">
-                <i class="fas fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- Empty state -->
-      <div class="empty-state" *ngIf="filteredIncomes.length === 0">
-        <div class="empty-state__icon">
-          <i class="fas fa-inbox"></i>
+      @if (filteredIncomes.length > 0) {
+        <table class="income-table">
+          <thead>
+            <tr>
+              <th>{{ 'INCOME.TABLE_AMOUNT' | translate }}</th>
+              <th>{{ 'INCOME.TABLE_CATEGORY' | translate }}</th>
+              <th>{{ 'INCOME.TABLE_DATE' | translate }}</th>
+              <th>{{ 'INCOME.TABLE_ACTIONS' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (income of filteredIncomes; track income.id; let i = $index) {
+              <tr class="table-row" [style.animation-delay]="i * 40 + 'ms'">
+                <td class="cell-amount">
+                  <span class="amount-badge">₹ {{ income.amount }}</span>
+                </td>
+                <td class="cell-category">
+                  <span class="category-pill">{{ income.category }}</span>
+                </td>
+                <td class="cell-date">
+                  <i class="fas fa-calendar-day me-1"></i>
+                  {{ income.dateOfIncome | date:'MMM d, y' }}
+                </td>
+                <td class="cell-actions">
+                  <button
+                    type="button"
+                    class="action-btn action-btn--edit"
+                    (click)="openEditModal(income)"
+                    title="Edit">
+                    <i class="fas fa-pen"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="action-btn action-btn--delete"
+                    (click)="deleteIncome(income.id)"
+                    title="Delete">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      } @else {
+        <!-- Empty state -->
+        <div class="empty-state">
+          <div class="empty-state__icon">
+            <i class="fas fa-inbox"></i>
+          </div>
+          <h3 class="empty-state__title">{{ 'INCOME.EMPTY_TITLE' | translate }}</h3>
+          <p class="empty-state__sub">{{ 'INCOME.EMPTY_SUB' | translate }}</p>
+          <a routerLink="/income/add-income" class="add-btn add-btn--sm">
+            <i class="fas fa-plus"></i> {{ 'INCOME.ADD_BTN' | translate }}
+          </a>
         </div>
-        <h3 class="empty-state__title">No income records</h3>
-        <p class="empty-state__sub">No entries found for the selected month.</p>
-        <a routerLink="/income/add-income" class="add-btn add-btn--sm">
-          <i class="fas fa-plus"></i> Add Income
-        </a>
-      </div>
+      }
     </div>
 
   </div>
 </div>
+
+<!-- Edit Income Modal -->
+@if (editingIncome) {
+  <app-edit-income-modal
+    [income]="editingIncome!"
+    (saved)="onModalSaved()"
+    (closed)="onModalClosed()">
+  </app-edit-income-modal>
+}

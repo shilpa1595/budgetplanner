@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, DecimalPipe, DatePipe, TitleCasePipe } from '@angular/common';
+import { CommonModule, DecimalPipe, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { IncomeService } from '../income/income.service';
 import { ExpenseService } from '../expense/expense.service';
 import { Transaction } from '../../core/models/income.model';
@@ -8,7 +9,7 @@ import { Transaction } from '../../core/models/income.model';
 @Component({
   selector: 'app-history',
   standalone: true,
-  imports: [CommonModule, FormsModule, DecimalPipe, DatePipe, TitleCasePipe],
+  imports: [CommonModule, FormsModule, DecimalPipe, DatePipe, TranslateModule],
   templateUrl: './history.component.html',
   styleUrl: './history.component.scss'
 })
